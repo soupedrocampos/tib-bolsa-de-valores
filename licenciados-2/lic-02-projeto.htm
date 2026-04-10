@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TIB — O Projeto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#D9B855;--gold-light:#F2DEA0;--gold-dark:#A66617;--gold-deep:#734610;
+  --gold-50:rgba(217,184,85,0.50);--gold-30:rgba(217,184,85,0.30);--gold-20:rgba(217,184,85,0.20);--gold-10:rgba(217,184,85,0.10);
+  --gold-grad:linear-gradient(135deg,#F2DEA0 0%,#D9B855 30%,#A66617 65%,#734610 100%);
+  --gold-grad-h:linear-gradient(90deg,#734610 0%,#A66617 15%,#D9B855 35%,#F2DEA0 50%,#D9B855 65%,#A66617 82%,#734610 100%);
+  --blue-deep:#010A26;--blue-royal:#00113F;--blue-mid:#011640;
+  --bg:linear-gradient(160deg,#000814 0%,#010D30 18%,#001240 40%,#011A55 65%,#021440 85%,#010A26 100%);
+  --white:#fff;--white-80:rgba(255,255,255,0.80);--white-60:rgba(255,255,255,0.60);
+  --font-display:"Oswald",sans-serif;--font-body:"Raleway",sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;background:var(--bg);font-family:var(--font-body);overflow:hidden;cursor:none}
+#cur{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference}
+#cur-r{position:fixed;width:32px;height:32px;border:1px solid var(--gold-50);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
+
+.slide{
+  width:100vw;height:100vh;
+  display:grid;grid-template-rows:auto 1fr;
+  padding:clamp(20px,3vh,40px) clamp(24px,4.5vw,64px);
+  gap:clamp(12px,1.5vh,20px);
+  position:relative;overflow:hidden;
+}
+.slide::before{content:'';position:absolute;top:0;left:8vw;right:8vw;height:2px;background:var(--gold-grad-h);opacity:0.6}
+.slide::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 40% at 80% 20%,rgba(217,184,85,0.04) 0%,transparent 70%);pointer-events:none}
+
+.header{display:flex;align-items:flex-end;justify-content:space-between;animation:fadeUp 0.7s ease both}
+.header-left{display:flex;flex-direction:column;gap:4px}
+.section-label{font-family:var(--font-display);font-size:clamp(8px,0.85vw,11px);letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-50)}
+h1{font-family:var(--font-display);font-weight:500;font-size:clamp(22px,3.2vw,48px);background:var(--gold-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.header-intro{font-size:clamp(10px,1vw,13px);color:var(--white-60);line-height:1.5;max-width:44ch;text-align:right}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  grid-template-rows:repeat(3,1fr);
+  gap:clamp(5px,0.65vw,9px);
+}
+
+.card{
+  background:rgba(255,255,255,0.025);
+  border:1px solid rgba(217,184,85,0.18);
+  border-radius:6px;
+  padding:clamp(10px,1.2vw,15px) clamp(8px,1vw,13px);
+  display:flex;flex-direction:column;gap:clamp(6px,0.8vh,10px);
+  transition:background 0.25s,border-color 0.25s,transform 0.2s;
+  position:relative;overflow:hidden;
+  animation:fadeUp 0.6s ease both;
+}
+.card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold-grad-h);opacity:0;transition:opacity 0.25s}
+.card:hover{background:rgba(255,255,255,0.045);border-color:var(--gold-30);transform:translateY(-2px)}
+.card:hover::after{opacity:1}
+.card.hi{background:rgba(217,184,85,0.05);border-color:rgba(217,184,85,0.28)}
+.card.hi::after{opacity:0.5}
+
+.card:nth-child(1){animation-delay:.04s}.card:nth-child(2){animation-delay:.08s}.card:nth-child(3){animation-delay:.12s}
+.card:nth-child(4){animation-delay:.16s}.card:nth-child(5){animation-delay:.20s}.card:nth-child(6){animation-delay:.24s}
+.card:nth-child(7){animation-delay:.28s}.card:nth-child(8){animation-delay:.32s}.card:nth-child(9){animation-delay:.36s}
+.card:nth-child(10){animation-delay:.40s}.card:nth-child(11){animation-delay:.44s}.card:nth-child(12){animation-delay:.48s}
+.card:nth-child(13){animation-delay:.52s}.card:nth-child(14){animation-delay:.56s}.card:nth-child(15){animation-delay:.60s}
+
+.card-icon{font-size:clamp(14px,1.6vw,22px);line-height:1}
+.card-title{font-family:var(--font-display);font-size:clamp(9px,0.9vw,12px);font-weight:500;color:var(--gold-light);text-transform:uppercase;letter-spacing:0.04em;line-height:1.2}
+.card-desc{font-size:clamp(8px,0.75vw,10px);color:var(--white-60);line-height:1.4}
+
+.bg-svg{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0;background:radial-gradient(ellipse 65% 50% at 5% 95%,rgba(0,30,100,0.5) 0%,transparent 55%),radial-gradient(ellipse 55% 45% at 95% 5%,rgba(0,20,80,0.35) 0%,transparent 50%)}
+.bg-svg svg{position:absolute;top:50%;right:-2%;transform:translateY(-50%);width:48%;height:90%;opacity:0.045;stroke:var(--gold);fill:none;stroke-width:0.8}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:768px){
+  html,body{overflow-y:auto}
+  .slide{height:auto;min-height:100vh;padding-bottom:12vh}
+  .grid{grid-template-columns:repeat(2,1fr);grid-template-rows:none}
+  .header-intro{display:none}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="cur-r"></div>
+<section class="slide">
+  <div class="bg-svg">
+    <!-- Circuit board / tech grid -->
+    <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+      <!-- Horizontal traces -->
+      <line x1="0" y1="80" x2="500" y2="80"/><line x1="0" y1="180" x2="500" y2="180"/>
+      <line x1="0" y1="280" x2="500" y2="280"/><line x1="0" y1="380" x2="500" y2="380"/>
+      <!-- Vertical traces -->
+      <line x1="80" y1="0" x2="80" y2="500"/><line x1="180" y1="0" x2="180" y2="500"/>
+      <line x1="280" y1="0" x2="280" y2="500"/><line x1="380" y1="0" x2="380" y2="500"/>
+      <!-- Nodes at intersections -->
+      <circle cx="80" cy="80" r="5"/><circle cx="180" cy="80" r="5"/><circle cx="280" cy="80" r="5"/><circle cx="380" cy="80" r="5"/>
+      <circle cx="80" cy="180" r="5"/><circle cx="180" cy="180" r="8"/><circle cx="280" cy="180" r="5"/><circle cx="380" cy="180" r="5"/>
+      <circle cx="80" cy="280" r="5"/><circle cx="180" cy="280" r="5"/><circle cx="280" cy="280" r="8"/><circle cx="380" cy="280" r="5"/>
+      <circle cx="80" cy="380" r="5"/><circle cx="180" cy="380" r="5"/><circle cx="280" cy="380" r="5"/><circle cx="380" cy="380" r="8"/>
+      <!-- IC chips -->
+      <rect x="140" y="140" width="80" height="80" rx="4"/><rect x="240" y="240" width="80" height="80" rx="4"/>
+      <rect x="40" y="240" width="80" height="80" rx="4"/>
+      <!-- Connecting paths -->
+      <path d="M180 180 L180 140 L240 140 L240 180"/><path d="M280 280 L280 240 L340 240 L340 280"/>
+      <!-- AI brain-like curves -->
+      <ellipse cx="430" cy="430" rx="60" ry="40"/><ellipse cx="430" cy="430" rx="40" ry="25"/>
+    </svg>
+  </div>
+  <div class="header">
+    <div class="header-left">
+      <span class="section-label">02 — O Projeto</span>
+      <h1>Tudo que a <img src="../LOGO.png" alt="TIB" style="height:0.72em;filter:brightness(0) invert(1);vertical-align:middle;display:inline-block"> Oferece</h1>
+    </div>
+    <p class="header-intro">Tecnologia, inteligência comercial e suporte completo<br>para o licenciado operar com escala e segurança.</p>
+  </div>
+  <div class="grid">
+    <div class="card hi"><div class="card-icon">🤖</div><div><p class="card-title">Tecnologia &amp; IA</p><p class="card-desc">Ferramentas de inteligência artificial integradas à operação</p></div></div>
+    <div class="card"><div class="card-icon">🏛️</div><div><p class="card-title">Estrutura Associativa</p><p class="card-desc">Modelo jurídico e operacional próprio e consolidado</p></div></div>
+    <div class="card"><div class="card-icon">📊</div><div><p class="card-title">CRM Proprietário</p><p class="card-desc">Pipeline, leads e performance em tempo real</p></div></div>
+    <div class="card hi"><div class="card-icon">🌐</div><div><p class="card-title">Rede Global</p><p class="card-desc">Rede internacional de parceiros e construtoras</p></div></div>
+    <div class="card"><div class="card-icon">📈</div><div><p class="card-title">Bolsa de Imóveis</p><p class="card-desc">Portfólio exclusivo em mercados premium do Brasil</p></div></div>
+    <div class="card"><div class="card-icon">🎯</div><div><p class="card-title">Metodologia Própria</p><p class="card-desc">Processo validado com mais de 14 bi em VGV</p></div></div>
+    <div class="card hi"><div class="card-icon">🚀</div><div><p class="card-title">Marketing Digital</p><p class="card-desc">Tráfego pago e 500 leads nos primeiros 30 dias</p></div></div>
+    <div class="card"><div class="card-icon">⚖️</div><div><p class="card-title">Suporte Jurídico</p><p class="card-desc">Assessoria para contratos, negociações e compliance</p></div></div>
+    <div class="card hi"><div class="card-icon">📋</div><div><p class="card-title">Suporte de Gestão</p><p class="card-desc">Contábil, tributário e administrativo pela matriz</p></div></div>
+    <div class="card"><div class="card-icon">🎓</div><div><p class="card-title">Formação de Corretores</p><p class="card-desc">Treinamento estruturado com métodos exclusivos TIB</p></div></div>
+    <div class="card"><div class="card-icon">🤝</div><div><p class="card-title">Embaixador DPA</p><p class="card-desc">Acesso à maior Aceleradora de Negócios do Brasil</p></div></div>
+    <div class="card hi"><div class="card-icon">💎</div><div><p class="card-title">Marca Premium</p><p class="card-desc">Identidade consolidada no mercado nacional</p></div></div>
+    <div class="card"><div class="card-icon">📡</div><div><p class="card-title">Inteligência de Mercado</p><p class="card-desc">Dados exclusivos para decisões estratégicas</p></div></div>
+    <div class="card"><div class="card-icon">🏆</div><div><p class="card-title">Participação Matricial</p><p class="card-desc">Matriz presente em 30% dos resultados com suporte ativo</p></div></div>
+    <div class="card"><div class="card-icon">➕</div><div><p class="card-title">Outros</p><p class="card-desc">Benefícios e entregáveis adicionais definidos junto à matriz conforme a praça do licenciado</p></div></div>
+  </div>
+</section>
+</body>
+</html>

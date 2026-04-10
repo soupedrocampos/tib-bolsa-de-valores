@@ -1,0 +1,44 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wc -l \"/c/Users/pacc1/Downloads/PATRICK/tib site\"/*.htm)",
+      "Bash(grep -o 'style=\\\\|class=\\\\|id=' \"/c/Users/pacc1/Downloads/PATRICK/tib site\"/*.htm)",
+      "Bash(ls -lh *.py)",
+      "Bash(grep -o \"--[a-zA-Z-]*:\\\\s*[^;]*\" \"/c/Users/pacc1/Downloads/PATRICK/tib site/b52cd9d4-d5d6-4bfd-b3c8-3978f01817dc.htm\")",
+      "Bash(grep -E \"\\\\.\\(htm|html|txt\\)$\")",
+      "Bash(ls -1 *.py)",
+      "Bash(python inject_tokens.py)",
+      "Bash(python fix_counters.py)",
+      "Bash(python -c ':*)",
+      "Bash(python remove_inline_styles.py)",
+      "Bash(python fix_inline_r2.py)",
+      "Bash(grep -oP 'font-size:\\\\s*[\\\\d.]+px' *.htm)",
+      "Bash(ls *.py)",
+      "Bash(grep -oh 'font-size:[^;}<\"'\"'\"']*' *.htm)",
+      "Bash(py -c ':*)",
+      "Bash(py -c \"import re; f=open\\('6889c58f-5abe-4a7a-b7fd-0d9856245d74.htm',encoding='utf-8',errors='ignore'\\); c=f.read\\(\\); f.close\\(\\); blocks=re.findall\\(r'<style[^>]*>\\(.*?\\)</style>',c,re.DOTALL\\); b5=blocks[5]; print\\(len\\(b5\\)\\); print\\(b5[:2000]\\)\")",
+      "Bash(py -c \"import re; f=open\\('6889c58f-5abe-4a7a-b7fd-0d9856245d74.htm',encoding='utf-8',errors='ignore'\\); c=f.read\\(\\); f.close\\(\\); blocks=re.findall\\(r'<style[^>]*>\\(.*?\\)</style>',c,re.DOTALL\\); print\\('Block 3 len:', len\\(blocks[3]\\)\\); print\\(blocks[3][:500]\\)\")",
+      "Bash(py standardize_fonts.py)",
+      "Bash(grep -l 'tib-fonts-standardized' *.htm)",
+      "Bash(ls *.htm *.html *.css)",
+      "Bash(du -sh *.htm)",
+      "Bash(du -sh *.htm *.html *.css)",
+      "Read(//c/Users/pacc1/Downloads/PATRICK/tib site/**)",
+      "Bash(py replace_nav_logo.py)",
+      "Bash(python3 -c ':*)",
+      "Bash(netstat -ano)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4000/)",
+      "Bash(npx serve:*)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4005/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4005/licenciados/)",
+      "Bash(grep -h \"fonts.googleapis\\\\|font-family\\\\|Oswald\\\\|Raleway\\\\|Montserrat\\\\|Inter\\\\|Poppins\" \"c:/Users/pacc1/Downloads/PATRICK/tib site/\"*.htm)",
+      "Bash(grep -h \"fonts.googleapis\" \"c:/Users/pacc1/Downloads/PATRICK/tib site/\"*.htm)",
+      "Bash(grep -o '\"[A-Za-z ]*\",\\\\s*sans-serif\\\\|\"[A-Za-z ]*\",\\\\s*serif\\\\|font-family:[^;{]*' \"c:/Users/pacc1/Downloads/PATRICK/tib site/2595c031-784a-4bcc-926b-40930d15d505.htm\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4005/licenciados-2/)"
+    ]
+  },
+  "enabledPlugins": {
+    "frontend-design@claude-plugins-official": true
+  }
+}

@@ -1,0 +1,44 @@
+HisXBxcClgZgGsRIQ3Ku/dTcrU8QNxBclYubakHqqlYE6YK3CLU5qdQi5Zc18xdzRDNy6uDi5d3cImY6lakdfEvPxOZea8XLosnU3cGLNRpWI4g5iYfEWZk5g1DccBFUC79RwLfM0vmVn4niMc3Bl5hISgyxaqozSatTiXK5gjphqS/1FxKoWP8TYs0Y7J+0kONdzcH6hFknJDcw1Hb4ZHicxxqBnuViXmJiXiXQ9S8X3L1EnZNnuO5UHMl6iYWd+JoYOa4Y5ZkW8xX9QCoOpurjh+Lg7eZtUWrJ//9k=" alt>
+ </div>
+ <nav class=slide-nav>
+ <div class=logo>TIB <b>| TREE</b></div>
+ <div class=tag>O Maior Movimento Imobiliário</div>
+ <div class=num-pill>04 / 10</div>
+ </nav>
+ <div class=slide-body>
+ 
+ <div class=eco-intro>
+ <div class=eco-text-col>
+ <p class=sec-label>O Movimento</p>
+ <h2 class=sec-title style=margin-bottom:20px>Um Novo <span class=g>Ecossistema</span></h2>
+ <p class=eco-desc>
+ Imagine fazer parte do maior movimento imobiliário já visto no Brasil.<br><br>
+ Um ambiente <b>temático, gastronômico, imersivo e gameficado</b>, inspirado no universo de O Lobo de Wall Street, onde performance, posicionamento e resultado são levados ao mais alto nível.<br><br>
+ Dentro desse ecossistema, figuram:
+ </p>
+ </div>
+ </div>
+ <div class=flip-grid>
+ 
+ <div class=flip-card>
+ <div class=flip-inner>
+ <div class=flip-front>
+ <img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400"><rect fill-opacity="0"/></svg>' alt=Construtoras style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgba(0,0,0,0)!important;background-image:var(--sf-img-13)!important;background-size:cover!important;background-origin:content-box!important;background-repeat:no-repeat!important">
+ <div class=flip-front-content>
+ <div class=flip-front-title>Construtoras</div>
+ <div class=flip-front-subtitle>O Alicerce</div>
+ </div>
+ </div>
+ <div class=flip-back>
+ <img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400"><rect fill-opacity="0"/></svg>' alt style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgba(0,0,0,0)!important;background-image:var(--sf-img-13)!important;background-size:cover!important;background-origin:content-box!important;background-repeat:no-repeat!important">
+ <div class=flip-back-content>
+ <p class=flip-back-text>Selecionadas <b>estrategicamente</b> por ticket médio, solidez e posicionamento.</p>
+ </div>
+ </div>
+ </div>
+ </div>
+ 
+ <div class=flip-card>
+ <div class=flip-inner>
+ <div class=flip-front>
+ <img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="900"><rect fill-opacity="0"/></svg>' alt=Corretores style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgba(0,0,0,0)!important;background-image:var(--sf-img-14)!import

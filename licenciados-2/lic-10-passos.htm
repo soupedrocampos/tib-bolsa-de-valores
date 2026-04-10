@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TIB — Próximos Passos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#D9B855;--gold-light:#F2DEA0;--gold-dark:#A66617;--gold-deep:#734610;
+  --gold-50:rgba(217,184,85,0.50);--gold-30:rgba(217,184,85,0.30);--gold-20:rgba(217,184,85,0.20);
+  --gold-grad:linear-gradient(135deg,#F2DEA0 0%,#D9B855 30%,#A66617 65%,#734610 100%);
+  --gold-grad-h:linear-gradient(90deg,#734610 0%,#A66617 15%,#D9B855 35%,#F2DEA0 50%,#D9B855 65%,#A66617 82%,#734610 100%);
+  --blue-deep:#010A26;--blue-royal:#00113F;--blue-mid:#011640;
+  --bg:linear-gradient(160deg,#000814 0%,#010D30 18%,#001240 40%,#011A55 65%,#021440 85%,#010A26 100%);
+  --white:#fff;--white-80:rgba(255,255,255,0.80);--white-60:rgba(255,255,255,0.60);--white-40:rgba(255,255,255,0.40);
+  --font-display:"Oswald",sans-serif;--font-body:"Raleway",sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;background:var(--bg);font-family:var(--font-body);overflow:hidden;cursor:none}
+#cur{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference}
+#cur-r{position:fixed;width:32px;height:32px;border:1px solid var(--gold-50);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
+
+.slide{
+  width:100vw;height:100vh;
+  display:grid;
+  grid-template-rows:auto auto 1fr auto;
+  padding:clamp(24px,4vh,52px) clamp(24px,5vw,72px);
+  gap:clamp(16px,2.5vh,28px);
+  position:relative;overflow:hidden;
+}
+.slide::before{content:'';position:absolute;top:0;left:8vw;right:8vw;height:2px;background:var(--gold-grad-h);opacity:0.6}
+
+.header{animation:fadeUp 0.7s ease both}
+.section-label{font-family:var(--font-display);font-size:clamp(8px,0.85vw,11px);letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-50);display:block;margin-bottom:6px}
+h1{font-family:var(--font-display);font-weight:500;font-size:clamp(28px,4vw,56px);background:var(--gold-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+
+.intro{font-size:clamp(12px,1.25vw,16px);color:var(--white-60);line-height:1.6;max-width:80ch;animation:fadeUp 0.8s ease both 0.05s}
+
+/* Timeline */
+.timeline{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  position:relative;
+  animation:fadeUp 0.8s ease both 0.1s;
+}
+
+/* Horizontal connector */
+.timeline::before{
+  content:'';position:absolute;
+  top:clamp(20px,2.5vw,34px);
+  left:clamp(20px,2.5vw,34px);
+  right:clamp(20px,2.5vw,34px);
+  height:1px;
+  background:var(--gold-30);
+}
+
+.step{
+  display:flex;flex-direction:column;
+  align-items:center;text-align:center;
+  gap:clamp(10px,1.4vh,18px);
+  padding:0 clamp(6px,0.8vw,12px);
+  position:relative;
+}
+
+.step-num{
+  width:clamp(40px,5vw,68px);height:clamp(40px,5vw,68px);
+  background:var(--gold-grad);
+  border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-weight:600;
+  font-size:clamp(16px,2vw,26px);
+  color:var(--blue-deep);
+  position:relative;z-index:1;
+  box-shadow:0 4px 20px rgba(217,184,85,0.25);
+  transition:transform 0.2s,box-shadow 0.2s;
+}
+.step:hover .step-num{transform:translateY(-2px);box-shadow:0 8px 28px rgba(217,184,85,0.35)}
+
+.step-title{
+  font-family:var(--font-display);font-weight:400;
+  font-size:clamp(10px,1.1vw,14px);
+  color:var(--gold-light);text-transform:uppercase;letter-spacing:0.04em;line-height:1.2;
+}
+.step-desc{font-size:clamp(9px,0.9vw,12px);color:var(--white-60);line-height:1.45}
+
+/* Investment section */
+.invest-section{
+  border-top:1px solid rgba(217,184,85,0.25);
+  padding-top:clamp(14px,2vh,22px);
+  display:grid;
+  grid-template-columns:auto 1fr 1fr;
+  gap:clamp(20px,3vw,44px);
+  align-items:center;
+  animation:fadeUp 0.8s ease both 0.2s;
+}
+
+.invest-label{
+  font-family:var(--font-display);font-weight:500;
+  font-size:clamp(14px,1.8vw,24px);
+  background:var(--gold-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  white-space:nowrap;
+}
+
+.invest-item{
+  display:flex;flex-direction:column;gap:4px;
+  padding:clamp(12px,1.8vh,18px) clamp(14px,1.8vw,20px);
+  background:rgba(255,255,255,0.025);
+  border:1px solid rgba(217,184,85,0.18);
+  border-radius:8px;
+  position:relative;overflow:hidden;
+}
+.invest-item::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold-grad-h);opacity:0.5}
+
+.ii-label{font-size:clamp(9px,0.9vw,12px);color:var(--white-40);text-transform:uppercase;letter-spacing:0.1em}
+.ii-value{
+  font-family:var(--font-display);font-weight:500;
+  font-size:clamp(18px,2.2vw,30px);
+  background:var(--gold-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+
+.bg-svg{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0;background:radial-gradient(ellipse 65% 55% at 5% 95%,rgba(0,30,105,0.5) 0%,transparent 55%),radial-gradient(ellipse 50% 40% at 93% 5%,rgba(0,22,80,0.38) 0%,transparent 50%)}
+.bg-svg svg{position:absolute;bottom:0;right:2%;width:55%;height:80%;opacity:0.05;stroke:var(--gold);fill:none;stroke-width:1.2}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:768px){
+  html,body{overflow-y:auto}
+  .slide{height:auto;min-height:100vh;padding-bottom:12vh;grid-template-rows:auto auto auto auto}
+  .timeline{grid-template-columns:1fr}
+  .timeline::before{display:none}
+  .step{flex-direction:row;text-align:left;align-items:flex-start;padding:0}
+  .invest-section{grid-template-columns:1fr;grid-template-rows:auto auto auto}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="cur-r"></div>
+<section class="slide">
+  <div class="bg-svg">
+    <!-- Ascending staircase / implementation steps -->
+    <svg viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
+      <!-- Staircase steps (5 steps ascending left to right) -->
+      <!-- Step 1 (base) -->
+      <rect x="20" y="300" width="80" height="80"/>
+      <!-- Step 2 -->
+      <rect x="100" y="220" width="80" height="160"/>
+      <!-- Step 3 -->
+      <rect x="180" y="150" width="80" height="230"/>
+      <!-- Step 4 -->
+      <rect x="260" y="90" width="80" height="290"/>
+      <!-- Step 5 (top) -->
+      <rect x="340" y="40" width="80" height="340"/>
+      <!-- Step numbers on platforms -->
+      <!-- Horizontal platform lines -->
+      <line x1="20" y1="300" x2="100" y2="300"/>
+      <line x1="100" y1="220" x2="180" y2="220"/>
+      <line x1="180" y1="150" x2="260" y2="150"/>
+      <line x1="260" y1="90" x2="340" y2="90"/>
+      <line x1="340" y1="40" x2="420" y2="40"/>
+      <!-- Flag at top -->
+      <line x1="420" y1="40" x2="420" y2="0"/>
+      <polyline points="420,0 460,10 420,20"/>
+      <!-- Arrow pointing up-right -->
+      <polyline points="440,60 460,40 480,60"/>
+      <!-- Shadow/ground -->
+      <line x1="0" y1="380" x2="500" y2="380"/>
+      <!-- Dotted path ascending -->
+      <polyline points="60,290 60,210 140,210 140,140 220,140 220,80 300,80 300,30 380,30" stroke-dasharray="5,4" opacity="0.5"/>
+    </svg>
+  </div>
+  <div class="header">
+    <span class="section-label">10 — Implementação</span>
+    <h1>Próximos Passos</h1>
+  </div>
+
+  <p class="intro">Execução sequencial e estratégica desenhada para minimizar riscos e maximizar velocidade. Cada fase valida premissas antes de investimentos maiores.</p>
+
+  <div class="timeline">
+    <div class="step">
+      <div class="step-num">1</div>
+      <p class="step-title">Validação Financeira</p>
+      <p class="step-desc">Pagamento do setup inicial de ativação da marca pelo licenciado</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <p class="step-title">Construção do Time</p>
+      <p class="step-desc">Prospecção, seleção, contratação e onboarding do time de corretores</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <p class="step-title">Programa de Formação</p>
+      <p class="step-desc">Metodologia TIB com treinamentos estruturados e métodos proprietários</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <p class="step-title">Marketing &amp; Tráfego</p>
+      <p class="step-desc">Campanhas digitais, posicionamento de marca e geração de leads qualificados</p>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <p class="step-title">Operação Ativa</p>
+      <p class="step-desc">CRM, processos, equipe, infraestrutura e início das operações comerciais</p>
+    </div>
+  </div>
+
+  <div class="invest-section">
+    <p class="invest-label">Investimento Inicial</p>
+    <div class="invest-item">
+      <p class="ii-label">Setup inicial de ativação</p>
+      <p class="ii-value">R$ 120.000</p>
+    </div>
+    <div class="invest-item">
+      <p class="ii-label">Visual &amp; Mobiliário da unidade</p>
+      <p class="ii-value">A combinar</p>
+    </div>
+  </div>
+</section>
+</body>
+</html>

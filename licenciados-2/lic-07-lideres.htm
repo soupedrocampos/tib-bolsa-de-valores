@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TIB — Líderes e Parceiros</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#D9B855;--gold-light:#F2DEA0;--gold-dark:#A66617;--gold-deep:#734610;
+  --gold-50:rgba(217,184,85,0.50);--gold-30:rgba(217,184,85,0.30);--gold-20:rgba(217,184,85,0.20);
+  --gold-grad:linear-gradient(135deg,#F2DEA0 0%,#D9B855 30%,#A66617 65%,#734610 100%);
+  --gold-grad-h:linear-gradient(90deg,#734610 0%,#A66617 15%,#D9B855 35%,#F2DEA0 50%,#D9B855 65%,#A66617 82%,#734610 100%);
+  --blue-deep:#010A26;--blue-royal:#00113F;--blue-mid:#011640;
+  --bg:linear-gradient(160deg,#000814 0%,#010D30 18%,#001240 40%,#011A55 65%,#021440 85%,#010A26 100%);
+  --white:#fff;--white-80:rgba(255,255,255,0.80);--white-60:rgba(255,255,255,0.60);--white-40:rgba(255,255,255,0.40);
+  --font-display:"Oswald",sans-serif;--font-body:"Raleway",sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;background:var(--bg);font-family:var(--font-body);overflow:hidden;cursor:none}
+#cur{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference}
+#cur-r{position:fixed;width:32px;height:32px;border:1px solid var(--gold-50);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
+
+.slide{
+  width:100vw;height:100vh;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  position:relative;overflow:hidden;
+}
+.slide::before{content:'';position:absolute;top:0;left:8vw;right:8vw;height:2px;background:var(--gold-grad-h);opacity:0.6;z-index:1}
+
+/* Left panel */
+.panel-left{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(36px,6vh,80px) clamp(32px,5vw,72px);
+  border-right:1px solid rgba(255,255,255,0.06);
+  position:relative;z-index:1;
+}
+
+.section-label{font-family:var(--font-display);font-size:clamp(8px,0.85vw,11px);letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-50);display:block;margin-bottom:8px;animation:fadeUp 0.7s ease both}
+h1{font-family:var(--font-display);font-weight:500;font-size:clamp(28px,4vw,56px);background:var(--gold-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:clamp(20px,3vh,36px);animation:fadeUp 0.7s ease both 0.05s}
+
+.gold-line{width:48px;height:2px;background:var(--gold-grad-h);margin-bottom:clamp(16px,2.5vh,28px);animation:fadeUp 0.7s ease both 0.1s}
+
+.body-text{
+  font-size:clamp(13px,1.35vw,17px);
+  color:var(--white-80);
+  line-height:1.7;
+  margin-bottom:clamp(16px,2.5vh,28px);
+  animation:fadeUp 0.8s ease both 0.15s;
+}
+.body-text strong{color:var(--gold-light);font-weight:600}
+
+.body-text-2{
+  font-size:clamp(12px,1.2vw,15px);
+  color:var(--white-60);
+  line-height:1.65;
+  animation:fadeUp 0.8s ease both 0.2s;
+}
+
+/* Profile criteria */
+.criteria-title{
+  font-family:var(--font-display);
+  font-size:clamp(9px,0.9vw,12px);
+  letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--gold-50);
+  margin-top:clamp(20px,3vh,32px);
+  margin-bottom:clamp(10px,1.5vh,16px);
+  animation:fadeUp 0.8s ease both 0.25s;
+}
+
+.criteria-list{
+  display:flex;flex-direction:column;gap:clamp(8px,1.2vh,12px);
+  animation:fadeUp 0.8s ease both 0.3s;
+}
+
+.crit-item{
+  display:flex;align-items:center;gap:12px;
+  font-size:clamp(11px,1.1vw,14px);color:var(--white-80);
+}
+.crit-item::before{
+  content:'';
+  width:24px;height:1px;
+  background:var(--gold-grad-h);
+  flex-shrink:0;
+}
+
+/* Right panel — cards */
+.panel-right{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(36px,6vh,80px) clamp(32px,5vw,72px);
+  gap:clamp(14px,2.2vh,24px);
+  position:relative;z-index:1;
+}
+
+.profile-card{
+  background:rgba(255,255,255,0.025);
+  border:1px solid rgba(217,184,85,0.18);
+  border-radius:10px;
+  padding:clamp(18px,2.5vw,30px) clamp(16px,2vw,26px);
+  position:relative;overflow:hidden;
+  transition:background 0.25s,transform 0.2s;
+  animation:fadeUp 0.8s ease both;
+}
+.profile-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold-grad-h);opacity:0.4;transition:opacity 0.25s}
+.profile-card:hover{background:rgba(255,255,255,0.04);transform:translateY(-2px)}
+.profile-card:hover::before{opacity:1}
+
+.profile-card:nth-child(1){animation-delay:0.1s}
+.profile-card:nth-child(2){animation-delay:0.2s}
+.profile-card:nth-child(3){animation-delay:0.3s}
+
+.pc-header{display:flex;align-items:center;gap:12px;margin-bottom:clamp(8px,1.2vh,14px)}
+.pc-icon{
+  width:clamp(36px,4vw,50px);height:clamp(36px,4vw,50px);
+  background:linear-gradient(135deg,rgba(217,184,85,0.15),rgba(217,184,85,0.05));
+  border:1px solid var(--gold-20);
+  border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:clamp(16px,1.8vw,24px);flex-shrink:0;
+}
+.pc-title{
+  font-family:var(--font-display);font-weight:500;
+  font-size:clamp(13px,1.4vw,19px);
+  color:var(--gold-light);text-transform:uppercase;letter-spacing:0.04em;
+}
+.pc-desc{font-size:clamp(11px,1.1vw,14px);color:var(--white-60);line-height:1.5}
+
+.bg-svg{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0;background:radial-gradient(ellipse 65% 55% at 5% 95%,rgba(0,30,105,0.5) 0%,transparent 55%),radial-gradient(ellipse 55% 45% at 93% 6%,rgba(0,22,80,0.38) 0%,transparent 50%)}
+.bg-svg svg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100%;height:100%;opacity:0.045;stroke:var(--gold);fill:none;stroke-width:1}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:768px){
+  html,body{overflow-y:auto}
+  .slide{grid-template-columns:1fr;height:auto;min-height:100vh}
+  .panel-left{border-right:none;padding-bottom:0}
+  .panel-right{padding-bottom:12vh}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="cur-r"></div>
+<section class="slide">
+  <div class="bg-svg">
+    <!-- People / leadership network graph -->
+    <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+      <!-- Central hub node -->
+      <circle cx="400" cy="300" r="30"/><circle cx="400" cy="300" r="50" stroke-dasharray="5,5"/>
+      <!-- Branch nodes -->
+      <circle cx="200" cy="150" r="20"/><circle cx="600" cy="150" r="20"/>
+      <circle cx="150" cy="380" r="20"/><circle cx="650" cy="380" r="20"/>
+      <circle cx="300" cy="500" r="20"/><circle cx="500" cy="500" r="20"/>
+      <circle cx="400" cy="80" r="20"/>
+      <!-- Connections to center -->
+      <line x1="400" y1="300" x2="200" y2="150"/><line x1="400" y1="300" x2="600" y2="150"/>
+      <line x1="400" y1="300" x2="150" y2="380"/><line x1="400" y1="300" x2="650" y2="380"/>
+      <line x1="400" y1="300" x2="300" y2="500"/><line x1="400" y1="300" x2="500" y2="500"/>
+      <line x1="400" y1="300" x2="400" y2="80"/>
+      <!-- Leaf nodes -->
+      <circle cx="100" cy="100" r="12"/><circle cx="700" cy="100" r="12"/>
+      <circle cx="80" cy="460" r="12"/><circle cx="720" cy="460" r="12"/>
+      <line x1="200" y1="150" x2="100" y2="100"/><line x1="600" y1="150" x2="700" y2="100"/>
+      <line x1="150" y1="380" x2="80" y2="460"/><line x1="650" y1="380" x2="720" y2="460"/>
+      <!-- Person icons (circles as heads) -->
+      <circle cx="200" cy="140" r="8"/><circle cx="600" cy="140" r="8"/>
+      <circle cx="150" cy="370" r="8"/><circle cx="650" cy="370" r="8"/>
+    </svg>
+  </div>
+  <div class="panel-left">
+    <span class="section-label">07 — Quem é o Licenciado</span>
+    <h1>Líderes &amp;<br>Parceiros <img src="../LOGO.png" alt="TIB" style="height:0.75em;filter:brightness(0) invert(1);vertical-align:middle;display:inline-block"></h1>
+    <div class="gold-line"></div>
+
+    <p class="body-text">
+      O licenciado <img src="../LOGO.png" alt="TIB" style="height:0.8em;filter:brightness(0) invert(1);vertical-align:middle;display:inline-block"> é um <strong>empreendedor visionário</strong> que entende que o mercado imobiliário é a maior oportunidade de geração de riqueza do Brasil.
+    </p>
+    <p class="body-text-2">
+      Não é preciso ser corretor de imóveis. É preciso ter <strong>visão estratégica, rede de relacionamentos</strong> e disposição para liderar uma equipe de alta performance com o suporte total da matriz <img src="../LOGO.png" alt="TIB" style="height:0.8em;filter:brightness(0) invert(1);vertical-align:middle;display:inline-block">.
+    </p>
+
+    <p class="criteria-title">Perfil ideal</p>
+    <div class="criteria-list">
+      <div class="crit-item">Visão estratégica e foco em resultado</div>
+      <div class="crit-item">Rede de relacionamentos consolidada</div>
+      <div class="crit-item">Capacidade de gestão de pessoas</div>
+      <div class="crit-item">Disposição para liderar com a metodologia TIB</div>
+      <div class="crit-item">Capital para o setup inicial de R$ 120.000</div>
+    </div>
+  </div>
+
+  <div class="panel-right">
+    <div class="profile-card">
+      <div class="pc-header">
+        <div class="pc-icon">🎯</div>
+        <p class="pc-title">Visão Estratégica</p>
+      </div>
+      <p class="pc-desc">Capacidade de enxergar o mercado além do imediato — posicionando a unidade TIB como referência regional no segmento premium</p>
+    </div>
+
+    <div class="profile-card">
+      <div class="pc-header">
+        <div class="pc-icon">🤝</div>
+        <p class="pc-title">Rede de Relacionamentos</p>
+      </div>
+      <p class="pc-desc">Conexões com investidores, construtoras e o público de alta renda que são o motor inicial da operação na nova praça</p>
+    </div>
+
+    <div class="profile-card">
+      <div class="pc-header">
+        <div class="pc-icon">📈</div>
+        <p class="pc-title">Experiência em Escala</p>
+      </div>
+      <p class="pc-desc">Histórico de liderança, gestão de equipes e crescimento de negócios — ou vontade real de construir isso com nosso suporte</p>
+    </div>
+  </div>
+</section>
+</body>
+</html>

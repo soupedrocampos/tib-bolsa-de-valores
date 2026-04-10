@@ -1,0 +1,17 @@
+<div class="close-body" style="padding-top:30px">
+<p class="sec-label" style="margin-bottom:20px">Condições Estratégicas</p>
+<h2 class="cl-h" style="font-size:38px;text-transform:none;margin:0 auto 40px;line-height:1.4;max-width:900px;white-space:normal">
+ Para participar da primeira bolsa de valores <br/><span class="g">Estamos criando um novo mercado</span> de inteligência focado em performance.
+ </h2>
+<div class="cl-metrics" style='flex-direction:column;gap:16px;align-items:center;margin:0 0 50px;font-family:"Oswald",sans-serif;text-transform:uppercase'>
+<div style="font-size:20px;letter-spacing:1px;color:rgba(255,255,255,.6);margin-bottom:10px">Condições de Entrada:</div>
+<div style="font-size:18px;color:var(--white);letter-spacing:2px"><span style="color:var(--gold)">✦</span> 100k pela Vaga exclusiva</div>
+<div style="font-size:18px;color:var(--white);letter-spacing:2px"><span style="color:var(--gold)">✦</span> 18k mensal (direcionados para tráfego e campanhas estratégicas)</div>
+<div style="font-size:18px;color:var(--white);letter-spacing:2px"><span style="color:var(--gold)">✦</span> 1 imóvel a partir de 500k (para ser particionado)</div>
+</div>
+<p class="cl-sup">A Pergunta é Bem Simples</p>
+<h2 class="cl-h" style="font-size:clamp(32px,5vw,64px);line-height:1;margin-bottom:0">
+ Você vai <span class="g">participar…</span><br/>
+ ou <span class="ot">assistir</span> isso acontecer?
+ </h2>
+</div>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TIB — Projeções Financeiras</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#D9B855;--gold-light:#F2DEA0;--gold-dark:#A66617;--gold-deep:#734610;
+  --gold-50:rgba(217,184,85,0.50);--gold-30:rgba(217,184,85,0.30);--gold-20:rgba(217,184,85,0.20);
+  --gold-grad:linear-gradient(135deg,#F2DEA0 0%,#D9B855 30%,#A66617 65%,#734610 100%);
+  --gold-grad-h:linear-gradient(90deg,#734610 0%,#A66617 15%,#D9B855 35%,#F2DEA0 50%,#D9B855 65%,#A66617 82%,#734610 100%);
+  --blue-deep:#010A26;--blue-royal:#00113F;--blue-mid:#011640;
+  --bg:linear-gradient(160deg,#000814 0%,#010D30 18%,#001240 40%,#011A55 65%,#021440 85%,#010A26 100%);
+  --white:#fff;--white-80:rgba(255,255,255,0.80);--white-60:rgba(255,255,255,0.60);--white-40:rgba(255,255,255,0.40);
+  --font-display:"Oswald",sans-serif;--font-body:"Raleway",sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;background:var(--bg);font-family:var(--font-body);overflow:hidden;cursor:none}
+#cur{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference}
+#cur-r{position:fixed;width:32px;height:32px;border:1px solid var(--gold-50);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
+
+.slide{
+  width:100vw;height:100vh;
+  display:grid;
+  grid-template-rows:auto auto 1fr;
+  padding:clamp(24px,4vh,52px) clamp(24px,5vw,72px);
+  gap:clamp(16px,2.5vh,28px);
+  position:relative;overflow:hidden;
+}
+.slide::before{content:'';position:absolute;top:0;left:8vw;right:8vw;height:2px;background:var(--gold-grad-h);opacity:0.6}
+.slide::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 40% 60% at 20% 80%,rgba(217,184,85,0.03) 0%,transparent 65%);pointer-events:none}
+
+.header{animation:fadeUp 0.7s ease both}
+.section-label{font-family:var(--font-display);font-size:clamp(8px,0.85vw,11px);letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-50);display:block;margin-bottom:6px}
+h1{font-family:var(--font-display);font-weight:500;font-size:clamp(28px,4vw,56px);background:var(--gold-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+
+.intro-row{
+  display:flex;align-items:center;gap:clamp(16px,2.5vw,32px);
+  padding:clamp(12px,1.8vh,20px) clamp(16px,2vw,24px);
+  background:rgba(255,255,255,0.02);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:6px;
+  animation:fadeUp 0.8s ease both 0.08s;
+}
+.intro-icon{font-size:clamp(20px,2.5vw,32px);flex-shrink:0}
+.intro-text{font-size:clamp(11px,1.15vw,14px);color:var(--white-60);line-height:1.55}
+.intro-text strong{color:var(--gold-light);font-weight:600}
+
+/* Scenario container */
+.scenario-wrap{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:clamp(16px,2.5vw,36px);
+  align-items:start;
+}
+
+/* Vertical step indicator */
+.step-col{
+  display:flex;flex-direction:column;align-items:center;gap:0;
+  padding-top:clamp(16px,2.5vh,28px);
+  animation:fadeIn 0.9s ease both 0.15s;
+}
+.step-badge{
+  width:clamp(44px,5.5vw,68px);height:clamp(44px,5.5vw,68px);
+  border-radius:50%;
+  background:var(--gold-grad);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-weight:600;
+  font-size:clamp(18px,2.2vw,28px);
+  color:var(--blue-deep);
+  flex-shrink:0;
+  box-shadow:0 0 32px rgba(217,184,85,0.3);
+}
+.step-line{width:2px;flex:1;min-height:clamp(40px,5vh,70px);background:linear-gradient(to bottom,var(--gold-30),transparent);margin-top:8px}
+.step-label{font-family:var(--font-display);font-size:clamp(7px,0.75vw,10px);letter-spacing:0.25em;text-transform:uppercase;color:var(--gold-50);writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);margin-top:8px}
+
+/* Scenario box */
+.scenario-box{
+  background:linear-gradient(135deg,rgba(217,184,85,0.06) 0%,rgba(217,184,85,0.02) 100%);
+  border:1px solid var(--gold-30);
+  border-radius:12px;
+  padding:clamp(20px,3vw,40px);
+  display:flex;flex-direction:column;gap:clamp(14px,2vh,22px);
+  position:relative;overflow:hidden;
+  animation:fadeUp 0.8s ease both 0.15s;
+}
+.scenario-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold-grad-h)}
+
+.sc-title{
+  font-family:var(--font-display);font-weight:500;
+  font-size:clamp(18px,2.2vw,28px);
+  color:var(--gold-light);text-transform:uppercase;letter-spacing:0.06em;
+}
+
+.data-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(10px,1.5vh,16px);
+}
+
+.data-cell{
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:8px;
+  padding:clamp(12px,1.8vw,20px) clamp(12px,1.5vw,18px);
+}
+.data-cell.full{grid-column:1/-1}
+
+.dc-label{font-size:clamp(10px,1vw,13px);color:var(--white-60);line-height:1.4;margin-bottom:6px}
+.dc-label strong{color:var(--white-80);font-weight:600}
+.dc-value{
+  font-family:var(--font-display);font-weight:500;
+  font-size:clamp(22px,2.8vw,38px);
+  background:var(--gold-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  line-height:1;
+}
+
+.payback-highlight{
+  display:flex;align-items:center;gap:14px;
+  padding:clamp(12px,1.8vh,18px) clamp(14px,1.8vw,22px);
+  background:rgba(217,184,85,0.08);
+  border:1px solid var(--gold-50);
+  border-radius:8px;
+}
+.ph-icon{font-size:clamp(20px,2.5vw,30px)}
+.ph-text{font-family:var(--font-display);font-size:clamp(13px,1.5vw,18px);font-weight:500;color:var(--gold);text-transform:uppercase;letter-spacing:0.06em}
+.ph-sub{font-size:clamp(10px,1vw,13px);color:var(--white-60)}
+
+.bg-svg{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0;background:radial-gradient(ellipse 70% 55% at 6% 94%,rgba(0,35,110,0.5) 0%,transparent 55%),radial-gradient(ellipse 50% 45% at 93% 5%,rgba(0,22,80,0.38) 0%,transparent 50%)}
+.bg-svg svg{position:absolute;bottom:0;right:0;width:55%;height:80%;opacity:0.05;stroke:var(--gold);fill:none;stroke-width:1.2}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+@media(max-width:768px){
+  html,body{overflow-y:auto}
+  .slide{height:auto;min-height:100vh;padding-bottom:12vh}
+  .scenario-wrap{grid-template-columns:1fr}
+  .step-col{flex-direction:row;padding-top:0}
+  .step-line{width:clamp(30px,8vw,60px);height:2px;margin-top:0;margin-left:8px;background:linear-gradient(to right,var(--gold-30),transparent)}
+  .step-label{writing-mode:initial;text-orientation:initial;transform:none}
+  .data-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="cur-r"></div>
+<section class="slide">
+  <div class="bg-svg">
+    <!-- Financial candlestick chart + growth curve -->
+    <svg viewBox="0 0 500 450" xmlns="http://www.w3.org/2000/svg">
+      <!-- Axes -->
+      <line x1="50" y1="400" x2="490" y2="400"/><line x1="50" y1="400" x2="50" y2="20"/>
+      <!-- Grid -->
+      <line x1="50" y1="310" x2="490" y2="310" stroke-dasharray="4,4" opacity="0.4"/>
+      <line x1="50" y1="220" x2="490" y2="220" stroke-dasharray="4,4" opacity="0.4"/>
+      <line x1="50" y1="130" x2="490" y2="130" stroke-dasharray="4,4" opacity="0.4"/>
+      <!-- Candlesticks (OHLC bars) -->
+      <!-- Candle 1 -->
+      <line x1="100" y1="340" x2="100" y2="290"/><rect x="88" y="300" width="24" height="30"/>
+      <!-- Candle 2 -->
+      <line x1="160" y1="310" x2="160" y2="250"/><rect x="148" y="260" width="24" height="40"/>
+      <!-- Candle 3 -->
+      <line x1="220" y1="280" x2="220" y2="210"/><rect x="208" y="220" width="24" height="50"/>
+      <!-- Candle 4 -->
+      <line x1="280" y1="240" x2="280" y2="160"/><rect x="268" y="170" width="24" height="60"/>
+      <!-- Candle 5 -->
+      <line x1="340" y1="190" x2="340" y2="110"/><rect x="328" y="120" width="24" height="60"/>
+      <!-- Candle 6 -->
+      <line x1="400" y1="140" x2="400" y2="60"/><rect x="388" y="70" width="24" height="60"/>
+      <!-- Trend line -->
+      <polyline points="100,325 160,280 220,245 280,200 340,155 400,95 460,60"/>
+      <!-- Arrow up -->
+      <polyline points="445,75 460,60 475,75"/>
+      <!-- Moving average -->
+      <polyline points="50,380 160,290 280,210 400,120 490,55" stroke-dasharray="6,3" opacity="0.6"/>
+    </svg>
+  </div>
+  <div class="header">
+    <span class="section-label">08 — Financeiro</span>
+    <h1>Projeções Financeiras</h1>
+  </div>
+
+  <div class="intro-row">
+    <div class="intro-icon">📐</div>
+    <p class="intro-text">
+      Modelagem baseada em <strong>dados reais das operações próprias da matriz</strong> no litoral de Santa Catarina.
+      Ticket médio de <strong>R$ 700.000</strong> por unidade vendida. Cenário construído com premissas conservadoras.
+    </p>
+  </div>
+
+  <div class="scenario-wrap">
+    <div class="step-col">
+      <div class="step-badge">1</div>
+      <div class="step-line"></div>
+      <p class="step-label">Cenário Conservador</p>
+    </div>
+
+    <div class="scenario-box">
+      <p class="sc-title">Cenário Conservador</p>
+      <div class="data-grid">
+        <div class="data-cell">
+          <p class="dc-label">Leads entregues pela matriz TIB nos primeiros 30 dias</p>
+          <p class="dc-value">500 leads</p>
+        </div>
+        <div class="data-cell">
+          <p class="dc-label">Taxa de conversão estimada (cenário conservador)</p>
+          <p class="dc-value">1%</p>
+        </div>
+        <div class="data-cell">
+          <p class="dc-label">Vendas realizadas · Ticket médio R$ 700.000</p>
+          <p class="dc-value">5 vendas</p>
+        </div>
+        <div class="data-cell">
+          <p class="dc-label">VGV mensal médio gerado</p>
+          <p class="dc-value">R$ 3.500.000</p>
+        </div>
+        <div class="data-cell full">
+          <p class="dc-label">Corretagem mensal para a unidade licenciada</p>
+          <p class="dc-value">R$ 196.000</p>
+        </div>
+      </div>
+      <div class="payback-highlight">
+        <div class="ph-icon">⚡</div>
+        <div>
+          <p class="ph-text">Payback estimado em 30 dias</p>
+          <p class="ph-sub">Após implementação completa da operação, no cenário conservador</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

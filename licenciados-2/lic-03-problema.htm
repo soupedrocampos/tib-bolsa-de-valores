@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TIB — O Problema</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#D9B855;--gold-light:#F2DEA0;--gold-dark:#A66617;--gold-deep:#734610;
+  --gold-50:rgba(217,184,85,0.50);--gold-30:rgba(217,184,85,0.30);--gold-20:rgba(217,184,85,0.20);--gold-10:rgba(217,184,85,0.10);
+  --gold-grad:linear-gradient(135deg,#F2DEA0 0%,#D9B855 30%,#A66617 65%,#734610 100%);
+  --gold-grad-h:linear-gradient(90deg,#734610 0%,#A66617 15%,#D9B855 35%,#F2DEA0 50%,#D9B855 65%,#A66617 82%,#734610 100%);
+  --blue-deep:#010A26;--blue-royal:#00113F;--blue-mid:#011640;
+  --bg:linear-gradient(160deg,#000814 0%,#010D30 18%,#001240 40%,#011A55 65%,#021440 85%,#010A26 100%);
+  --white:#fff;--white-80:rgba(255,255,255,0.80);--white-60:rgba(255,255,255,0.60);--white-40:rgba(255,255,255,0.40);
+  --font-display:"Oswald",sans-serif;--font-body:"Raleway",sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;background:var(--bg);font-family:var(--font-body);overflow:hidden;cursor:none}
+#cur{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference}
+#cur-r{position:fixed;width:32px;height:32px;border:1px solid var(--gold-50);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
+
+.slide{
+  width:100vw;height:100vh;
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+  padding:clamp(24px,4vh,52px) clamp(24px,5vw,72px);
+  gap:clamp(16px,2.5vh,32px);
+  position:relative;overflow:hidden;
+}
+.slide::before{content:'';position:absolute;top:0;left:8vw;right:8vw;height:2px;background:var(--gold-grad-h);opacity:0.6}
+
+.header{animation:fadeUp 0.7s ease both}
+.section-label{font-family:var(--font-display);font-size:clamp(8px,0.85vw,11px);letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-50);display:block;margin-bottom:6px}
+h1{font-family:var(--font-display);font-weight:500;font-size:clamp(28px,4vw,56px);background:var(--gold-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+
+/* Main content: two columns */
+.body{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(24px,4vw,56px);
+  align-items:center;
+}
+
+.text-col{display:flex;flex-direction:column;gap:clamp(16px,2.5vh,28px);animation:fadeUp 0.8s ease both 0.1s}
+
+.lead{
+  font-size:clamp(14px,1.5vw,20px);
+  color:var(--white-80);
+  line-height:1.65;
+}
+.lead strong{color:var(--gold-light);font-weight:600}
+
+.stat-row{
+  display:flex;align-items:baseline;gap:12px;
+  border-left:3px solid var(--gold);
+  padding-left:clamp(12px,1.5vw,20px);
+}
+.stat-num{
+  font-family:var(--font-display);
+  font-size:clamp(32px,4vw,56px);
+  font-weight:500;
+  background:var(--gold-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  line-height:1;
+}
+.stat-label{font-size:clamp(11px,1.2vw,15px);color:var(--white-60);line-height:1.4}
+
+.quote{
+  font-style:italic;
+  font-size:clamp(12px,1.2vw,16px);
+  color:var(--white-40);
+  line-height:1.6;
+  border-top:1px solid rgba(255,255,255,0.08);
+  padding-top:clamp(12px,1.5vh,18px);
+}
+
+/* Problem cards */
+.cards-col{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(10px,1.2vw,16px);
+  animation:fadeUp 0.8s ease both 0.2s;
+}
+
+.prob-card{
+  background:rgba(255,255,255,0.025);
+  border:1px solid rgba(217,184,85,0.18);
+  border-radius:8px;
+  padding:clamp(16px,2vw,24px) clamp(14px,1.8vw,22px);
+  display:flex;flex-direction:column;gap:10px;
+  position:relative;overflow:hidden;
+  transition:background 0.25s,transform 0.2s;
+}
+.prob-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,rgba(217,184,85,0.6),transparent);
+}
+.prob-card:hover{background:rgba(255,255,255,0.04);transform:translateY(-2px)}
+
+.prob-icon{font-size:clamp(22px,2.5vw,36px);line-height:1}
+.prob-title{
+  font-family:var(--font-display);
+  font-size:clamp(12px,1.3vw,16px);
+  font-weight:500;color:var(--gold-light);
+  text-transform:uppercase;letter-spacing:0.04em;line-height:1.2;
+}
+.prob-desc{font-size:clamp(10px,1vw,13px);color:var(--white-60);line-height:1.45}
+
+/* Bottom bar */
+.bottom-bar{
+  border-top:1px solid rgba(255,255,255,0.07);
+  padding-top:clamp(12px,1.5vh,18px);
+  font-size:clamp(10px,1vw,13px);
+  color:var(--white-40);
+  animation:fadeUp 0.8s ease both 0.35s;
+}
+.bottom-bar strong{color:var(--gold-50);font-weight:500}
+
+.bg-svg{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0;background:radial-gradient(ellipse 65% 55% at 5% 95%,rgba(0,30,100,0.5) 0%,transparent 55%),radial-gradient(ellipse 50% 40% at 92% 5%,rgba(0,20,75,0.35) 0%,transparent 50%)}
+.bg-svg svg{position:absolute;bottom:5%;right:2%;width:50%;height:75%;opacity:0.055;stroke:var(--gold);fill:none;stroke-width:1.2}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:768px){
+  html,body{overflow-y:auto}
+  .slide{height:auto;min-height:100vh;padding-bottom:12vh;grid-template-rows:auto auto auto}
+  .body{grid-template-columns:1fr}
+  .cards-col{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="cur-r"></div>
+<section class="slide">
+  <div class="bg-svg">
+    <!-- Declining market graph / broken structure -->
+    <svg viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
+      <!-- Axes -->
+      <line x1="50" y1="350" x2="480" y2="350"/><line x1="50" y1="30" x2="50" y2="350"/>
+      <!-- Grid lines -->
+      <line x1="50" y1="110" x2="480" y2="110" stroke-dasharray="6,4" opacity="0.5"/>
+      <line x1="50" y1="190" x2="480" y2="190" stroke-dasharray="6,4" opacity="0.5"/>
+      <line x1="50" y1="270" x2="480" y2="270" stroke-dasharray="6,4" opacity="0.5"/>
+      <!-- Falling line -->
+      <polyline points="50,80 120,120 190,160 250,200 300,240 340,270 370,310 420,340"/>
+      <!-- Break/crack at end -->
+      <line x1="370" y1="310" x2="395" y2="290"/><line x1="395" y1="290" x2="420" y2="340"/>
+      <!-- Down arrows on bars -->
+      <rect x="90" y="180" width="40" height="170" opacity="0.4"/>
+      <rect x="170" y="230" width="40" height="120" opacity="0.4"/>
+      <rect x="250" y="280" width="40" height="70" opacity="0.4"/>
+      <rect x="330" y="300" width="40" height="50" opacity="0.4"/>
+      <!-- X mark -->
+      <line x1="420" y1="30" x2="470" y2="80"/><line x1="470" y1="30" x2="420" y2="80"/>
+    </svg>
+  </div>
+  <div class="header">
+    <span class="section-label">03 — O Problema do Mercado</span>
+    <h1>Por que o mercado imobiliário falha?</h1>
+  </div>
+
+  <div class="body">
+    <div class="text-col">
+      <p class="lead">
+        A maioria das imobiliárias opera com <strong>processos ultrapassados</strong>, sem tecnologia, sem metodologia e sem estrutura para gerar resultados previsíveis.
+      </p>
+      <div class="stat-row">
+        <span class="stat-num">80%</span>
+        <span class="stat-label">das imobiliárias<br>fecham em menos<br>de 5 anos</span>
+      </div>
+      <p class="quote">
+        "O problema não é a falta de demanda — é a falta de estrutura para atender bem e com consistência."
+      </p>
+    </div>
+
+    <div class="cards-col">
+      <div class="prob-card">
+        <div class="prob-icon">🏗️</div>
+        <p class="prob-title">Burocracia Excessiva</p>
+        <p class="prob-desc">Processos lentos e desconectados que travam vendas e frustram clientes</p>
+      </div>
+      <div class="prob-card">
+        <div class="prob-icon">📉</div>
+        <p class="prob-title">Treinamento Deficiente</p>
+        <p class="prob-desc">Corretores sem metodologia, sem metas claras e sem suporte de performance</p>
+      </div>
+      <div class="prob-card">
+        <div class="prob-icon">⏳</div>
+        <p class="prob-title">Baixa Produtividade</p>
+        <p class="prob-desc">Ausência de CRM e gestão de pipeline resulta em leads desperdiçados</p>
+      </div>
+      <div class="prob-card">
+        <div class="prob-icon">🔇</div>
+        <p class="prob-title">Comunicação Fragmentada</p>
+        <p class="prob-desc">Marketing desalinhado com vendas gera mensagens inconsistentes no mercado</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-bar">
+    <strong>A <img src="../LOGO.png" alt="TIB" style="height:0.8em;filter:brightness(0) invert(1);vertical-align:middle;display:inline-block"> resolve cada um desses pontos</strong> — com tecnologia, metodologia e acompanhamento contínuo da matriz.
+  </div>
+</section>
+</body>
+</html>

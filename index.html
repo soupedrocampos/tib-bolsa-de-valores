@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Apresentação TIB</title>
     <link rel="stylesheet" href="design-tokens.css">
     <style>
@@ -21,7 +22,7 @@
             display: block;
         }
 
-        /* Área invisível que ativa o nav ao passar o mouse */
+        /* Área invisível que ativa o nav ao passar o mouse (desktop) */
         #nav-trigger {
             position: fixed;
             bottom: 0;
@@ -49,9 +50,32 @@
             transition: opacity var(--transition-base);
         }
 
+        /* Desktop: aparece no hover */
         #nav-trigger:hover + #nav,
         #nav:hover {
             opacity: 1;
+        }
+
+        /* Mobile/touch: nav sempre visível e botões maiores */
+        @media (hover: none) {
+            #nav-trigger {
+                display: none;
+            }
+
+            #nav {
+                opacity: 1;
+                bottom: env(safe-area-inset-bottom, var(--sp-4));
+                padding: var(--sp-4) var(--sp-6);
+                gap: var(--sp-5);
+                border-radius: var(--radius-xl);
+            }
+
+            button {
+                padding: var(--sp-4) var(--sp-8) !important;
+                font-size: var(--text-sm) !important;
+                min-width: 90px;
+                min-height: 48px;
+            }
         }
 
         button {
@@ -66,6 +90,8 @@
             letter-spacing: 0.08em;
             text-transform: uppercase;
             transition: background var(--transition-fast), border-color var(--transition-fast);
+            /* evita delay de 300ms em touch */
+            touch-action: manipulation;
         }
 
         button:hover {
@@ -77,6 +103,48 @@
         button:disabled {
             opacity: 0.35;
             cursor: not-allowed;
+        }
+
+        #tab-licenciados {
+            position: fixed;
+            top: var(--sp-5);
+            right: var(--sp-5);
+            z-index: var(--z-cursor);
+            font-family: var(--font-display);
+            font-size: var(--text-xs);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--gold-50);
+            text-decoration: none;
+            padding: var(--sp-2) var(--sp-4);
+            border: var(--border-gold);
+            border-radius: var(--radius-md);
+            background: rgba(1, 10, 38, 0.6);
+            backdrop-filter: blur(6px);
+            transition: color 0.2s, border-color 0.2s, background 0.2s;
+            opacity: 0;
+            transition: opacity var(--transition-base), color 0.2s, border-color 0.2s;
+        }
+
+        #tab-licenciados:hover {
+            color: var(--gold-light);
+            border-color: var(--gold-50);
+            background: rgba(1, 10, 38, 0.85);
+            opacity: 1 !important;
+        }
+
+        /* Aparece no hover da área superior */
+        body:hover #tab-licenciados {
+            opacity: 1;
+        }
+
+        @media (hover: none) {
+            #tab-licenciados {
+                opacity: 1;
+                top: env(safe-area-inset-top, var(--sp-4));
+                font-size: 11px;
+                padding: var(--sp-3) var(--sp-4);
+            }
         }
 
         #counter {
@@ -91,13 +159,14 @@
     </style>
 </head>
 <body>
+    <a id="tab-licenciados" href="licenciados/index.html" target="_blank">Licenciados →</a>
     <div id="nav-trigger"></div>
     <div id="nav">
         <button id="prev" onclick="prev()">Anterior</button>
         <span id="counter"></span>
         <button id="next" onclick="next()">Próximo</button>
     </div>
-    
+
     <iframe id="viewer"></iframe>
 
     <script>
@@ -113,7 +182,7 @@
             "467f4cfd-096f-43c8-ae7f-ff5c63804069.htm",
             "8ca20ea5-73c0-45e7-bbc7-9318fcf90089.htm"
         ];
-        
+
         let currentIndex = 0;
         const viewer = document.getElementById('viewer');
         const counter = document.getElementById('counter');
@@ -141,6 +210,7 @@
             }
         }
 
+        // Navegação por teclado (desktop)
         window.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
                 next();
@@ -149,43 +219,76 @@
             }
         });
 
+        // Swipe na janela principal
+        function addSwipe(target) {
+            let touchStartX = 0;
+            let touchStartY = 0;
+
+            target.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+            }, { passive: true });
+
+            target.addEventListener('touchend', (e) => {
+                const dx = e.changedTouches[0].clientX - touchStartX;
+                const dy = e.changedTouches[0].clientY - touchStartY;
+
+                // Ignora gestos mais verticais do que horizontais
+                if (Math.abs(dx) < 60 || Math.abs(dy) > Math.abs(dx) * 0.8) return;
+
+                if (dx < 0) next();
+                else prev();
+            }, { passive: true });
+        }
+
+        addSwipe(window);
+
+        const isMobile = window.matchMedia('(hover: none)').matches;
+
         viewer.onload = function() {
             try {
                 const cw = viewer.contentWindow;
                 const cd = viewer.contentDocument;
 
-                // Handle the custom cursor logic
-                const cur = cd.getElementById('cur');
-                const curR = cd.getElementById('cur-r');
-                
-                // Hide them initially so they don't look frozen until mouse moves
-                if(cur) cur.style.opacity = '0';
-                if(curR) curR.style.opacity = '0';
-                
-                cw.addEventListener('mousemove', (e) => {
-                    if(cur) {
-                        cur.style.opacity = '1';
-                        cur.style.left = (e.clientX - 5) + 'px';
-                        cur.style.top = (e.clientY - 5) + 'px';
-                        cur.style.transition = 'none';
-                    }
-                    if(curR) {
-                        curR.style.opacity = '1';
-                        curR.style.left = (e.clientX - 16) + 'px';
-                        curR.style.top = (e.clientY - 16) + 'px';
-                        curR.style.transition = 'left 0.15s ease-out, top 0.15s ease-out';
-                    }
-                });
+                if (isMobile) {
+                    // Mobile: esconde cursor animado e adiciona swipe no iframe
+                    const cur = cd.getElementById('cur');
+                    const curR = cd.getElementById('cur-r');
+                    if (cur) cur.style.display = 'none';
+                    if (curR) curR.style.display = 'none';
 
-                // Handle keyboard navigation inside iframe
-                cw.addEventListener('keydown', (e) => {
-                    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
-                        next();
-                    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-                        prev();
-                    }
-                });
-                cw.focus();
+                    addSwipe(cw);
+                } else {
+                    // Desktop: cursor animado + teclado dentro do iframe
+                    const cur = cd.getElementById('cur');
+                    const curR = cd.getElementById('cur-r');
+                    if (cur) cur.style.opacity = '0';
+                    if (curR) curR.style.opacity = '0';
+
+                    cw.addEventListener('mousemove', (e) => {
+                        if (cur) {
+                            cur.style.opacity = '1';
+                            cur.style.left = (e.clientX - 5) + 'px';
+                            cur.style.top = (e.clientY - 5) + 'px';
+                            cur.style.transition = 'none';
+                        }
+                        if (curR) {
+                            curR.style.opacity = '1';
+                            curR.style.left = (e.clientX - 16) + 'px';
+                            curR.style.top = (e.clientY - 16) + 'px';
+                            curR.style.transition = 'left 0.15s ease-out, top 0.15s ease-out';
+                        }
+                    });
+
+                    cw.addEventListener('keydown', (e) => {
+                        if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+                            next();
+                        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                            prev();
+                        }
+                    });
+                    cw.focus();
+                }
             } catch(err) {
                 console.log("Could not bind iframe events: " + err);
             }

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TIB — Licenciados</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../design-tokens.css">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #000814;
+        }
+
+        /* ── TOP BAR ── */
+        #top-bar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 52px;
+            background: rgba(1, 8, 30, 0.97);
+            border-bottom: 1px solid rgba(217, 184, 85, 0.28);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 10000;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        #top-logo {
+            height: 30px;
+            filter: brightness(0) invert(1);
+            opacity: 0.92;
+            flex-shrink: 0;
+        }
+
+        #top-slide-name {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: "Oswald", sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(217, 184, 85, 0.75);
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        #top-counter {
+            margin-left: auto;
+            font-family: "Oswald", sans-serif;
+            font-weight: 600;
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            color: #D9B855;
+            padding: 5px 14px;
+            border: 1px solid rgba(217, 184, 85, 0.4);
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        /* ── IFRAME ── */
+        iframe {
+            position: fixed;
+            top: 52px; left: 0;
+            width: 100%;
+            height: calc(100% - 52px);
+            border: none;
+            display: block;
+        }
+
+        /* ── BOTTOM NAV ── */
+        #nav-trigger {
+            position: fixed;
+            bottom: 0; left: 0;
+            width: 100%; height: 100px;
+            z-index: var(--z-nav);
+        }
+
+        #nav {
+            position: fixed;
+            bottom: var(--sp-5);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: var(--z-cursor);
+            display: flex;
+            align-items: center;
+            gap: var(--sp-4);
+            padding: var(--sp-3) var(--sp-5);
+            border-radius: var(--radius-lg);
+            background: rgba(1, 10, 38, 0.75);
+            border: var(--border-gold);
+            backdrop-filter: blur(8px);
+            opacity: 0;
+            transition: opacity var(--transition-base);
+        }
+
+        #nav-trigger:hover + #nav,
+        #nav:hover {
+            opacity: 1;
+        }
+
+        @media (hover: none) {
+            #nav-trigger { display: none; }
+            #nav {
+                opacity: 1;
+                bottom: env(safe-area-inset-bottom, var(--sp-4));
+                padding: var(--sp-4) var(--sp-6);
+                gap: var(--sp-5);
+                border-radius: var(--radius-xl);
+            }
+            button {
+                padding: var(--sp-4) var(--sp-8) !important;
+                font-size: var(--text-sm) !important;
+                min-width: 90px;
+                min-height: 48px;
+            }
+        }
+
+        button {
+            background: var(--white-12);
+            border: var(--border-white);
+            color: var(--white);
+            padding: var(--sp-2) var(--sp-5);
+            cursor: pointer;
+            border-radius: var(--radius-md);
+            font-family: var(--font-display);
+            font-size: var(--text-xs);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: background var(--transition-fast), border-color var(--transition-fast);
+            touch-action: manipulation;
+        }
+
+        button:hover {
+            background: var(--white-25);
+            border-color: var(--gold-50);
+            color: var(--gold-light);
+        }
+
+        button:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+
+        /* Old counter span kept for JS compat but hidden */
+        #counter { display: none; }
+    </style>
+</head>
+<body>
+    <!-- TOP BAR: logo left · slide name center · counter right -->
+    <div id="top-bar">
+        <img src="../LOGO.png" id="top-logo" alt="TIB">
+        <span id="top-slide-name">Apresentação</span>
+        <span id="top-counter">1 / 11</span>
+    </div>
+
+    <div id="nav-trigger"></div>
+    <div id="nav">
+        <button id="prev" onclick="prev()">Anterior</button>
+        <span id="counter"></span>
+        <button id="next" onclick="next()">Próximo</button>
+    </div>
+
+    <iframe id="viewer"></iframe>
+
+    <script>
+        const pages = [
+            { file: "lic-01-capa.htm",        name: "Apresentação" },
+            { file: "lic-02-projeto.htm",      name: "O Projeto" },
+            { file: "lic-03-problema.htm",     name: "O Problema" },
+            { file: "lic-04-solucao.htm",      name: "A Solução" },
+            { file: "lic-05-meta90.htm",       name: "Meta 90 Dias" },
+            { file: "lic-06-oportunidade.htm", name: "Oportunidade" },
+            { file: "lic-07-lideres.htm",      name: "Líderes & Parceiros" },
+            { file: "lic-08-projecoes.htm",    name: "Projeções Financeiras" },
+            { file: "lic-09-entregaveis.htm",  name: "Entregáveis" },
+            { file: "lic-10-passos.htm",       name: "Próximos Passos" },
+            { file: "lic-11-cta.htm",          name: "Seu Melhor Investimento" },
+        ];
+
+        let currentIndex = 0;
+        const viewer      = document.getElementById('viewer');
+        const btnPrev     = document.getElementById('prev');
+        const btnNext     = document.getElementById('next');
+        const topCounter  = document.getElementById('top-counter');
+        const topName     = document.getElementById('top-slide-name');
+
+        function update() {
+            viewer.src = pages[currentIndex].file;
+            topCounter.innerText = (currentIndex + 1) + " / " + pages.length;
+            topName.innerText    = pages[currentIndex].name;
+            btnPrev.disabled = currentIndex === 0;
+            btnNext.disabled = currentIndex === pages.length - 1;
+        }
+
+        function next() {
+            if (currentIndex < pages.length - 1) { currentIndex++; update(); }
+        }
+
+        function prev() {
+            if (currentIndex > 0) { currentIndex--; update(); }
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') next();
+            else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prev();
+        });
+
+        function addSwipe(target) {
+            let sx = 0, sy = 0;
+            target.addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+            target.addEventListener('touchend', (e) => {
+                const dx = e.changedTouches[0].clientX - sx;
+                const dy = e.changedTouches[0].clientY - sy;
+                if (Math.abs(dx) < 60 || Math.abs(dy) > Math.abs(dx) * 0.8) return;
+                if (dx < 0) next(); else prev();
+            }, { passive: true });
+        }
+
+        addSwipe(window);
+
+        const isMobile = window.matchMedia('(hover: none)').matches;
+
+        viewer.onload = function () {
+            try {
+                const cw = viewer.contentWindow;
+                const cd = viewer.contentDocument;
+
+                if (isMobile) {
+                    const cur = cd.getElementById('cur');
+                    const curR = cd.getElementById('cur-r');
+                    if (cur) cur.style.display = 'none';
+                    if (curR) curR.style.display = 'none';
+                    addSwipe(cw);
+                } else {
+                    const cur = cd.getElementById('cur');
+                    const curR = cd.getElementById('cur-r');
+                    if (cur) cur.style.opacity = '0';
+                    if (curR) curR.style.opacity = '0';
+
+                    cw.addEventListener('mousemove', (e) => {
+                        if (cur) { cur.style.opacity = '1'; cur.style.left = (e.clientX - 5) + 'px'; cur.style.top = (e.clientY - 5) + 'px'; cur.style.transition = 'none'; }
+                        if (curR) { curR.style.opacity = '1'; curR.style.left = (e.clientX - 16) + 'px'; curR.style.top = (e.clientY - 16) + 'px'; curR.style.transition = 'left 0.15s ease-out, top 0.15s ease-out'; }
+                    });
+
+                    cw.addEventListener('keydown', (e) => {
+                        if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') next();
+                        else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prev();
+                    });
+                    cw.focus();
+                }
+            } catch(err) { console.log("iframe bind error: " + err); }
+        };
+
+        update();
+    </script>
+</body>
+</html>

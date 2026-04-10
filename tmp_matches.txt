@@ -1,0 +1,7 @@
+FLIP: <div class=flip-front-title>Construtoras</div>
+FLIP: <div class=flip-front-title>Corretores<br>Diretos</div>
+FLIP: <div class=flip-front-title>Investidores<br>Ativos</div>
+NAME: <div class=partner-name>Peixoto</div>
+NAME: <div class=partner-name>DomPierri</div>
+NAME: <div class=partner-name>Patrick<br>Piccoli</div>
+NAME: <div class=partner-name>Cristian<br>Nascimento</div>

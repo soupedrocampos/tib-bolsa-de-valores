@@ -1,0 +1,10 @@
+# Python scripts (build tools, not needed in production)
+*.py
+__pycache__/
+.venv/
+
+# Working assets
+Untitled design*.png
+
+# Claude session files
+.claude/
