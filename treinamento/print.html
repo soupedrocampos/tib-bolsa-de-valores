@@ -6,7 +6,7 @@
   <style>
     @page { size: 1280px 720px; margin: 0; }
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #000814; }
+    body { background: #000814; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 
     #ui {
       position: fixed;
@@ -100,8 +100,16 @@
     const status = document.getElementById('status');
     const total = frames.length;
     let loaded = 0;
+
+    const PRINT_FIX = '*, *::before, *::after { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }';
+
     frames.forEach(f => {
       f.addEventListener('load', () => {
+        try {
+          const s = f.contentDocument.createElement('style');
+          s.textContent = PRINT_FIX;
+          f.contentDocument.head.appendChild(s);
+        } catch(e) {}
         loaded++;
         if (loaded < total) {
           status.textContent = `Carregando slides… ${loaded} / ${total}`;

@@ -13,6 +13,8 @@
 
     body {
       background: #000814;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
     }
 
     /* UI de tela — some na impressão */
@@ -166,8 +168,15 @@
     const total = frames.length;
     let loaded = 0;
 
+    const PRINT_FIX = '*, *::before, *::after { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }';
+
     frames.forEach(f => {
       f.addEventListener('load', () => {
+        try {
+          const s = f.contentDocument.createElement('style');
+          s.textContent = PRINT_FIX;
+          f.contentDocument.head.appendChild(s);
+        } catch(e) {}
         loaded++;
         if (loaded < total) {
           status.textContent = `Carregando slides… ${loaded} / ${total}`;
