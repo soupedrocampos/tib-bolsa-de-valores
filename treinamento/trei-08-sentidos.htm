@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TIB Treinamento — Os 5 Sentidos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#D9B855;--gold-light:#F2DEA0;--gold-dark:#A66617;--gold-deep:#734610;
+  --gold-50:rgba(217,184,85,0.50);--gold-30:rgba(217,184,85,0.30);--gold-20:rgba(217,184,85,0.20);
+  --teal:#00C8B4;
+  --gold-grad:linear-gradient(135deg,#F2DEA0 0%,#D9B855 30%,#A66617 65%,#734610 100%);
+  --gold-grad-h:linear-gradient(90deg,#734610 0%,#A66617 15%,#D9B855 35%,#F2DEA0 50%,#D9B855 65%,#A66617 82%,#734610 100%);
+  --bg:linear-gradient(160deg,#010A26 0%,#010D30 18%,#001240 40%,#011A55 65%,#021440 85%,#010A26 100%);
+  --white-80:rgba(255,255,255,0.80);--white-60:rgba(255,255,255,0.60);
+  --font-display:"Oswald",sans-serif;--font-body:"Raleway",sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;background:var(--bg);font-family:var(--font-body);overflow:hidden;cursor:none}
+#cur{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference}
+#cur-r{position:fixed;width:32px;height:32px;border:1px solid var(--gold-50);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
+
+.slide{
+  width:100vw;height:100vh;
+  display:grid;grid-template-rows:auto 1fr auto;
+  padding:clamp(20px,3.2vh,44px) clamp(24px,5vw,72px) clamp(12px,2vh,24px);
+  gap:clamp(10px,1.5vh,18px);
+  position:relative;overflow:hidden;
+}
+.slide::before{content:'';position:absolute;top:0;left:8vw;right:8vw;height:2px;background:var(--gold-grad-h);opacity:0.55}
+.slide::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 55% 55% at 50% 50%,rgba(0,200,180,0.03) 0%,transparent 65%)}
+
+.header{z-index:2;animation:fadeUp 0.7s ease both}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,200,180,0.08);border:1px solid rgba(0,200,180,0.3);border-radius:100px;padding:4px 14px;margin-bottom:8px}
+.badge span{font-family:var(--font-display);font-size:clamp(7px,0.72vw,10px);letter-spacing:0.3em;text-transform:uppercase;color:var(--teal)}
+.badge-dot{width:5px;height:5px;border-radius:50%;background:var(--teal);flex-shrink:0}
+h1{font-family:var(--font-display);font-weight:500;font-size:clamp(22px,3.2vw,48px);background:var(--gold-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+
+/* 5 Sentidos em cards horizontais */
+.sentidos{
+  z-index:2;display:flex;flex-direction:column;gap:clamp(6px,0.9vh,12px);
+}
+
+.sentido-card{
+  background:rgba(255,255,255,0.022);border:1px solid rgba(217,184,85,0.15);
+  border-radius:8px;padding:clamp(10px,1.3vw,18px) clamp(14px,1.8vw,24px);
+  display:grid;grid-template-columns:clamp(36px,4vw,56px) 1fr 2fr;
+  align-items:center;gap:clamp(12px,1.8vw,22px);
+  position:relative;overflow:hidden;
+  transition:background 0.25s,border-color 0.25s,transform 0.2s;
+  animation:fadeUp 0.6s ease both;
+}
+.sentido-card:hover{background:rgba(255,255,255,0.04);border-color:rgba(0,200,180,0.3);transform:translateX(3px)}
+.sentido-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,transparent,var(--teal),transparent);opacity:0;transition:opacity 0.25s}
+.sentido-card:hover::before{opacity:1}
+
+.sentido-card:nth-child(1){animation-delay:0.08s}.sentido-card:nth-child(2){animation-delay:0.16s}
+.sentido-card:nth-child(3){animation-delay:0.24s}.sentido-card:nth-child(4){animation-delay:0.32s}
+.sentido-card:nth-child(5){animation-delay:0.40s}
+
+.sentido-icon{
+  width:clamp(36px,4vw,52px);height:clamp(36px,4vw,52px);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:clamp(18px,2vw,26px);
+  background:rgba(0,200,180,0.08);border:1px solid rgba(0,200,180,0.25);
+  flex-shrink:0;
+}
+.sentido-name{
+  font-family:var(--font-display);font-weight:500;font-size:clamp(16px,1.8vw,26px);
+  letter-spacing:0.05em;text-transform:uppercase;
+  background:var(--gold-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.sentido-desc{
+  font-family:var(--font-body);font-size:clamp(10px,1vw,14px);
+  color:rgba(255,255,255,0.55);line-height:1.45;
+}
+.sentido-desc strong{color:var(--white-80);font-weight:500}
+
+/* Footer */
+.footer{
+  z-index:2;
+  background:rgba(0,200,180,0.06);border:1px solid rgba(0,200,180,0.2);
+  border-radius:8px;padding:clamp(8px,1.2vh,14px) clamp(14px,2vw,20px);
+  animation:fadeUp 0.7s ease both 0.5s;
+  display:flex;align-items:center;gap:12px;
+}
+.footer-pct{
+  font-family:var(--font-display);font-weight:600;font-size:clamp(22px,3vw,40px);
+  color:var(--teal);flex-shrink:0;
+}
+.footer-text{font-family:var(--font-body);font-size:clamp(10px,0.95vw,13px);color:var(--white-60);line-height:1.4}
+.footer-text strong{color:rgba(0,200,180,0.85);font-weight:500}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:768px){
+  html,body{overflow-y:auto}
+  .slide{height:auto;min-height:100vh;padding-bottom:12vh}
+  .sentido-card{grid-template-columns:auto 1fr;grid-template-rows:auto auto}
+  .sentido-desc{grid-column:1/-1}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="cur-r"></div>
+<section class="slide">
+  <div class="header">
+    <div class="badge"><span class="badge-dot"></span><span>Bloco 2 · Neurociência</span></div>
+    <h1>EXPLORANDO OS 5 SENTIDOS NO ATENDIMENTO</h1>
+  </div>
+
+  <div class="sentidos">
+    <div class="sentido-card">
+      <div class="sentido-icon">👁️</div>
+      <p class="sentido-name">Visão</p>
+      <p class="sentido-desc"><strong>Primeiro impacto visual.</strong> Espaço limpo, organizado e profissional. Sua apresentação pessoal diz tudo antes de você falar.</p>
+    </div>
+    <div class="sentido-card">
+      <div class="sentido-icon">👂</div>
+      <p class="sentido-name">Audição</p>
+      <p class="sentido-desc"><strong>O que ele escuta.</strong> Ambiente tranquilo, sem ruídos. Tom de voz seguro e pausado transmite confiança e autoridade.</p>
+    </div>
+    <div class="sentido-card">
+      <div class="sentido-icon">👃</div>
+      <p class="sentido-name">Olfato</p>
+      <p class="sentido-desc">O <strong>sentido mais memorável.</strong> Aroma de limpeza ou aconchego cria associação positiva e duradoura com a experiência.</p>
+    </div>
+    <div class="sentido-card">
+      <div class="sentido-icon">☕</div>
+      <p class="sentido-name">Paladar</p>
+      <p class="sentido-desc">Água, chá, café. <strong>Pequenos gestos de hospitalidade</strong> reduzem resistência e criam rapport genuíno com o cliente.</p>
+    </div>
+    <div class="sentido-card">
+      <div class="sentido-icon">🤝</div>
+      <p class="sentido-name">Tato</p>
+      <p class="sentido-desc">O aperto de mão firme, o <strong>gesto que acolhe.</strong> O contato físico adequado sela conexão e fecha o ciclo da confiança.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span class="footer-pct">80%+</span>
+    <p class="footer-text">de qualquer decisão de compra é motivada pelo <strong>lado emocional</strong> — os sentidos são a porta de entrada para a emoção do cliente.</p>
+  </div>
+</section>
+<script>
+const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';curR.style.left=e.clientX+'px';curR.style.top=e.clientY+'px';});
+</script>
+</body>
+</html>

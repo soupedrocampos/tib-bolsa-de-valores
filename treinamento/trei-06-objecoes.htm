@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TIB Treinamento — Contornando Objeções</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#D9B855;--gold-light:#F2DEA0;--gold-dark:#A66617;--gold-deep:#734610;
+  --gold-50:rgba(217,184,85,0.50);--gold-30:rgba(217,184,85,0.30);--gold-20:rgba(217,184,85,0.20);
+  --gold-grad:linear-gradient(135deg,#F2DEA0 0%,#D9B855 30%,#A66617 65%,#734610 100%);
+  --gold-grad-h:linear-gradient(90deg,#734610 0%,#A66617 15%,#D9B855 35%,#F2DEA0 50%,#D9B855 65%,#A66617 82%,#734610 100%);
+  --bg:linear-gradient(160deg,#010A26 0%,#010D30 18%,#001240 40%,#011A55 65%,#021440 85%,#010A26 100%);
+  --white-80:rgba(255,255,255,0.80);--white-60:rgba(255,255,255,0.60);
+  --font-display:"Oswald",sans-serif;--font-body:"Raleway",sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;background:var(--bg);font-family:var(--font-body);overflow:hidden;cursor:none}
+#cur{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference}
+#cur-r{position:fixed;width:32px;height:32px;border:1px solid var(--gold-50);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
+
+.slide{
+  width:100vw;height:100vh;
+  display:grid;grid-template-rows:auto 1fr;
+  padding:clamp(20px,3.2vh,44px) clamp(24px,5vw,72px) clamp(12px,2vh,24px);
+  gap:clamp(10px,1.4vh,18px);
+  position:relative;overflow:hidden;
+}
+.slide::before{content:'';position:absolute;top:0;left:8vw;right:8vw;height:2px;background:var(--gold-grad-h);opacity:0.55}
+.slide::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 15% 80%,rgba(0,25,80,0.5) 0%,transparent 55%)}
+
+.header{z-index:2;animation:fadeUp 0.7s ease both}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(217,184,85,0.08);border:1px solid rgba(217,184,85,0.3);border-radius:100px;padding:4px 14px;margin-bottom:8px}
+.badge span{font-family:var(--font-display);font-size:clamp(7px,0.72vw,10px);letter-spacing:0.3em;text-transform:uppercase;color:var(--gold)}
+.badge-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0}
+h1{font-family:var(--font-display);font-weight:500;font-size:clamp(24px,3.5vw,52px);background:var(--gold-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+
+/* Grid 2x2 */
+.grid{
+  z-index:2;display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(2,1fr);
+  gap:clamp(8px,1vw,14px);
+}
+
+.obj-card{
+  background:rgba(255,255,255,0.022);border:1px solid rgba(217,184,85,0.15);
+  border-radius:10px;padding:clamp(12px,1.5vw,22px);
+  position:relative;overflow:hidden;
+  transition:background 0.25s,border-color 0.25s,transform 0.2s;
+  animation:fadeUp 0.65s ease both;
+  display:grid;grid-template-rows:auto 1fr;gap:8px;
+}
+.obj-card:hover{background:rgba(255,255,255,0.04);border-color:var(--gold-30);transform:translateY(-2px)}
+.obj-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold-grad-h);opacity:0.4;transition:opacity 0.25s}
+.obj-card:hover::before{opacity:1}
+.obj-card:nth-child(1){animation-delay:0.05s}.obj-card:nth-child(2){animation-delay:0.12s}
+.obj-card:nth-child(3){animation-delay:0.19s}.obj-card:nth-child(4){animation-delay:0.26s}
+
+.obj-header{display:flex;align-items:flex-start;gap:10px}
+.obj-icon{
+  width:clamp(28px,2.8vw,38px);height:clamp(28px,2.8vw,38px);border-radius:6px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:clamp(14px,1.5vw,20px);
+  background:rgba(217,184,85,0.08);border:1px solid rgba(217,184,85,0.2);
+}
+.obj-q{
+  font-family:var(--font-display);font-size:clamp(10px,1vw,14px);
+  letter-spacing:0.04em;text-transform:uppercase;color:var(--gold-light);line-height:1.25;
+  padding-top:2px;
+}
+
+.obj-body{display:flex;flex-direction:column;gap:5px}
+.obj-bullet{
+  display:flex;align-items:flex-start;gap:7px;
+  font-family:var(--font-body);font-size:clamp(9px,0.85vw,12px);
+  color:rgba(255,255,255,0.55);line-height:1.4;
+}
+.obj-bullet::before{
+  content:'→';color:var(--gold-dark);font-size:10px;flex-shrink:0;margin-top:1px;
+  font-family:var(--font-display);
+}
+.obj-bullet strong{color:var(--white-60);font-weight:500}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:768px){
+  html,body{overflow-y:auto}
+  .slide{height:auto;min-height:100vh;padding-bottom:12vh}
+  .grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="cur-r"></div>
+<section class="slide">
+  <div class="header">
+    <div class="badge"><span class="badge-dot"></span><span>Bloco 1 · Ação na Prática</span></div>
+    <h1>CONTORNANDO OBJEÇÕES</h1>
+  </div>
+
+  <div class="grid">
+    <div class="obj-card">
+      <div class="obj-header">
+        <div class="obj-icon">⏳</div>
+        <p class="obj-q">Prazo de Entrega</p>
+      </div>
+      <div class="obj-body">
+        <div class="obj-bullet">Respaldo do ACIP e Masterplan 2022–2032</div>
+        <div class="obj-bullet"><strong>Valorização garantida</strong> de 20–25%/ano durante a obra</div>
+        <div class="obj-bullet">Revenda possível 12 meses após assinatura</div>
+        <div class="obj-bullet">Quanto mais cedo comprar, mais valorização captura</div>
+      </div>
+    </div>
+
+    <div class="obj-card">
+      <div class="obj-header">
+        <div class="obj-icon">📄</div>
+        <p class="obj-q">Registro de Incorporação</p>
+      </div>
+      <div class="obj-body">
+        <div class="obj-bullet">Estágio de <strong>pré-pré-lançamento</strong> — melhor preço do ciclo</div>
+        <div class="obj-bullet">FG com liminar desde 2008 — projeto juridicamente seguro</div>
+        <div class="obj-bullet">Após o registro o preço <strong>paga dobro</strong></div>
+        <div class="obj-bullet">Unidades esgotadas antes de abrir ao público geral</div>
+      </div>
+    </div>
+
+    <div class="obj-card">
+      <div class="obj-header">
+        <div class="obj-icon">🌊</div>
+        <p class="obj-q">Distância do Mar</p>
+      </div>
+      <div class="obj-body">
+        <div class="obj-bullet">Vai de carro — <strong>comodidade total</strong> para família e grupos</div>
+        <div class="obj-bullet">Acesso a praias paradisíacas sem depender de localização</div>
+        <div class="obj-bullet">Plano Diretor limita metragens perto do mar — <strong>valorização maior</strong></div>
+        <div class="obj-bullet">Amenidades do empreendimento superam a praia particular</div>
+      </div>
+    </div>
+
+    <div class="obj-card">
+      <div class="obj-header">
+        <div class="obj-icon">🏗️</div>
+        <p class="obj-q">Construtora sem Obras Entregues</p>
+      </div>
+      <div class="obj-body">
+        <div class="obj-bullet"><strong>45 anos de atuação</strong> no mercado gaúcho — histórico sólido</div>
+        <div class="obj-bullet">Portfólio: Panvel, BK, MadeiraMadeira — marcas de confiança</div>
+        <div class="obj-bullet">Maiores construtoras do Brasil também <strong>iniciaram assim</strong></div>
+        <div class="obj-bullet">Projetos entregues dentro do prazo e padrão de qualidade</div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';curR.style.left=e.clientX+'px';curR.style.top=e.clientY+'px';});
+</script>
+</body>
+</html>

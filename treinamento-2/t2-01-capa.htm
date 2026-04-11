@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TBS · Capa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#D9B855;--gold-light:#F2DEA0;--gold-dark:#A66617;--gold-deep:#734610;
+  --gold-50:rgba(217,184,85,0.50);--gold-30:rgba(217,184,85,0.30);--gold-20:rgba(217,184,85,0.20);--gold-10:rgba(217,184,85,0.10);
+  --gold-grad:linear-gradient(135deg,#F2DEA0 0%,#D9B855 30%,#A66617 65%,#734610 100%);
+  --gold-grad-h:linear-gradient(90deg,#734610 0%,#A66617 15%,#D9B855 35%,#F2DEA0 50%,#D9B855 65%,#A66617 82%,#734610 100%);
+  --teal:#00C8B4;--teal-30:rgba(0,200,180,0.30);--teal-20:rgba(0,200,180,0.20);--teal-10:rgba(0,200,180,0.10);
+  --purple:#A050DC;--purple-30:rgba(160,80,220,0.30);--purple-20:rgba(160,80,220,0.20);--purple-10:rgba(160,80,220,0.10);
+  --red:#E05050;--red-20:rgba(224,80,80,0.20);--red-10:rgba(224,80,80,0.10);
+  --font-d:"Oswald",sans-serif;--font-b:"Raleway",sans-serif;
+  --w90:rgba(255,255,255,0.90);--w70:rgba(255,255,255,0.70);--w50:rgba(255,255,255,0.50);--w30:rgba(255,255,255,0.30);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;cursor:none;background:#000818;font-family:var(--font-b)}
+#cur{position:fixed;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference}
+#cur-r{position:fixed;width:28px;height:28px;border:1px solid var(--gold-50);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
+.slide{width:100vw;height:100vh;position:relative;overflow:hidden}
+.bg-base{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,#031060 0%,#010A26 55%,#000818 100%);z-index:0}
+.bg-grid{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background-image:linear-gradient(rgba(217,184,85,0.035) 1px,transparent 1px),linear-gradient(90deg,rgba(217,184,85,0.035) 1px,transparent 1px);
+  background-size:60px 60px}
+.bg-glow{position:absolute;inset:0;z-index:2;pointer-events:none}
+.corner{position:absolute;pointer-events:none;z-index:10}
+.corner-tl{top:0;left:0;width:120px;height:120px}
+.corner-tl::before{content:'';position:absolute;top:28px;left:28px;width:60px;height:1px;background:var(--gold-grad-h)}
+.corner-tl::after{content:'';position:absolute;top:28px;left:28px;width:1px;height:60px;background:linear-gradient(to bottom,var(--gold),transparent)}
+.corner-br{bottom:0;right:0;width:120px;height:120px}
+.corner-br::before{content:'';position:absolute;bottom:28px;right:28px;width:60px;height:1px;background:var(--gold-grad-h)}
+.corner-br::after{content:'';position:absolute;bottom:28px;right:28px;width:1px;height:60px;background:linear-gradient(to top,var(--gold),transparent)}
+.shimmer{position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--gold-grad-h);opacity:0.5;z-index:10}
+.card{background:rgba(255,255,255,0.025);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,0.07);border-radius:18px}
+.card-gold{border-top:2px solid rgba(217,184,85,0.5);box-shadow:0 0 40px rgba(217,184,85,0.07),inset 0 1px 0 rgba(217,184,85,0.1)}
+.card-teal{border-top:2px solid rgba(0,200,180,0.5);box-shadow:0 0 40px rgba(0,200,180,0.07),inset 0 1px 0 rgba(0,200,180,0.1)}
+.card-red{border-top:2px solid rgba(224,80,80,0.5);box-shadow:0 0 40px rgba(224,80,80,0.07),inset 0 1px 0 rgba(224,80,80,0.1)}
+.badge{display:inline-flex;align-items:center;padding:5px 16px;border-radius:100px;
+  font-family:var(--font-d);font-size:clamp(7px,0.7vw,9px);letter-spacing:0.35em;text-transform:uppercase}
+.badge-gold{background:rgba(217,184,85,0.1);border:1px solid rgba(217,184,85,0.35);color:rgba(217,184,85,0.9);box-shadow:0 0 12px rgba(217,184,85,0.15)}
+.badge-teal{background:rgba(0,200,180,0.1);border:1px solid rgba(0,200,180,0.35);color:rgba(0,200,180,0.9);box-shadow:0 0 12px rgba(0,200,180,0.15)}
+.slide-title{font-family:var(--font-d);font-weight:600;line-height:0.95;
+  background:var(--gold-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  font-size:clamp(28px,3.8vw,58px)}
+.slide-title-sm{font-family:var(--font-d);font-weight:600;line-height:1;
+  background:var(--gold-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  font-size:clamp(22px,2.8vw,42px)}
+.stat-xl{font-family:var(--font-d);font-weight:700;font-size:clamp(80px,12vw,180px);line-height:0.85;letter-spacing:-0.04em;
+  background:var(--gold-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 24px rgba(217,184,85,0.4))}
+.eyebrow{font-family:var(--font-d);font-size:clamp(7px,0.72vw,9px);letter-spacing:0.4em;text-transform:uppercase;opacity:0.65}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes spinR{from{transform:rotate(360deg)}to{transform:rotate(0deg)}}
+@keyframes pulse{0%,100%{opacity:0.5}50%{opacity:1}}
+
+/* PAGE LAYOUT */
+.layout{
+  position:relative;z-index:6;
+  width:100%;height:100%;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+}
+
+/* LEFT COLUMN */
+.col-left{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:5% 6% 5% 7%;
+  gap:22px;
+}
+.col-left .eyebrow{color:rgba(217,184,85,0.75)}
+
+.deco-line{
+  width:48px;height:2px;
+  background:var(--gold-grad-h);
+  border-radius:2px;
+}
+
+.main-title{
+  font-family:var(--font-d);
+  font-weight:600;
+  font-size:clamp(44px,6.5vw,96px);
+  line-height:0.88;
+  background:var(--gold-grad);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+.subtitle-en{
+  font-family:var(--font-d);
+  font-weight:200;
+  font-size:clamp(11px,1.3vw,18px);
+  letter-spacing:0.2em;
+  color:var(--gold-50);
+  text-transform:uppercase;
+}
+
+.autoria{
+  font-family:var(--font-b);
+  font-weight:500;
+  font-size:clamp(12px,1.1vw,16px);
+  color:var(--w70);
+}
+
+.pills-row{
+  display:flex;flex-wrap:wrap;gap:10px;
+}
+
+.badge-purple{
+  background:rgba(160,80,220,0.1);
+  border:1px solid rgba(160,80,220,0.35);
+  color:rgba(160,80,220,0.9);
+  box-shadow:0 0 12px rgba(160,80,220,0.15);
+}
+
+/* Animated delays */
+.col-left > *:nth-child(1){animation:fadeUp 0.8s ease both 0.1s}
+.col-left > *:nth-child(2){animation:fadeUp 0.8s ease both 0.2s}
+.col-left > *:nth-child(3){animation:fadeUp 0.8s ease both 0.3s}
+.col-left > *:nth-child(4){animation:fadeUp 0.8s ease both 0.4s}
+.col-left > *:nth-child(5){animation:fadeUp 0.8s ease both 0.5s}
+.col-left > *:nth-child(6){animation:fadeUp 0.8s ease both 0.6s}
+.col-left > *:nth-child(7){animation:fadeUp 0.8s ease both 0.7s}
+
+/* RIGHT COLUMN */
+.col-right{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  animation:fadeIn 1.2s ease both 0.4s;
+  position:relative;
+}
+
+.monogram-wrap{
+  position:relative;
+  width:380px;height:380px;
+  display:flex;align-items:center;justify-content:center;
+}
+
+.ring{
+  position:absolute;
+  border-radius:50%;
+}
+.ring::before{
+  content:'';
+  position:absolute;
+  top:-4px;left:50%;
+  width:8px;height:8px;
+  background:var(--gold);
+  border-radius:50%;
+  transform:translateX(-50%);
+  box-shadow:0 0 8px rgba(217,184,85,0.6);
+}
+
+.ring-outer{
+  width:380px;height:380px;
+  border:1px solid var(--gold-20);
+  animation:spin 32s linear infinite;
+}
+.ring-mid{
+  width:280px;height:280px;
+  border:1px solid var(--gold-10);
+  animation:spinR 22s linear infinite;
+}
+.ring-inner{
+  width:190px;height:190px;
+  border:1px solid rgba(217,184,85,0.05);
+  animation:spin 15s linear infinite;
+}
+
+.mono-center{
+  position:relative;z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+}
+
+.tbs-text{
+  font-family:var(--font-d);
+  font-weight:700;
+  font-size:clamp(80px,11vw,160px);
+  line-height:0.85;
+  letter-spacing:-0.05em;
+  background:var(--gold-grad);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  filter:drop-shadow(0 0 24px rgba(217,184,85,0.4));
+}
+
+.tbs-sub{
+  font-family:var(--font-d);
+  font-weight:200;
+  font-size:clamp(8px,0.7vw,10px);
+  letter-spacing:0.35em;
+  color:var(--gold-50);
+  text-transform:uppercase;
+  margin-top:6px;
+}
+
+/* Geo diagonal */
+.geo-diag{
+  position:absolute;right:0;top:0;
+  width:50vw;height:100%;
+  background:linear-gradient(135deg,rgba(217,184,85,0.02) 0%,transparent 70%);
+  clip-path:polygon(15% 0,100% 0,100% 100%,0% 100%);
+  z-index:3;pointer-events:none;
+}
+
+/* Vertical divider */
+.vert-div{
+  position:absolute;
+  top:10%;bottom:10%;left:50%;
+  width:1px;
+  background:linear-gradient(to bottom,transparent,rgba(217,184,85,0.25) 30%,rgba(217,184,85,0.4) 50%,rgba(217,184,85,0.25) 70%,transparent);
+  z-index:5;pointer-events:none;
+}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+<div id="cur-r"></div>
+
+<div class="slide">
+  <div class="bg-base"></div>
+  <div class="bg-grid"></div>
+  <div class="bg-glow" style="background:radial-gradient(ellipse 50% 70% at 25% 50%,rgba(217,184,85,0.08) 0%,transparent 60%)"></div>
+  <div class="geo-diag"></div>
+  <div class="vert-div"></div>
+  <div class="corner corner-tl"></div>
+  <div class="corner corner-br"></div>
+  <div class="shimmer"></div>
+
+  <div class="layout">
+    <!-- LEFT -->
+    <div class="col-left">
+      <span class="eyebrow">Treinamento · Universo Corporativo</span>
+      <div class="deco-line"></div>
+      <h1 class="main-title">O MELHOR<br>VENDEDOR<br>DE TODOS<br>OS TEMPOS</h1>
+      <p class="subtitle-en">The Best Salesman Ever</p>
+      <div class="deco-line"></div>
+      <p class="autoria">Patrick Piccoli · Universo Corporativo</p>
+      <div class="pills-row">
+        <span class="badge badge-gold">Bloco 1 · Ação</span>
+        <span class="badge badge-teal">Bloco 2 · Neurociência</span>
+        <span class="badge badge-purple">Bloco 3 · Estratégia</span>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="col-right">
+      <div class="monogram-wrap">
+        <div class="ring ring-outer"></div>
+        <div class="ring ring-mid"></div>
+        <div class="ring ring-inner"></div>
+        <div class="mono-center">
+          <span class="tbs-text">TBS</span>
+          <span class="tbs-sub">The Best Salesman</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';curR.style.left=e.clientX+'px';curR.style.top=e.clientY+'px'});
+</script>
+</body>
+</html>

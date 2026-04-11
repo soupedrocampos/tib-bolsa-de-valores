@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TIB Treinamento — Estratégia Digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#D9B855;--gold-light:#F2DEA0;--gold-dark:#A66617;--gold-deep:#734610;
+  --gold-50:rgba(217,184,85,0.50);--gold-30:rgba(217,184,85,0.30);--gold-20:rgba(217,184,85,0.20);
+  --purple:#A050DC;--purple-20:rgba(160,80,220,0.20);--purple-10:rgba(160,80,220,0.10);
+  --gold-grad:linear-gradient(135deg,#F2DEA0 0%,#D9B855 30%,#A66617 65%,#734610 100%);
+  --gold-grad-h:linear-gradient(90deg,#734610 0%,#A66617 15%,#D9B855 35%,#F2DEA0 50%,#D9B855 65%,#A66617 82%,#734610 100%);
+  --bg:linear-gradient(160deg,#010A26 0%,#010D30 18%,#001240 40%,#011A55 65%,#021440 85%,#010A26 100%);
+  --white-80:rgba(255,255,255,0.80);--white-60:rgba(255,255,255,0.60);
+  --font-display:"Oswald",sans-serif;--font-body:"Raleway",sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;background:var(--bg);font-family:var(--font-body);overflow:hidden;cursor:none}
+#cur{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference}
+#cur-r{position:fixed;width:32px;height:32px;border:1px solid var(--gold-50);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
+
+.slide{
+  width:100vw;height:100vh;
+  display:grid;grid-template-rows:auto 1fr;
+  padding:clamp(20px,3.2vh,44px) clamp(24px,5vw,72px) clamp(12px,2vh,24px);
+  gap:clamp(10px,1.5vh,18px);
+  position:relative;overflow:hidden;
+}
+.slide::before{content:'';position:absolute;top:0;left:8vw;right:8vw;height:2px;background:var(--gold-grad-h);opacity:0.55}
+.slide::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 55% 55% at 50% 50%,rgba(160,80,220,0.025) 0%,transparent 65%)}
+
+.header{z-index:2;animation:fadeUp 0.7s ease both}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(160,80,220,0.08);border:1px solid rgba(160,80,220,0.3);border-radius:100px;padding:4px 14px;margin-bottom:8px}
+.badge span{font-family:var(--font-display);font-size:clamp(7px,0.72vw,10px);letter-spacing:0.3em;text-transform:uppercase;color:var(--purple)}
+.badge-dot{width:5px;height:5px;border-radius:50%;background:var(--purple);flex-shrink:0}
+h1{font-family:var(--font-display);font-weight:500;font-size:clamp(22px,3.2vw,48px);background:var(--gold-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+
+/* 3 colunas + donut */
+.content{
+  z-index:2;display:grid;grid-template-columns:1fr 1fr 1fr auto;
+  gap:clamp(10px,1.5vw,18px);align-items:start;
+}
+
+.col-card{
+  background:rgba(255,255,255,0.022);border:1px solid rgba(160,80,220,0.18);
+  border-radius:10px;padding:clamp(14px,1.8vw,24px);
+  position:relative;overflow:hidden;
+  transition:background 0.25s,border-color 0.25s,transform 0.2s;
+  animation:fadeUp 0.6s ease both;
+  display:flex;flex-direction:column;gap:10px;height:100%;
+}
+.col-card:hover{background:rgba(255,255,255,0.04);border-color:rgba(160,80,220,0.35);transform:translateY(-2px)}
+.col-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#A050DC,#D9B855,#A050DC);opacity:0.45;transition:opacity 0.25s}
+.col-card:hover::before{opacity:1}
+.col-card:nth-child(1){animation-delay:0.08s}
+.col-card:nth-child(2){animation-delay:0.16s}
+.col-card:nth-child(3){animation-delay:0.24s}
+
+.col-icon{font-size:clamp(22px,2.5vw,36px);margin-bottom:2px}
+.col-title{font-family:var(--font-display);font-weight:500;font-size:clamp(14px,1.5vw,20px);letter-spacing:0.05em;text-transform:uppercase;color:var(--gold-light);line-height:1.1}
+.col-text{font-family:var(--font-body);font-size:clamp(10px,0.9vw,13px);color:rgba(255,255,255,0.55);line-height:1.5;flex:1}
+.col-text strong{color:var(--white-80);font-weight:500}
+
+.col-stats{display:flex;flex-direction:column;gap:5px;margin-top:4px}
+.stat-row{display:flex;align-items:center;gap:8px}
+.stat-pct{font-family:var(--font-display);font-weight:600;font-size:clamp(14px,1.5vw,20px);color:var(--purple);min-width:42px}
+.stat-label{font-family:var(--font-body);font-size:clamp(8px,0.8vw,11px);color:rgba(255,255,255,0.45)}
+.stat-bar-track{flex:1;height:4px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden}
+.stat-bar-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#A050DC,#D9B855)}
+
+/* Donut chart */
+.donut-wrap{
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  animation:fadeIn 1s ease both 0.35s;
+  padding:clamp(10px,1.4vw,18px);
+}
+.donut-wrap svg{width:clamp(110px,12vw,170px);height:clamp(110px,12vw,170px)}
+.donut-legend{display:flex;flex-direction:column;gap:5px;width:100%}
+.legend-row{display:flex;align-items:center;gap:7px}
+.legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.legend-text{font-family:var(--font-body);font-size:clamp(8px,0.8vw,11px);color:rgba(255,255,255,0.55)}
+.legend-pct{font-family:var(--font-display);font-weight:600;font-size:clamp(10px,1vw,14px);margin-left:auto}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+@media(max-width:768px){
+  html,body{overflow-y:auto}
+  .slide{height:auto;min-height:100vh;padding-bottom:12vh}
+  .content{grid-template-columns:1fr;grid-template-rows:auto}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="cur-r"></div>
+<section class="slide">
+  <div class="header">
+    <div class="badge"><span class="badge-dot"></span><span>Bloco 3 · Estratégia</span></div>
+    <h1>GERANDO CONEXÃO COM O CLIENTE DIGITAL</h1>
+  </div>
+
+  <div class="content">
+    <!-- Col 1 -->
+    <div class="col-card">
+      <div class="col-icon">🪞</div>
+      <p class="col-title">Sua Imagem</p>
+      <p class="col-text">Cuide da <strong>vestimenta</strong> e postura. A linguagem não-verbal comunica mais que as palavras. Seja a imagem que você quer vender.</p>
+      <div class="col-stats">
+        <div class="stat-row">
+          <span class="stat-pct">55%</span>
+          <span class="stat-label">Linguagem corporal</span>
+          <div class="stat-bar-track"><div class="stat-bar-fill" style="width:55%"></div></div>
+        </div>
+        <div class="stat-row">
+          <span class="stat-pct">38%</span>
+          <span class="stat-label">Tom de voz</span>
+          <div class="stat-bar-track"><div class="stat-bar-fill" style="width:38%"></div></div>
+        </div>
+        <div class="stat-row">
+          <span class="stat-pct" style="color:var(--gold)">7%</span>
+          <span class="stat-label">O que você diz</span>
+          <div class="stat-bar-track"><div class="stat-bar-fill" style="width:7%;background:var(--gold)"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Col 2 -->
+    <div class="col-card">
+      <div class="col-icon">📲</div>
+      <p class="col-title">Seu Perfil Digital</p>
+      <p class="col-text">Equilibre o <strong>profissional e pessoal</strong>. Você é a logomarca da sua empresa. Cuide da vitrine que seus clientes veem antes de te encontrar.</p>
+      <p class="col-text" style="margin-top:4px">Posts consistentes, histórias autênticas e conteúdo de valor <strong>constroem confiança</strong> antes do primeiro contato.</p>
+    </div>
+
+    <!-- Col 3 -->
+    <div class="col-card">
+      <div class="col-icon">⚓</div>
+      <p class="col-title">Ancoragem e Credibilidade</p>
+      <p class="col-text">Apoie-se em <strong>pilares sólidos</strong>: a cidade, a construtora, o Masterplan, os números. Você não vende sozinho — o ecossistema te vende.</p>
+      <p class="col-text" style="margin-top:4px">Transmitir segurança é condição para o cliente dar o próximo passo. <strong>Segurança fecha negócio.</strong></p>
+    </div>
+
+    <!-- Donut SVG -->
+    <div class="donut-wrap">
+      <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="60" cy="60" r="46" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="18"/>
+        <!-- 55% corpo = 0.55 * 2*PI*46 = 159.2 ; circunf = 289.0 -->
+        <circle cx="60" cy="60" r="46" fill="none" stroke="#A050DC" stroke-width="18"
+          stroke-dasharray="159.2 289.0" stroke-dashoffset="72.25" stroke-linecap="butt"/>
+        <!-- 38% = 109.8 ; offset após 55% = 72.25-159.2 = -->
+        <circle cx="60" cy="60" r="46" fill="none" stroke="#D9B855" stroke-width="18"
+          stroke-dasharray="109.8 289.0" stroke-dashoffset="-86.95" stroke-linecap="butt"/>
+        <!-- 7% = 20.2; -->
+        <circle cx="60" cy="60" r="46" fill="none" stroke="#F2DEA0" stroke-width="18"
+          stroke-dasharray="20.0 289.0" stroke-dashoffset="-196.8" stroke-linecap="butt"/>
+        <text x="60" y="57" text-anchor="middle" fill="#D9B855" font-family="Oswald,sans-serif" font-size="16" font-weight="600">Impacto</text>
+        <text x="60" y="71" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-family="Raleway,sans-serif" font-size="8">da Comunicação</text>
+      </svg>
+      <div class="donut-legend">
+        <div class="legend-row">
+          <div class="legend-dot" style="background:#A050DC"></div>
+          <span class="legend-text">Corpo</span>
+          <span class="legend-pct" style="color:#A050DC">55%</span>
+        </div>
+        <div class="legend-row">
+          <div class="legend-dot" style="background:#D9B855"></div>
+          <span class="legend-text">Voz</span>
+          <span class="legend-pct" style="color:#D9B855">38%</span>
+        </div>
+        <div class="legend-row">
+          <div class="legend-dot" style="background:#F2DEA0"></div>
+          <span class="legend-text">Palavras</span>
+          <span class="legend-pct" style="color:#F2DEA0">7%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';curR.style.left=e.clientX+'px';curR.style.top=e.clientY+'px';});
+</script>
+</body>
+</html>

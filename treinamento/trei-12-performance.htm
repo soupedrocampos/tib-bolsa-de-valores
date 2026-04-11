@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TIB Treinamento — Performance e Encerramento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#D9B855;--gold-light:#F2DEA0;--gold-dark:#A66617;--gold-deep:#734610;
+  --gold-50:rgba(217,184,85,0.50);--gold-30:rgba(217,184,85,0.30);--gold-20:rgba(217,184,85,0.20);
+  --gold-grad:linear-gradient(135deg,#F2DEA0 0%,#D9B855 30%,#A66617 65%,#734610 100%);
+  --gold-grad-h:linear-gradient(90deg,#734610 0%,#A66617 15%,#D9B855 35%,#F2DEA0 50%,#D9B855 65%,#A66617 82%,#734610 100%);
+  --bg:linear-gradient(160deg,#010A26 0%,#010D30 18%,#001240 40%,#011A55 65%,#021440 85%,#010A26 100%);
+  --white-80:rgba(255,255,255,0.80);--white-60:rgba(255,255,255,0.60);
+  --font-display:"Oswald",sans-serif;--font-body:"Raleway",sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;background:var(--bg);font-family:var(--font-body);overflow:hidden;cursor:none}
+#cur{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference}
+#cur-r{position:fixed;width:32px;height:32px;border:1px solid var(--gold-50);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
+
+.slide{
+  width:100vw;height:100vh;
+  display:grid;grid-template-rows:auto 1fr 1fr auto;
+  padding:clamp(18px,3vh,42px) clamp(24px,5vw,72px) clamp(10px,1.8vh,22px);
+  gap:clamp(8px,1.2vh,16px);
+  position:relative;overflow:hidden;
+}
+.slide::before{content:'';position:absolute;top:0;left:8vw;right:8vw;height:2px;background:var(--gold-grad-h);opacity:0.55}
+.slide::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(217,184,85,0.03) 0%,transparent 65%)}
+
+.header{z-index:2;animation:fadeUp 0.7s ease both}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(217,184,85,0.08);border:1px solid rgba(217,184,85,0.3);border-radius:100px;padding:4px 14px;margin-bottom:8px}
+.badge span{font-family:var(--font-display);font-size:clamp(7px,0.72vw,10px);letter-spacing:0.3em;text-transform:uppercase;color:var(--gold)}
+.badge-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0}
+h1{font-family:var(--font-display);font-weight:500;font-size:clamp(22px,3.2vw,48px);background:var(--gold-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+
+/* Section labels */
+.sec-label{
+  font-family:var(--font-display);font-size:clamp(7px,0.72vw,10px);
+  letter-spacing:0.35em;text-transform:uppercase;
+  color:rgba(217,184,85,0.5);margin-bottom:6px;z-index:2;
+}
+
+/* Metrics */
+.metrics{
+  z-index:2;display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(8px,1vw,14px);
+}
+
+.metric-card{
+  background:rgba(255,255,255,0.022);border:1px solid rgba(217,184,85,0.15);
+  border-radius:8px;padding:clamp(10px,1.3vw,18px);
+  position:relative;overflow:hidden;
+  transition:background 0.25s,border-color 0.25s,transform 0.2s;
+  animation:fadeUp 0.6s ease both;
+  display:flex;flex-direction:column;gap:5px;
+}
+.metric-card:hover{background:rgba(255,255,255,0.04);border-color:var(--gold-30);transform:translateY(-2px)}
+.metric-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold-grad-h);opacity:0.4;transition:opacity 0.25s}
+.metric-card:hover::before{opacity:1}
+.metric-card:nth-child(1){animation-delay:0.1s}
+.metric-card:nth-child(2){animation-delay:0.18s}
+.metric-card:nth-child(3){animation-delay:0.26s}
+
+.metric-icon{font-size:clamp(18px,2vw,26px)}
+.metric-name{font-family:var(--font-display);font-size:clamp(12px,1.2vw,16px);letter-spacing:0.06em;text-transform:uppercase;color:var(--gold-light)}
+.metric-desc{font-family:var(--font-body);font-size:clamp(9px,0.88vw,12px);color:rgba(255,255,255,0.5);line-height:1.4}
+
+/* Psicologia das cores */
+.cores-grid{
+  z-index:2;display:grid;grid-template-columns:repeat(9,1fr);
+  gap:clamp(4px,0.6vw,8px);
+}
+
+.cor-item{
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+  animation:fadeUp 0.5s ease both;
+}
+.cor-item:nth-child(1){animation-delay:0.35s}.cor-item:nth-child(2){animation-delay:0.40s}
+.cor-item:nth-child(3){animation-delay:0.45s}.cor-item:nth-child(4){animation-delay:0.50s}
+.cor-item:nth-child(5){animation-delay:0.55s}.cor-item:nth-child(6){animation-delay:0.60s}
+.cor-item:nth-child(7){animation-delay:0.65s}.cor-item:nth-child(8){animation-delay:0.70s}
+.cor-item:nth-child(9){animation-delay:0.75s}
+
+.cor-swatch{
+  width:100%;aspect-ratio:1;border-radius:6px;
+  border:1px solid rgba(255,255,255,0.1);
+  transition:transform 0.2s;
+}
+.cor-item:hover .cor-swatch{transform:scale(1.08)}
+.cor-label{font-family:var(--font-display);font-size:clamp(7px,0.7vw,9px);letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.55);text-align:center;line-height:1.2}
+.cor-meaning{font-family:var(--font-body);font-size:clamp(6px,0.62vw,8px);color:rgba(255,255,255,0.32);text-align:center;line-height:1.2}
+
+/* Encerramento */
+.encerramento{
+  z-index:2;
+  background:rgba(217,184,85,0.06);border:1px solid rgba(217,184,85,0.25);
+  border-radius:8px;padding:clamp(10px,1.4vh,18px) clamp(14px,2vw,22px);
+  animation:fadeUp 0.7s ease both 0.8s;
+  display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;
+}
+.enc-top{
+  font-family:var(--font-display);font-size:clamp(9px,0.9vw,12px);
+  letter-spacing:0.35em;text-transform:uppercase;color:rgba(217,184,85,0.5);
+}
+.enc-main{
+  font-family:var(--font-display);font-weight:600;
+  font-size:clamp(16px,2.2vw,32px);letter-spacing:0.1em;
+  background:var(--gold-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:768px){
+  html,body{overflow-y:auto}
+  .slide{height:auto;min-height:100vh;padding-bottom:12vh}
+  .metrics{grid-template-columns:1fr}
+  .cores-grid{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="cur-r"></div>
+<section class="slide">
+  <div class="header">
+    <div class="badge"><span class="badge-dot"></span><span>Medindo sua Performance</span></div>
+    <h1>PERFORMANCE E ENCERRAMENTO</h1>
+  </div>
+
+  <!-- Métricas -->
+  <div style="z-index:2">
+    <p class="sec-label">Métricas Essenciais</p>
+    <div class="metrics">
+      <div class="metric-card">
+        <div class="metric-icon">📈</div>
+        <p class="metric-name">Taxa de Conversão</p>
+        <p class="metric-desc">Avalia a eficácia das suas campanhas de tráfego pago — quantos leads viraram oportunidades.</p>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon">🤝</div>
+        <p class="metric-name">Taxa de Fechamento</p>
+        <p class="metric-desc">Seu desempenho real de vendas — quantas oportunidades você converteu em contratos assinados.</p>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon">💎</div>
+        <p class="metric-name">VGV</p>
+        <p class="metric-desc">Valor Geral de Vendas — total em R$ de unidades vendidas. Sua principal métrica de resultado.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Psicologia das Cores -->
+  <div style="z-index:2">
+    <p class="sec-label">Psicologia das Cores</p>
+    <div class="cores-grid">
+      <div class="cor-item">
+        <div class="cor-swatch" style="background:#1E40AF"></div>
+        <p class="cor-label">Azul</p>
+        <p class="cor-meaning">Confiança e segurança</p>
+      </div>
+      <div class="cor-item">
+        <div class="cor-swatch" style="background:#DC2626"></div>
+        <p class="cor-label">Vermelho</p>
+        <p class="cor-meaning">Emoção e paixão</p>
+      </div>
+      <div class="cor-item">
+        <div class="cor-swatch" style="background:#EA580C"></div>
+        <p class="cor-label">Laranja</p>
+        <p class="cor-meaning">Amigável e agradável</p>
+      </div>
+      <div class="cor-item">
+        <div class="cor-swatch" style="background:#16A34A"></div>
+        <p class="cor-label">Verde</p>
+        <p class="cor-meaning">Tranquilidade e serenidade</p>
+      </div>
+      <div class="cor-item">
+        <div class="cor-swatch" style="background:#7C3AED"></div>
+        <p class="cor-label">Roxo</p>
+        <p class="cor-meaning">Inovação e inteligência</p>
+      </div>
+      <div class="cor-item">
+        <div class="cor-swatch" style="background:#9333EA"></div>
+        <p class="cor-label">Violeta</p>
+        <p class="cor-meaning">Criatividade e luxo</p>
+      </div>
+      <div class="cor-item">
+        <div class="cor-swatch" style="background:#CA8A04"></div>
+        <p class="cor-label">Amarelo</p>
+        <p class="cor-meaning">Alegria e jovialidade</p>
+      </div>
+      <div class="cor-item">
+        <div class="cor-swatch" style="background:linear-gradient(135deg,#F2DEA0,#D9B855,#A66617)"></div>
+        <p class="cor-label">Dourado</p>
+        <p class="cor-meaning">Luxo e excelência</p>
+      </div>
+      <div class="cor-item">
+        <div class="cor-swatch" style="background:linear-gradient(135deg,#fff,#e5e7eb);border-color:rgba(0,0,0,0.2)"></div>
+        <p class="cor-label">Branco</p>
+        <p class="cor-meaning">Transparência</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Encerramento -->
+  <div class="encerramento">
+    <p class="enc-top">Grato pela Atenção · Treinamento TIB</p>
+    <p class="enc-main">THE BEST SALESMAN EVER</p>
+  </div>
+</section>
+<script>
+const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';curR.style.left=e.clientX+'px';curR.style.top=e.clientY+'px';});
+</script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TIB Treinamento — Por Que Perdemos Clientes?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#D9B855;--gold-light:#F2DEA0;--gold-dark:#A66617;--gold-deep:#734610;
+  --gold-50:rgba(217,184,85,0.50);--gold-30:rgba(217,184,85,0.30);--gold-20:rgba(217,184,85,0.20);
+  --gold-grad:linear-gradient(135deg,#F2DEA0 0%,#D9B855 30%,#A66617 65%,#734610 100%);
+  --gold-grad-h:linear-gradient(90deg,#734610 0%,#A66617 15%,#D9B855 35%,#F2DEA0 50%,#D9B855 65%,#A66617 82%,#734610 100%);
+  --bg:linear-gradient(160deg,#010A26 0%,#010D30 18%,#001240 40%,#011A55 65%,#021440 85%,#010A26 100%);
+  --white-80:rgba(255,255,255,0.80);--white-60:rgba(255,255,255,0.60);--white-40:rgba(255,255,255,0.40);
+  --font-display:"Oswald",sans-serif;--font-body:"Raleway",sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;background:var(--bg);font-family:var(--font-body);overflow:hidden;cursor:none}
+#cur{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference}
+#cur-r{position:fixed;width:32px;height:32px;border:1px solid var(--gold-50);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
+
+.slide{
+  width:100vw;height:100vh;
+  display:grid;grid-template-rows:auto auto 1fr auto;
+  padding:clamp(20px,3.2vh,44px) clamp(24px,5vw,72px) clamp(12px,2vh,26px);
+  gap:clamp(8px,1.2vh,16px);
+  position:relative;overflow:hidden;
+}
+.slide::before{content:'';position:absolute;top:0;left:8vw;right:8vw;height:2px;background:var(--gold-grad-h);opacity:0.55}
+.slide::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 60% at 70% 40%,rgba(217,184,85,0.03) 0%,transparent 65%)}
+
+.header{z-index:2;animation:fadeUp 0.7s ease both}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(217,184,85,0.08);border:1px solid rgba(217,184,85,0.3);border-radius:100px;padding:4px 14px;margin-bottom:8px}
+.badge span{font-family:var(--font-display);font-size:clamp(7px,0.72vw,10px);letter-spacing:0.3em;text-transform:uppercase;color:var(--gold)}
+.badge-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0}
+h1{font-family:var(--font-display);font-weight:500;font-size:clamp(24px,3.4vw,50px);background:var(--gold-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+
+/* Stat hero */
+.stat-hero{
+  z-index:2;display:flex;align-items:baseline;gap:clamp(10px,1.5vw,20px);
+  animation:fadeUp 0.8s ease both 0.15s;
+}
+.stat-big{
+  font-family:var(--font-display);font-weight:600;
+  font-size:clamp(72px,12vw,160px);line-height:0.9;
+  background:var(--gold-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.stat-desc{
+  font-family:var(--font-body);font-size:clamp(12px,1.2vw,17px);
+  color:var(--white-60);line-height:1.5;max-width:24ch;
+}
+.stat-desc strong{color:var(--white-80);font-weight:500}
+
+/* Bars grid */
+.bars-grid{
+  z-index:2;
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(6px,0.8vh,10px) clamp(10px,1.5vw,18px);
+}
+
+.bar-row{
+  display:flex;flex-direction:column;gap:5px;
+  animation:fadeUp 0.6s ease both;
+}
+.bar-row:nth-child(1){animation-delay:0.2s}.bar-row:nth-child(2){animation-delay:0.28s}
+.bar-row:nth-child(3){animation-delay:0.36s}.bar-row:nth-child(4){animation-delay:0.44s}
+.bar-row:nth-child(5){animation-delay:0.52s}.bar-row:nth-child(6){animation-delay:0.60s}
+
+.bar-header{display:flex;justify-content:space-between;align-items:baseline}
+.bar-label{font-family:var(--font-body);font-size:clamp(9px,0.85vw,12px);color:var(--white-60)}
+.bar-pct{
+  font-family:var(--font-display);font-weight:600;font-size:clamp(12px,1.3vw,18px);
+  background:var(--gold-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.bar-track{height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden}
+.bar-fill{height:100%;border-radius:3px;background:var(--gold-grad-h);transform-origin:left;animation:barGrow 1s ease both}
+
+/* Footer stat */
+.footer-stat{
+  z-index:2;
+  background:rgba(217,184,85,0.06);border:1px solid rgba(217,184,85,0.22);
+  border-radius:8px;padding:clamp(8px,1.2vh,14px) clamp(14px,2vw,22px);
+  animation:fadeUp 0.7s ease both 0.7s;
+  display:flex;align-items:center;gap:12px;
+}
+.footer-stat-num{
+  font-family:var(--font-display);font-weight:600;font-size:clamp(24px,3vw,42px);
+  background:var(--gold-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  flex-shrink:0;
+}
+.footer-stat-text{font-family:var(--font-body);font-size:clamp(10px,1vw,14px);color:var(--white-60);line-height:1.4}
+.footer-stat-text strong{color:var(--gold-light);font-weight:500}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes barGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+@media(max-width:768px){
+  html,body{overflow-y:auto}
+  .slide{height:auto;min-height:100vh;padding-bottom:12vh}
+  .bars-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="cur-r"></div>
+<section class="slide">
+  <div class="header">
+    <div class="badge"><span class="badge-dot"></span><span>Bloco 1 · Ação na Prática</span></div>
+    <h1>POR QUE PERDEMOS CLIENTES?</h1>
+  </div>
+
+  <div class="stat-hero">
+    <span class="stat-big">65%</span>
+    <p class="stat-desc"><strong>por indiferença</strong><br>no atendimento.<br>A maior causa de perda.</p>
+  </div>
+
+  <div class="bars-grid">
+    <div class="bar-row">
+      <div class="bar-header">
+        <span class="bar-label">Indiferença no Atendimento</span>
+        <span class="bar-pct">65%</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill" style="width:65%;animation-delay:0.3s"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-header">
+        <span class="bar-label">Reclamações não atendidas</span>
+        <span class="bar-pct">14%</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill" style="width:14%;animation-delay:0.38s"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-header">
+        <span class="bar-label">Vantagens do concorrente</span>
+        <span class="bar-pct">10%</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill" style="width:10%;animation-delay:0.46s"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-header">
+        <span class="bar-label">Amizade com concorrente</span>
+        <span class="bar-pct">5%</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill" style="width:5%;animation-delay:0.54s"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-header">
+        <span class="bar-label">Mudança de endereço</span>
+        <span class="bar-pct">5%</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill" style="width:5%;animation-delay:0.62s"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-header">
+        <span class="bar-label">Falecimento</span>
+        <span class="bar-pct">1%</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill" style="width:1%;animation-delay:0.70s"></div></div>
+    </div>
+  </div>
+
+  <div class="footer-stat">
+    <span class="footer-stat-num">76%</span>
+    <p class="footer-stat-text">das escolhas de compra são feitas <strong>DENTRO da Construtora ou Imobiliária</strong> — o atendimento define o resultado.</p>
+  </div>
+</section>
+<script>
+const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';curR.style.left=e.clientX+'px';curR.style.top=e.clientY+'px';});
+</script>
+</body>
+</html>

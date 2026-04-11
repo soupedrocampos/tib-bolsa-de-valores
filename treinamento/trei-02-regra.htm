@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TIB Treinamento — A Regra de Ouro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#D9B855;--gold-light:#F2DEA0;--gold-dark:#A66617;--gold-deep:#734610;
+  --gold-50:rgba(217,184,85,0.50);--gold-30:rgba(217,184,85,0.30);--gold-20:rgba(217,184,85,0.20);
+  --gold-grad:linear-gradient(135deg,#F2DEA0 0%,#D9B855 30%,#A66617 65%,#734610 100%);
+  --gold-grad-h:linear-gradient(90deg,#734610 0%,#A66617 15%,#D9B855 35%,#F2DEA0 50%,#D9B855 65%,#A66617 82%,#734610 100%);
+  --bg:linear-gradient(160deg,#010A26 0%,#010D30 18%,#001240 40%,#011A55 65%,#021440 85%,#010A26 100%);
+  --white-80:rgba(255,255,255,0.80);--white-60:rgba(255,255,255,0.60);--white-40:rgba(255,255,255,0.40);
+  --font-display:"Oswald",sans-serif;--font-body:"Raleway",sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;background:var(--bg);font-family:var(--font-body);overflow:hidden;cursor:none}
+#cur{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference}
+#cur-r{position:fixed;width:32px;height:32px;border:1px solid var(--gold-50);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
+
+.slide{
+  width:100vw;height:100vh;
+  display:grid;grid-template-rows:auto 1fr auto;
+  padding:clamp(22px,3.8vh,50px) clamp(24px,5vw,72px) clamp(14px,2.2vh,30px);
+  gap:clamp(10px,1.6vh,20px);
+  position:relative;overflow:hidden;
+}
+.slide::before{content:'';position:absolute;top:0;left:8vw;right:8vw;height:2px;background:var(--gold-grad-h);opacity:0.55}
+.slide::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 65% 55% at 50% 50%,rgba(217,184,85,0.025) 0%,transparent 70%)}
+
+.header{z-index:2;animation:fadeUp 0.7s ease both}
+.badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(217,184,85,0.08);border:1px solid rgba(217,184,85,0.3);
+  border-radius:100px;padding:4px 14px;margin-bottom:10px;
+}
+.badge span{font-family:var(--font-display);font-size:clamp(7px,0.72vw,10px);letter-spacing:0.3em;text-transform:uppercase;color:var(--gold)}
+.badge-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0}
+h1{font-family:var(--font-display);font-weight:500;font-size:clamp(26px,3.8vw,54px);background:var(--gold-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+
+.cards-row{
+  display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,2vw,24px);z-index:2;
+}
+
+.big-card{
+  background:rgba(255,255,255,0.025);border:1px solid rgba(217,184,85,0.18);
+  border-radius:10px;padding:clamp(16px,2.2vw,28px);
+  position:relative;overflow:hidden;
+  transition:background 0.25s,border-color 0.25s,transform 0.2s;
+  animation:fadeUp 0.7s ease both;
+}
+.big-card:hover{background:rgba(255,255,255,0.04);border-color:var(--gold-30);transform:translateY(-2px)}
+.big-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:0.45;transition:opacity 0.25s}
+.big-card:hover::before{opacity:1}
+.big-card:nth-child(1){animation-delay:0.1s}
+.big-card:nth-child(2){animation-delay:0.2s}
+
+.card-gain::before{background:linear-gradient(90deg,#1a4a2e,#22c55e,#1a4a2e)}
+.card-loss::before{background:linear-gradient(90deg,#4a1a1a,#ef4444,#4a1a1a)}
+
+.card-header{
+  display:flex;align-items:center;gap:10px;margin-bottom:clamp(10px,1.5vh,16px);
+  padding-bottom:clamp(8px,1.2vh,12px);border-bottom:1px solid rgba(255,255,255,0.08);
+}
+.card-icon-wrap{
+  width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;
+}
+.card-gain .card-icon-wrap{background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.25)}
+.card-loss .card-icon-wrap{background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.25)}
+.card-q{
+  font-family:var(--font-display);font-size:clamp(11px,1.1vw,15px);
+  letter-spacing:0.04em;text-transform:uppercase;line-height:1.2;
+}
+.card-gain .card-q{color:#86efac}
+.card-loss .card-q{color:#fca5a5}
+
+.card-list{list-style:none;display:flex;flex-direction:column;gap:clamp(6px,1vh,10px)}
+.card-list li{
+  display:flex;align-items:flex-start;gap:8px;
+  font-family:var(--font-body);font-size:clamp(11px,1vw,14px);
+  color:var(--white-60);line-height:1.4;
+}
+.card-list li::before{
+  content:'';width:6px;height:6px;border-radius:50%;margin-top:5px;flex-shrink:0;
+}
+.card-gain .card-list li::before{background:#22c55e}
+.card-loss .card-list li::before{background:#ef4444}
+.card-list strong{color:var(--white-80);font-weight:500}
+
+/* Steps */
+.steps-row{z-index:2;animation:fadeUp 0.7s ease both 0.35s}
+.steps-label{
+  font-family:var(--font-display);font-size:clamp(7px,0.72vw,10px);
+  letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-50);
+  margin-bottom:8px;
+}
+.steps{display:flex;align-items:center;gap:0;flex-wrap:wrap;gap:6px}
+.step-pill{
+  display:flex;align-items:center;gap:8px;
+  background:rgba(217,184,85,0.06);border:1px solid rgba(217,184,85,0.22);
+  border-radius:100px;padding:7px 16px;
+}
+.step-num{
+  font-family:var(--font-display);font-weight:600;font-size:clamp(11px,1.1vw,15px);
+  background:var(--gold-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.step-text{
+  font-family:var(--font-display);font-size:clamp(9px,0.9vw,12px);
+  letter-spacing:0.06em;text-transform:uppercase;color:var(--white-60);
+}
+.step-arrow{color:var(--gold-50);font-size:14px;margin:0 2px}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:768px){
+  html,body{overflow-y:auto}
+  .slide{height:auto;min-height:100vh;padding-bottom:12vh}
+  .cards-row{grid-template-columns:1fr}
+  .steps{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="cur-r"></div>
+<section class="slide">
+  <div class="header">
+    <div class="badge"><span class="badge-dot"></span><span>Bloco 1 · Ação na Prática</span></div>
+    <h1>A REGRA DE OURO DA VENDA</h1>
+  </div>
+
+  <div class="cards-row">
+    <div class="big-card card-gain">
+      <div class="card-header">
+        <div class="card-icon-wrap">✅</div>
+        <p class="card-q">O que o cliente GANHA se comprar?</p>
+      </div>
+      <ul class="card-list">
+        <li><strong>Valorização</strong> de 20–25% ao ano no imóvel</li>
+        <li><strong>Aluguel</strong> cobre o investimento em 3 anos</li>
+        <li><strong>R$80–100mil</strong> por temporada de locação</li>
+        <li><strong>Patrimônio</strong> sólido de longo prazo</li>
+      </ul>
+    </div>
+    <div class="big-card card-loss">
+      <div class="card-header">
+        <div class="card-icon-wrap">⛔</div>
+        <p class="card-q">O que o cliente PERDE se não comprar?</p>
+      </div>
+      <ul class="card-list">
+        <li><strong>Oportunidade</strong> de valorização 3x no período</li>
+        <li><strong>Preço dobra</strong> após entrega das obras</li>
+        <li><strong>Unidades</strong> esgotam em 30–45 dias</li>
+        <li><strong>Tempo é dinheiro</strong> — cada dia custa caro</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="steps-row">
+    <p class="steps-label">Lei da Venda Exponencial</p>
+    <div class="steps">
+      <div class="step-pill">
+        <span class="step-num">1</span>
+        <span class="step-text">Aponte um Problema</span>
+      </div>
+      <span class="step-arrow">→</span>
+      <div class="step-pill">
+        <span class="step-num">2</span>
+        <span class="step-text">Gere Ansiedade</span>
+      </div>
+      <span class="step-arrow">→</span>
+      <div class="step-pill">
+        <span class="step-num">3</span>
+        <span class="step-text">Apresente a Solução</span>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';curR.style.left=e.clientX+'px';curR.style.top=e.clientY+'px';});
+</script>
+</body>
+</html>
