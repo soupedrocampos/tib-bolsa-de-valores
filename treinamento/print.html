@@ -37,7 +37,8 @@
       box-shadow: 0 4px 20px rgba(217,184,85,0.4);
       transition: background 0.2s;
     }
-    #print-btn:hover { background: #F2DEA0; }
+    #print-btn:hover:not(:disabled) { background: #F2DEA0; }
+    #print-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
     #status {
       color: rgba(217, 184, 85, 0.7);
@@ -78,7 +79,7 @@
 <body>
 
   <div id="ui">
-    <button id="print-btn" onclick="window.print()">⬇ Salvar como PDF</button>
+    <button id="print-btn" disabled>⬇ Salvar como PDF</button>
     <span id="status">Carregando slides… 0 / 12</span>
   </div>
 
@@ -98,8 +99,10 @@
   <script>
     const frames = document.querySelectorAll('iframe');
     const status = document.getElementById('status');
+    const btn = document.getElementById('print-btn');
     const total = frames.length;
     let loaded = 0;
+    let ready = false;
 
     const PRINT_FIX = '*, *::before, *::after { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }';
 
@@ -114,10 +117,19 @@
         if (loaded < total) {
           status.textContent = `Carregando slides… ${loaded} / ${total}`;
         } else {
+          ready = true;
+          btn.disabled = false;
+          btn.onclick = () => window.print();
           status.textContent = `${total} slides prontos — clique no botão para salvar.`;
           status.classList.add('ready');
         }
       });
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+        if (!ready) e.preventDefault();
+      }
     });
   </script>
 </body>
