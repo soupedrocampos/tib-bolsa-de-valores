@@ -64,6 +64,31 @@
             flex-shrink: 0;
         }
 
+        #pdf-btn {
+            margin-left: 10px;
+            padding: 5px 12px;
+            background: transparent;
+            border: 1px solid rgba(217, 184, 85, 0.35);
+            color: rgba(217, 184, 85, 0.7);
+            border-radius: 4px;
+            font-family: "Oswald", sans-serif;
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            flex-shrink: 0;
+            transition: background 0.2s, color 0.2s;
+        }
+        #pdf-btn:hover {
+            background: rgba(217, 184, 85, 0.1);
+            color: #D9B855;
+            border-color: rgba(217, 184, 85, 0.6);
+        }
+
         /* ── IFRAME ── */
         iframe {
             position: fixed;
@@ -157,6 +182,7 @@
         <img src="../LOGO.png" id="top-logo" alt="TIB">
         <span id="top-slide-name">Treinamento</span>
         <span id="top-counter">1 / 12</span>
+        <a id="pdf-btn" href="print.html" target="_blank">⬇ PDF</a>
     </div>
 
     <div id="nav-trigger"></div>

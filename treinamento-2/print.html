@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>O Melhor Vendedor (v2) — Salvar PDF</title>
+  <style>
+    @page { size: 1280px 720px; margin: 0; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #000818; }
+
+    #ui {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 14px 24px;
+      background: rgba(1, 8, 30, 0.97);
+      border-bottom: 1px solid rgba(217, 184, 85, 0.28);
+      backdrop-filter: blur(12px);
+    }
+
+    #print-btn {
+      padding: 10px 36px;
+      background: #D9B855;
+      color: #010A26;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.12em;
+      font-family: sans-serif;
+      text-transform: uppercase;
+      box-shadow: 0 4px 20px rgba(217,184,85,0.4);
+      transition: background 0.2s;
+    }
+    #print-btn:hover { background: #F2DEA0; }
+
+    #status {
+      color: rgba(217, 184, 85, 0.7);
+      font-family: sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+    }
+    #status.ready { color: #D9B855; }
+
+    @media print {
+      #ui { display: none; }
+    }
+
+    .slide-page {
+      width: 1280px;
+      height: 720px;
+      overflow: hidden;
+      page-break-after: always;
+      break-after: page;
+      position: relative;
+      margin-top: 52px;
+    }
+
+    @media print {
+      .slide-page { margin-top: 0 !important; }
+    }
+
+    .slide-page iframe {
+      width: 1280px;
+      height: 720px;
+      border: none;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="ui">
+    <button id="print-btn" onclick="window.print()">⬇ Salvar como PDF</button>
+    <span id="status">Carregando slides… 0 / 12</span>
+  </div>
+
+  <div class="slide-page"><iframe src="t2-01-capa.htm"        scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="t2-02-regra.htm"        scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="t2-03-atendimento.htm"  scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="t2-04-ampulheta.htm"    scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="t2-05-pratica.htm"      scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="t2-06-objecoes.htm"     scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="t2-07-neuro.htm"        scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="t2-08-linguagem.htm"    scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="t2-09-perfil.htm"       scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="t2-10-rotina.htm"       scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="t2-11-fechamento.htm"   scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="t2-12-performance.htm"  scrolling="no"></iframe></div>
+
+  <script>
+    const frames = document.querySelectorAll('iframe');
+    const status = document.getElementById('status');
+    const total = frames.length;
+    let loaded = 0;
+    frames.forEach(f => {
+      f.addEventListener('load', () => {
+        loaded++;
+        if (loaded < total) {
+          status.textContent = `Carregando slides… ${loaded} / ${total}`;
+        } else {
+          status.textContent = `${total} slides prontos — clique no botão para salvar.`;
+          status.classList.add('ready');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>TIB — Todas as Apresentações (PDF)</title>
+  <style>
+    @page {
+      size: 1280px 720px;
+      margin: 0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #000814;
+    }
+
+    /* UI de tela — some na impressão */
+    #ui {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 18px 0 10px;
+      background: rgba(1, 8, 30, 0.95);
+      border-bottom: 1px solid rgba(217, 184, 85, 0.3);
+      gap: 8px;
+    }
+
+    #print-btn {
+      padding: 12px 40px;
+      background: #D9B855;
+      color: #010A26;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.12em;
+      font-family: sans-serif;
+      box-shadow: 0 4px 20px rgba(217,184,85,0.4);
+    }
+
+    #print-btn:hover { background: #F2DEA0; }
+
+    #status {
+      color: rgba(217, 184, 85, 0.7);
+      font-family: sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+    }
+
+    @media print {
+      #ui { display: none; }
+    }
+
+    /* Slides */
+    .slide-page {
+      width: 1280px;
+      height: 720px;
+      overflow: hidden;
+      page-break-after: always;
+      break-after: page;
+      position: relative;
+    }
+
+    .slide-page iframe {
+      width: 1280px;
+      height: 720px;
+      border: none;
+      display: block;
+    }
+
+    /* Separador entre apresentações (visível só na tela) */
+    .section-label {
+      width: 1280px;
+      padding: 20px 40px;
+      background: #010A26;
+      color: rgba(217,184,85,0.6);
+      font-family: sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      border-top: 1px solid rgba(217,184,85,0.2);
+      border-bottom: 1px solid rgba(217,184,85,0.2);
+    }
+
+    @media print {
+      .section-label { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="ui">
+    <button id="print-btn" onclick="window.print()">Salvar como PDF — Todas as apresentações</button>
+    <div id="status">Carregando slides… 0 / 45</div>
+  </div>
+
+  <!-- ── APRESENTAÇÃO PRINCIPAL (10 slides) ── -->
+  <div class="section-label">Apresentação Principal — 10 slides</div>
+
+  <div class="slide-page"><iframe src="6889c58f-5abe-4a7a-b7fd-0d9856245d74.htm" scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="d44e90f7-4cba-419a-8fb6-e67b9f1c3244.htm" scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="fed32750-c044-4f3c-85eb-569045ba5cd5.htm" scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="a23cc662-dd07-4e88-ad78-4390fb4159b5.htm" scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="decb2a9f-0689-4ab8-be02-57d48b45364d.htm" scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="2595c031-784a-4bcc-926b-40930d15d505.htm" scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="b52cd9d4-d5d6-4bfd-b3c8-3978f01817dc.htm" scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="condicoes.htm"                              scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="467f4cfd-096f-43c8-ae7f-ff5c63804069.htm" scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="8ca20ea5-73c0-45e7-bbc7-9318fcf90089.htm" scrolling="no"></iframe></div>
+
+  <!-- ── APRESENTAÇÃO LICENCIADOS (11 slides) ── -->
+  <div class="section-label">Licenciados — 11 slides</div>
+
+  <div class="slide-page"><iframe src="licenciados-2/lic-01-capa.htm"         scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="licenciados-2/lic-02-projeto.htm"      scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="licenciados-2/lic-03-problema.htm"     scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="licenciados-2/lic-04-solucao.htm"      scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="licenciados-2/lic-05-meta90.htm"       scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="licenciados-2/lic-06-oportunidade.htm" scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="licenciados-2/lic-07-lideres.htm"      scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="licenciados-2/lic-08-projecoes.htm"    scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="licenciados-2/lic-09-entregaveis.htm"  scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="licenciados-2/lic-10-passos.htm"       scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="licenciados-2/lic-11-cta.htm"          scrolling="no"></iframe></div>
+
+  <!-- ── TREINAMENTO — O Melhor Vendedor (12 slides) ── -->
+  <div class="section-label">Treinamento — O Melhor Vendedor · 12 slides</div>
+
+  <div class="slide-page"><iframe src="treinamento/trei-01-capa.htm"        scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="treinamento/trei-02-regra.htm"        scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="treinamento/trei-03-atendimento.htm"  scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="treinamento/trei-04-ampulheta.htm"    scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="treinamento/trei-05-pratica.htm"      scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="treinamento/trei-06-objecoes.htm"     scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="treinamento/trei-07-neuro.htm"        scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="treinamento/trei-08-sentidos.htm"     scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="treinamento/trei-09-digital.htm"      scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="treinamento/trei-10-rotina.htm"       scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="treinamento/trei-11-fechamento.htm"   scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="treinamento/trei-12-performance.htm"  scrolling="no"></iframe></div>
+
+  <!-- ── TREINAMENTO-2 — O Melhor Vendedor (redesign) — 12 slides ── -->
+  <div class="section-label">Treinamento 2 — O Melhor Vendedor (Redesign) · 12 slides</div>
+
+  <div class="slide-page"><iframe src="treinamento-2/t2-01-capa.htm"        scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="treinamento-2/t2-02-regra.htm"        scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="treinamento-2/t2-03-atendimento.htm"  scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="treinamento-2/t2-04-ampulheta.htm"    scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="treinamento-2/t2-05-pratica.htm"      scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="treinamento-2/t2-06-objecoes.htm"     scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="treinamento-2/t2-07-neuro.htm"        scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="treinamento-2/t2-08-linguagem.htm"    scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="treinamento-2/t2-09-perfil.htm"       scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="treinamento-2/t2-10-rotina.htm"       scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="treinamento-2/t2-11-fechamento.htm"   scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="treinamento-2/t2-12-performance.htm"  scrolling="no"></iframe></div>
+
+  <script>
+    const frames = document.querySelectorAll('iframe');
+    const status = document.getElementById('status');
+    const total = frames.length;
+    let loaded = 0;
+
+    frames.forEach(f => {
+      f.addEventListener('load', () => {
+        loaded++;
+        if (loaded < total) {
+          status.textContent = `Carregando slides… ${loaded} / ${total}`;
+        } else {
+          status.textContent = `Todos os ${total} slides prontos! Clique no botão para salvar.`;
+          status.style.color = 'rgba(217,184,85,1)';
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
