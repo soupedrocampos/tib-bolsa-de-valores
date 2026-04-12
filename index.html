@@ -4,7 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Apresentação TIB</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="design-tokens.css">
+    <style>
+        /* ── TOP BAR ── */
+        #top-bar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 52px;
+            background: rgba(1, 8, 30, 0.97);
+            border-bottom: 1px solid rgba(217, 184, 85, 0.28);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 10000;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        #top-logo {
+            height: 30px;
+            filter: brightness(0) invert(1);
+            opacity: 0.92;
+            flex-shrink: 0;
+        }
+
+        #top-slide-name {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: "Oswald", sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(217, 184, 85, 0.75);
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        #top-counter {
+            margin-left: auto;
+            font-family: "Oswald", sans-serif;
+            font-weight: 600;
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            color: #D9B855;
+            padding: 5px 14px;
+            border: 1px solid rgba(217, 184, 85, 0.4);
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+    </style>
     <style>
         body, html {
             margin: 0;
@@ -16,8 +67,10 @@
         }
 
         iframe {
+            position: fixed;
+            top: 52px; left: 0;
             width: 100%;
-            height: 100%;
+            height: calc(100% - 52px);
             border: none;
             display: block;
         }
@@ -107,7 +160,7 @@
 
         #tab-licenciados {
             position: fixed;
-            top: var(--sp-5);
+            top: calc(52px + var(--sp-3));
             right: var(--sp-5);
             z-index: var(--z-cursor);
             font-family: var(--font-display);
@@ -141,7 +194,7 @@
         @media (hover: none) {
             #tab-licenciados {
                 opacity: 1;
-                top: env(safe-area-inset-top, var(--sp-4));
+                top: calc(52px + env(safe-area-inset-top, var(--sp-4)));
                 font-size: 11px;
                 padding: var(--sp-3) var(--sp-4);
             }
@@ -159,7 +212,14 @@
     </style>
 </head>
 <body>
-    <a id="tab-licenciados" href="licenciados/index.html" target="_blank">Licenciados →</a>
+    <!-- TOP BAR: logo left · slide name center · counter right -->
+    <div id="top-bar">
+        <img src="LOGO.png" id="top-logo" alt="TIB">
+        <span id="top-slide-name">Apresentação</span>
+        <span id="top-counter">1 / 10</span>
+    </div>
+
+    <a id="tab-licenciados" href="licenciados-2/index.html" target="_blank">Licenciados →</a>
     <div id="nav-trigger"></div>
     <div id="nav">
         <button id="prev" onclick="prev()">Anterior</button>
@@ -171,27 +231,30 @@
 
     <script>
         const pages = [
-            "6889c58f-5abe-4a7a-b7fd-0d9856245d74.htm",
-            "d44e90f7-4cba-419a-8fb6-e67b9f1c3244.htm",
-            "fed32750-c044-4f3c-85eb-569045ba5cd5.htm",
-            "a23cc662-dd07-4e88-ad78-4390fb4159b5.htm",
-            "decb2a9f-0689-4ab8-be02-57d48b45364d.htm",
-            "2595c031-784a-4bcc-926b-40930d15d505.htm",
-            "b52cd9d4-d5d6-4bfd-b3c8-3978f01817dc.htm",
-            "condicoes.htm",
-            "467f4cfd-096f-43c8-ae7f-ff5c63804069.htm",
-            "8ca20ea5-73c0-45e7-bbc7-9318fcf90089.htm"
+            { file: "6889c58f-5abe-4a7a-b7fd-0d9856245d74.htm", name: "Apresentação" },
+            { file: "d44e90f7-4cba-419a-8fb6-e67b9f1c3244.htm", name: "A Revolução" },
+            { file: "fed32750-c044-4f3c-85eb-569045ba5cd5.htm",  name: "Garoto-Propaganda" },
+            { file: "a23cc662-dd07-4e88-ad78-4390fb4159b5.htm",  name: "O Movimento" },
+            { file: "decb2a9f-0689-4ab8-be02-57d48b45364d.htm",  name: "Elo Estratégico" },
+            { file: "2595c031-784a-4bcc-926b-40930d15d505.htm",  name: "O Pacote" },
+            { file: "b52cd9d4-d5d6-4bfd-b3c8-3978f01817dc.htm",  name: "A Pergunta" },
+            { file: "condicoes.htm",                              name: "Condições" },
+            { file: "467f4cfd-096f-43c8-ae7f-ff5c63804069.htm",  name: "Posicionamento Final" },
+            { file: "8ca20ea5-73c0-45e7-bbc7-9318fcf90089.htm",  name: "Você está Preparado?" },
         ];
 
         let currentIndex = 0;
-        const viewer = document.getElementById('viewer');
-        const counter = document.getElementById('counter');
-        const btnPrev = document.getElementById('prev');
-        const btnNext = document.getElementById('next');
+        const viewer     = document.getElementById('viewer');
+        const counter    = document.getElementById('counter');
+        const btnPrev    = document.getElementById('prev');
+        const btnNext    = document.getElementById('next');
+        const topCounter = document.getElementById('top-counter');
+        const topName    = document.getElementById('top-slide-name');
 
         function update() {
-            viewer.src = pages[currentIndex];
-            counter.innerText = (currentIndex + 1) + " / " + pages.length;
+            viewer.src = pages[currentIndex].file;
+            topCounter.innerText = (currentIndex + 1) + " / " + pages.length;
+            topName.innerText    = pages[currentIndex].name;
             btnPrev.disabled = currentIndex === 0;
             btnNext.disabled = currentIndex === pages.length - 1;
         }
@@ -249,6 +312,11 @@
             try {
                 const cw = viewer.contentWindow;
                 const cd = viewer.contentDocument;
+
+                // Esconde header e logo internos dos slides (duplicam com nossa top bar)
+                const styleInject = cd.createElement('style');
+                styleInject.textContent = '.nav { display: none !important; } .logo { display: none !important; }';
+                cd.head.appendChild(styleInject);
 
                 if (isMobile) {
                     // Mobile: esconde cursor animado e adiciona swipe no iframe

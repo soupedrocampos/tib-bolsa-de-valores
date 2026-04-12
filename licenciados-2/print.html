@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>TIB Licenciados — Salvar PDF</title>
+  <style>
+    @page {
+      size: 1280px 720px;
+      margin: 0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #000814;
+    }
+
+    /* Botão visível só na tela */
+    #print-btn {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      padding: 14px 40px;
+      background: #D9B855;
+      color: #010A26;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.12em;
+      font-family: sans-serif;
+      box-shadow: 0 4px 20px rgba(217,184,85,0.4);
+    }
+
+    #print-btn:hover {
+      background: #F2DEA0;
+    }
+
+    #status {
+      position: fixed;
+      top: 70px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      color: rgba(217,184,85,0.7);
+      font-family: sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+    }
+
+    @media print {
+      #print-btn,
+      #status { display: none; }
+    }
+
+    .slide-page {
+      width: 1280px;
+      height: 720px;
+      overflow: hidden;
+      page-break-after: always;
+      break-after: page;
+      position: relative;
+    }
+
+    .slide-page iframe {
+      width: 1280px;
+      height: 720px;
+      border: none;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="print-btn" onclick="window.print()">Salvar como PDF</button>
+  <div id="status">Aguarde os slides carregarem antes de imprimir…</div>
+
+  <div class="slide-page"><iframe src="lic-01-capa.htm"        scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="lic-02-projeto.htm"     scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="lic-03-problema.htm"    scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="lic-04-solucao.htm"     scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="lic-05-meta90.htm"      scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="lic-06-oportunidade.htm" scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="lic-07-lideres.htm"     scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="lic-08-projecoes.htm"   scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="lic-09-entregaveis.htm" scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="lic-10-passos.htm"      scrolling="no"></iframe></div>
+  <div class="slide-page"><iframe src="lic-11-cta.htm"         scrolling="no"></iframe></div>
+
+  <script>
+    // Conta iframes carregados e avisa quando todos prontos
+    const frames = document.querySelectorAll('iframe');
+    const status = document.getElementById('status');
+    let loaded = 0;
+
+    frames.forEach(f => {
+      f.addEventListener('load', () => {
+        loaded++;
+        status.textContent = loaded < frames.length
+          ? `Carregando slides… ${loaded} / ${frames.length}`
+          : 'Todos os slides prontos! Clique em "Salvar como PDF".';
+      });
+    });
+  </script>
+
+</body>
+</html>
