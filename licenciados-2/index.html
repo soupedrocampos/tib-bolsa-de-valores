@@ -233,6 +233,19 @@
                 const cw = viewer.contentWindow;
                 const cd = viewer.contentDocument;
 
+                // Força fundo e esconde elementos internos
+                const styleInject = cd.createElement('style');
+                styleInject.textContent = `
+                    html, body { 
+                        background: #010A26 !important; 
+                        margin: 0 !important; 
+                        padding: 0 !important; 
+                    }
+                    .nav { display: none !important; }
+                    .logo { display: none !important; }
+                `;
+                cd.head.appendChild(styleInject);
+
                 if (isMobile) {
                     const cur = cd.getElementById('cur');
                     const curR = cd.getElementById('cur-r');

@@ -313,9 +313,21 @@
                 const cw = viewer.contentWindow;
                 const cd = viewer.contentDocument;
 
-                // Esconde header e logo internos dos slides (duplicam com nossa top bar)
+                // Esconde header e logo internos dos slides e aplica padronização de escala/fundo
                 const styleInject = cd.createElement('style');
-                styleInject.textContent = '.nav { display: none !important; } .logo { display: none !important; }';
+                styleInject.textContent = `
+                    html, body { 
+                        zoom: 0.85;
+                        transform-origin: top center;
+                        background: #010A26 !important;
+                        overflow-x: hidden !important;
+                        width: 100% !important;
+                        margin: 0 !important;
+                        padding: 0 !important;
+                    }
+                    .nav { display: none !important; }
+                    .logo { display: none !important; }
+                `;
                 cd.head.appendChild(styleInject);
 
                 if (isMobile) {

@@ -35,7 +35,17 @@
       "Bash(grep -h \"fonts.googleapis\\\\|font-family\\\\|Oswald\\\\|Raleway\\\\|Montserrat\\\\|Inter\\\\|Poppins\" \"c:/Users/pacc1/Downloads/PATRICK/tib site/\"*.htm)",
       "Bash(grep -h \"fonts.googleapis\" \"c:/Users/pacc1/Downloads/PATRICK/tib site/\"*.htm)",
       "Bash(grep -o '\"[A-Za-z ]*\",\\\\s*sans-serif\\\\|\"[A-Za-z ]*\",\\\\s*serif\\\\|font-family:[^;{]*' \"c:/Users/pacc1/Downloads/PATRICK/tib site/2595c031-784a-4bcc-926b-40930d15d505.htm\")",
-      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4005/licenciados-2/)"
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4005/licenciados-2/)",
+      "Bash(grep -n 'LOGO\\\\.png.*alt=\"TIB\"' \"c:/Users/pacc1/Downloads/PATRICK/tib site/licenciados-2/\"*.htm)",
+      "Bash(grep -o '<title>[^<]*</title>' \"c:/Users/pacc1/Downloads/PATRICK/tib site/\"*.htm)",
+      "Bash(python3 -)",
+      "Bash(node -e ':*)",
+      "Bash(node -)",
+      "Bash(where pdftotext:*)",
+      "Bash(where mutool:*)",
+      "Bash(where gs:*)",
+      "Bash(pdftotext \"c:/Users/pacc1/Downloads/PATRICK/tib site/4. O MELHOR VENDEDOR - TONOLHER - 040225-compactado.pdf\" -)",
+      "Bash(\"/c/Program Files/Git/mingw64/bin/pdftotext.exe\" \"c:/Users/pacc1/Downloads/PATRICK/tib site/4. O MELHOR VENDEDOR - TONOLHER - 040225-compactado.pdf\" -)"
     ]
   },
   "enabledPlugins": {
