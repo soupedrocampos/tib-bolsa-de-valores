@@ -1,5 +1,0 @@
-<!DOCTYPE html> <html lang=pt-BR data-yd-content-ready=true><!--
- Page saved with SingleFile 
- url: http://localhost:2000/tib_tree_v3.html 
- saved date: Tue Apr 07 2026 15:19:43 GMT-0300 (Horário Padrão de Brasília)
---><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1.0"><title>TIB — The Real Estate Experience</title><meta name=referrer content=no-referrer><style>:root{--sf-img-13: url("BASE64_DATA

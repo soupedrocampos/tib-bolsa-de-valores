@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Apresentação TIB</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="design-tokens.css">
+    <style>
+        /* ── TOP BAR ── */
+        #top-bar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 52px;
+            background: rgba(1, 8, 30, 0.97);
+            border-bottom: 1px solid rgba(217, 184, 85, 0.28);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 10000;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        #top-logo {
+            height: 30px;
+            filter: brightness(0) invert(1);
+            opacity: 0.92;
+            flex-shrink: 0;
+        }
+
+        #top-slide-name {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: "Oswald", sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(217, 184, 85, 0.75);
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        #top-counter {
+            margin-left: auto;
+            font-family: "Oswald", sans-serif;
+            font-weight: 600;
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            color: #D9B855;
+            padding: 5px 14px;
+            border: 1px solid rgba(217, 184, 85, 0.4);
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+    </style>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: var(--blue-deep);
+        }
+
+        iframe {
+            position: fixed;
+            top: 52px; left: 0;
+            width: 100%;
+            height: calc(100% - 52px);
+            border: none;
+            display: block;
+        }
+
+        /* Área invisível que ativa o nav ao passar o mouse (desktop) */
+        #nav-trigger {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            z-index: var(--z-nav);
+        }
+
+        #nav {
+            position: fixed;
+            bottom: var(--sp-5);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: var(--z-cursor);
+            display: flex;
+            align-items: center;
+            gap: var(--sp-4);
+            padding: var(--sp-3) var(--sp-5);
+            border-radius: var(--radius-lg);
+            background: rgba(1, 10, 38, 0.75);
+            border: var(--border-gold);
+            backdrop-filter: blur(8px);
+            opacity: 0;
+            transition: opacity var(--transition-base);
+        }
+
+        /* Desktop: aparece no hover */
+        #nav-trigger:hover + #nav,
+        #nav:hover {
+            opacity: 1;
+        }
+
+        /* Mobile/touch: nav sempre visível e botões maiores */
+        @media (hover: none) {
+            #nav-trigger {
+                display: none;
+            }
+
+            #nav {
+                opacity: 1;
+                bottom: env(safe-area-inset-bottom, var(--sp-4));
+                padding: var(--sp-4) var(--sp-6);
+                gap: var(--sp-5);
+                border-radius: var(--radius-xl);
+            }
+
+            button {
+                padding: var(--sp-4) var(--sp-8) !important;
+                font-size: var(--text-sm) !important;
+                min-width: 90px;
+                min-height: 48px;
+            }
+        }
+
+        button {
+            background: var(--white-12);
+            border: var(--border-white);
+            color: var(--white);
+            padding: var(--sp-2) var(--sp-5);
+            cursor: pointer;
+            border-radius: var(--radius-md);
+            font-family: var(--font-display);
+            font-size: var(--text-xs);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: background var(--transition-fast), border-color var(--transition-fast);
+            /* evita delay de 300ms em touch */
+            touch-action: manipulation;
+        }
+
+        button:hover {
+            background: var(--white-25);
+            border-color: var(--gold-50);
+            color: var(--gold-light);
+        }
+
+        button:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+
+        #tab-licenciados {
+            position: fixed;
+            top: calc(52px + var(--sp-3));
+            right: var(--sp-5);
+            z-index: var(--z-cursor);
+            font-family: var(--font-display);
+            font-size: var(--text-xs);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--gold-50);
+            text-decoration: none;
+            padding: var(--sp-2) var(--sp-4);
+            border: var(--border-gold);
+            border-radius: var(--radius-md);
+            background: rgba(1, 10, 38, 0.6);
+            backdrop-filter: blur(6px);
+            transition: color 0.2s, border-color 0.2s, background 0.2s;
+            opacity: 0;
+            transition: opacity var(--transition-base), color 0.2s, border-color 0.2s;
+        }
+
+        #tab-licenciados:hover {
+            color: var(--gold-light);
+            border-color: var(--gold-50);
+            background: rgba(1, 10, 38, 0.85);
+            opacity: 1 !important;
+        }
+
+        /* Aparece no hover da área superior */
+        body:hover #tab-licenciados {
+            opacity: 1;
+        }
+
+        @media (hover: none) {
+            #tab-licenciados {
+                opacity: 1;
+                top: calc(52px + env(safe-area-inset-top, var(--sp-4)));
+                font-size: 11px;
+                padding: var(--sp-3) var(--sp-4);
+            }
+        }
+
+        #counter {
+            color: var(--gold);
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: var(--text-xs);
+            letter-spacing: 0.12em;
+            min-width: 56px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- TOP BAR: logo left · slide name center · counter right -->
+    <div id="top-bar">
+        <img src="LOGO.png" id="top-logo" alt="TIB">
+        <span id="top-slide-name">Apresentação</span>
+        <span id="top-counter">1 / 10</span>
+    </div>
+
+    <a id="tab-licenciados" href="licenciados-2/index.html" target="_blank">Licenciados →</a>
+    <div id="nav-trigger"></div>
+    <div id="nav">
+        <button id="prev" onclick="prev()">Anterior</button>
+        <span id="counter"></span>
+        <button id="next" onclick="next()">Próximo</button>
+    </div>
+
+    <iframe id="viewer"></iframe>
+
+    <script>
+        const pages = [
+            { file: "home/home-01-apresentacao.htm",     name: "Apresentação" },
+            { file: "home/home-02-revolucao.htm",         name: "A Revolução" },
+            { file: "home/home-03-garoto-propaganda.htm", name: "Garoto-Propaganda" },
+            { file: "home/home-04-movimento.htm",         name: "O Movimento" },
+            { file: "home/home-05-elo-estrategico.htm",   name: "Elo Estratégico" },
+            { file: "home/home-06-pacote.htm",            name: "O Pacote" },
+            { file: "home/home-07-pergunta.htm",          name: "A Pergunta" },
+            { file: "home/home-08-condicoes.htm",         name: "Condições" },
+            { file: "home/home-09-posicionamento.htm",    name: "Posicionamento Final" },
+            { file: "home/home-10-preparado.htm",         name: "Você está Preparado?" },
+        ];
+
+        let currentIndex = 0;
+        const viewer     = document.getElementById('viewer');
+        const counter    = document.getElementById('counter');
+        const btnPrev    = document.getElementById('prev');
+        const btnNext    = document.getElementById('next');
+        const topCounter = document.getElementById('top-counter');
+        const topName    = document.getElementById('top-slide-name');
+
+        function update() {
+            viewer.src = pages[currentIndex].file;
+            topCounter.innerText = (currentIndex + 1) + " / " + pages.length;
+            topName.innerText    = pages[currentIndex].name;
+            btnPrev.disabled = currentIndex === 0;
+            btnNext.disabled = currentIndex === pages.length - 1;
+        }
+
+        function next() {
+            if (currentIndex < pages.length - 1) {
+                currentIndex++;
+                update();
+            }
+        }
+
+        function prev() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                update();
+            }
+        }
+
+        // Navegação por teclado (desktop)
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+                next();
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                prev();
+            }
+        });
+
+        // Swipe na janela principal
+        function addSwipe(target) {
+            let touchStartX = 0;
+            let touchStartY = 0;
+
+            target.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+            }, { passive: true });
+
+            target.addEventListener('touchend', (e) => {
+                const dx = e.changedTouches[0].clientX - touchStartX;
+                const dy = e.changedTouches[0].clientY - touchStartY;
+
+                // Ignora gestos mais verticais do que horizontais
+                if (Math.abs(dx) < 60 || Math.abs(dy) > Math.abs(dx) * 0.8) return;
+
+                if (dx < 0) next();
+                else prev();
+            }, { passive: true });
+        }
+
+        addSwipe(window);
+
+        const isMobile = window.matchMedia('(hover: none)').matches;
+
+        viewer.onload = function() {
+            try {
+                const cw = viewer.contentWindow;
+                const cd = viewer.contentDocument;
+
+                // Esconde elementos internos de navegação dos slides
+                const styleInject = cd.createElement('style');
+                styleInject.textContent = `
+                    html, body {
+                        background: #010A26 !important;
+                        margin: 0 !important;
+                        padding: 0 !important;
+                    }
+                    .nav, .slide-nav, .nav-bar, .logo,
+                    .slide-num, .hint, .dots-ui,
+                    .nxt, .prv { display: none !important; }
+                `;
+                cd.head.appendChild(styleInject);
+
+                if (isMobile) {
+                    // Mobile: esconde cursor animado e adiciona swipe no iframe
+                    const cur = cd.getElementById('cur');
+                    const curR = cd.getElementById('cur-r');
+                    if (cur) cur.style.display = 'none';
+                    if (curR) curR.style.display = 'none';
+
+                    addSwipe(cw);
+                } else {
+                    // Desktop: cursor animado + teclado dentro do iframe
+                    const cur = cd.getElementById('cur');
+                    const curR = cd.getElementById('cur-r');
+                    if (cur) cur.style.opacity = '0';
+                    if (curR) curR.style.opacity = '0';
+
+                    cw.addEventListener('mousemove', (e) => {
+                        if (cur) {
+                            cur.style.opacity = '1';
+                            cur.style.left = (e.clientX - 5) + 'px';
+                            cur.style.top = (e.clientY - 5) + 'px';
+                            cur.style.transition = 'none';
+                        }
+                        if (curR) {
+                            curR.style.opacity = '1';
+                            curR.style.left = (e.clientX - 16) + 'px';
+                            curR.style.top = (e.clientY - 16) + 'px';
+                            curR.style.transition = 'left 0.15s ease-out, top 0.15s ease-out';
+                        }
+                    });
+
+                    cw.addEventListener('keydown', (e) => {
+                        if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+                            next();
+                        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                            prev();
+                        }
+                    });
+                    cw.focus();
+                }
+            } catch(err) {
+                console.log("Could not bind iframe events: " + err);
+            }
+        };
+
+        update();
+    </script>
+</body>
+</html>

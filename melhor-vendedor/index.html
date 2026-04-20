@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TIB — O Melhor Vendedor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../design-tokens.css">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #000814;
+        }
+
+        /* ── TOP BAR ── */
+        #top-bar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 52px;
+            background: rgba(1, 8, 30, 0.97);
+            border-bottom: 1px solid rgba(217, 184, 85, 0.28);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 10000;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        #top-logo {
+            height: 30px;
+            filter: brightness(0) invert(1);
+            opacity: 0.92;
+            flex-shrink: 0;
+        }
+
+        #top-slide-name {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: "Oswald", sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(217, 184, 85, 0.75);
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        #top-counter {
+            margin-left: auto;
+            font-family: "Oswald", sans-serif;
+            font-weight: 600;
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            color: #D9B855;
+            padding: 5px 14px;
+            border: 1px solid rgba(217, 184, 85, 0.4);
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        /* ── IFRAME ── */
+        iframe {
+            position: fixed;
+            top: 52px; left: 0;
+            width: 100%;
+            height: calc(100% - 52px);
+            border: none;
+            display: block;
+        }
+
+        /* ── BOTTOM NAV ── */
+        #nav-trigger {
+            position: fixed;
+            bottom: 0; left: 0;
+            width: 100%; height: 100px;
+            z-index: var(--z-nav);
+        }
+
+        #nav {
+            position: fixed;
+            bottom: var(--sp-5);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: var(--z-cursor);
+            display: flex;
+            align-items: center;
+            gap: var(--sp-4);
+            padding: var(--sp-3) var(--sp-5);
+            border-radius: var(--radius-lg);
+            background: rgba(1, 10, 38, 0.75);
+            border: var(--border-gold);
+            backdrop-filter: blur(8px);
+            opacity: 0;
+            transition: opacity var(--transition-base);
+        }
+
+        #nav-trigger:hover + #nav,
+        #nav:hover {
+            opacity: 1;
+        }
+
+        @media (hover: none) {
+            #nav-trigger { display: none; }
+            #nav {
+                opacity: 1;
+                bottom: env(safe-area-inset-bottom, var(--sp-4));
+                padding: var(--sp-4) var(--sp-6);
+                gap: var(--sp-5);
+                border-radius: var(--radius-xl);
+            }
+            button {
+                padding: var(--sp-4) var(--sp-8) !important;
+                font-size: var(--text-sm) !important;
+                min-width: 90px;
+                min-height: 48px;
+            }
+        }
+
+        button {
+            background: var(--white-12);
+            border: var(--border-white);
+            color: var(--white);
+            padding: var(--sp-2) var(--sp-5);
+            cursor: pointer;
+            border-radius: var(--radius-md);
+            font-family: var(--font-display);
+            font-size: var(--text-xs);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: background var(--transition-fast), border-color var(--transition-fast);
+            touch-action: manipulation;
+        }
+
+        button:hover {
+            background: var(--white-25);
+            border-color: var(--gold-50);
+            color: var(--gold-light);
+        }
+
+        button:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+
+        #counter { display: none; }
+    </style>
+</head>
+<body>
+    <div id="top-bar">
+        <img src="../LOGO.png" id="top-logo" alt="TIB">
+        <span id="top-slide-name">Apresentação</span>
+        <span id="top-counter">1 / 155</span>
+    </div>
+
+    <div id="nav-trigger"></div>
+    <div id="nav">
+        <button id="prev" onclick="prev()">Anterior</button>
+        <span id="counter"></span>
+        <button id="next" onclick="next()">Próximo</button>
+    </div>
+
+    <iframe id="viewer"></iframe>
+
+    <script>
+        const pages = [
+            { file: "slide-001.htm", name: "Capa" },
+            { file: "slide-002.htm", name: "Moeda de Valor" },
+            { file: "slide-003.htm", name: "Índice" },
+            { file: "slide-004.htm", name: "Bloco 1 — Ação na Prática" },
+            { file: "slide-005.htm", name: "Regra de Ouro" },
+            { file: "slide-006.htm", name: "O Que o Cliente Ganha" },
+            { file: "slide-007.htm", name: "Importância do Atendimento" },
+            { file: "slide-008.htm", name: "76% das Escolhas" },
+            { file: "slide-009.htm", name: "Lei da Venda Exponencial" },
+            { file: "slide-010.htm", name: "Funil de Vendas" },
+            { file: "slide-011.htm", name: "Funil do Vendedor Comum" },
+            { file: "slide-012.htm", name: "Ampulheta" },
+            { file: "slide-013.htm", name: "Ampulheta Completa" },
+            { file: "slide-014.htm", name: "Vendendo na Prática" },
+            { file: "slide-015.htm", name: "Antes de Vender" },
+            { file: "slide-016.htm", name: "Estude o Produto" },
+            { file: "slide-017.htm", name: "Expectativa" },
+            { file: "slide-018.htm", name: "Horário de Atendimento" },
+            { file: "slide-019.htm", name: "Textos e Áudios" },
+            { file: "slide-020.htm", name: "Chamada de Vídeo" },
+            { file: "slide-021.htm", name: "Estrutura da Construtora" },
+            { file: "slide-022.htm", name: "Português" },
+            { file: "slide-023.htm", name: "Foto de Perfil" },
+            { file: "slide-024.htm", name: "Palavras Positivas" },
+            { file: "slide-025.htm", name: "Chame pelo Nome" },
+            { file: "slide-026.htm", name: "Seja Breve" },
+            { file: "slide-027.htm", name: "Saudação Inicial" },
+            { file: "slide-028.htm", name: "2ª Abordagem" },
+            { file: "slide-029.htm", name: "Aguarde" },
+            { file: "slide-030.htm", name: "Envie Materiais" },
+            { file: "slide-031.htm", name: "Tenha Pronto" },
+            { file: "slide-032.htm", name: "Objeções Gerais" },
+            { file: "slide-033.htm", name: "Área Demográfica" },
+            { file: "slide-034.htm", name: "Transbordo" },
+            { file: "slide-035.htm", name: "Master Plan" },
+            { file: "slide-036.htm", name: "Construtora RS" },
+            { file: "slide-037.htm", name: "Pré-lançamento" },
+            { file: "slide-038.htm", name: "Reg. Incorporação" },
+            { file: "slide-039.htm", name: "Distância do Mar" },
+            { file: "slide-040.htm", name: "Muitos Lançamentos" },
+            { file: "slide-041.htm", name: "Pontos-Chave 1" },
+            { file: "slide-042.htm", name: "Pontos-Chave 2" },
+            { file: "slide-043.htm", name: "Envie Proposta" },
+            { file: "slide-044.htm", name: "Enviar Tabela?" },
+            { file: "slide-045.htm", name: "Valor do M²" },
+            { file: "slide-046.htm", name: "Valor do Investimento" },
+            { file: "slide-047.htm", name: "Lucros Futuros" },
+            { file: "slide-048.htm", name: "Planta / Unidades" },
+            { file: "slide-049.htm", name: "Você Direciona" },
+            { file: "slide-050.htm", name: "Prova Social" },
+            { file: "slide-051.htm", name: "Crescimento PB" },
+            { file: "slide-052.htm", name: "Tabela de Ganhos" },
+            { file: "slide-053.htm", name: "Gráfico de Ganhos" },
+            { file: "slide-054.htm", name: "Projeção Futura" },
+            { file: "slide-055.htm", name: "Como o Cliente Compra" },
+            { file: "slide-056.htm", name: "Impulsionadores" },
+            { file: "slide-057.htm", name: "Segurança" },
+            { file: "slide-058.htm", name: "Portfólio" },
+            { file: "slide-059.htm", name: "Sky View — Tipos" },
+            { file: "slide-060.htm", name: "Sky View Tower" },
+            { file: "slide-061.htm", name: "Sky Marine" },
+            { file: "slide-062.htm", name: "Sky Green" },
+            { file: "slide-063.htm", name: "Sky Marine II" },
+            { file: "slide-064.htm", name: "Sky Shopping" },
+            { file: "slide-065.htm", name: "Pós-Venda" },
+            { file: "slide-066.htm", name: "Cliente Disse Não" },
+            { file: "slide-067.htm", name: "Parou de Responder" },
+            { file: "slide-068.htm", name: "Bloco 2 — Neurociência" },
+            { file: "slide-069.htm", name: "Conheça-se" },
+            { file: "slide-070.htm", name: "Neurociência" },
+            { file: "slide-071.htm", name: "Autoconhecimento" },
+            { file: "slide-072.htm", name: "Jeito de Ser" },
+            { file: "slide-073.htm", name: "Seus Pilares" },
+            { file: "slide-074.htm", name: "Pilares" },
+            { file: "slide-075.htm", name: "Controle Emocional" },
+            { file: "slide-076.htm", name: "Agilidade Emocional" },
+            { file: "slide-077.htm", name: "Urgência" },
+            { file: "slide-078.htm", name: "Cérebro Trino" },
+            { file: "slide-079.htm", name: "Cérebro Detalhado" },
+            { file: "slide-080.htm", name: "Cérebro Visual" },
+            { file: "slide-081.htm", name: "Conheça o Cliente" },
+            { file: "slide-082.htm", name: "Gerações" },
+            { file: "slide-083.htm", name: "Gerações — Detalhe" },
+            { file: "slide-084.htm", name: "O Cérebro" },
+            { file: "slide-085.htm", name: "Lei do Cérebro" },
+            { file: "slide-086.htm", name: "Lei do Cérebro 2" },
+            { file: "slide-087.htm", name: "Lei do Cérebro 3" },
+            { file: "slide-088.htm", name: "Homem das Cavernas" },
+            { file: "slide-089.htm", name: "Perfil Público" },
+            { file: "slide-090.htm", name: "Perfil — Detalhe" },
+            { file: "slide-091.htm", name: "Impulsionadores" },
+            { file: "slide-092.htm", name: "Medo ou Desejo" },
+            { file: "slide-093.htm", name: "Desequilibre" },
+            { file: "slide-094.htm", name: "1 Minuto" },
+            { file: "slide-095.htm", name: "5 Sentidos" },
+            { file: "slide-096.htm", name: "5 Sentidos — Conceito" },
+            { file: "slide-097.htm", name: "5 Sentidos — Detalhe" },
+            { file: "slide-098.htm", name: "Tomada de Decisão" },
+            { file: "slide-099.htm", name: "Os Instintos" },
+            { file: "slide-100.htm", name: "H/M Decidem" },
+            { file: "slide-101.htm", name: "Proteção do Eu" },
+            { file: "slide-102.htm", name: "80% Emocional" },
+            { file: "slide-103.htm", name: "Lado Emocional" },
+            { file: "slide-104.htm", name: "Fluxo de Impactos" },
+            { file: "slide-105.htm", name: "8 / 3000" },
+            { file: "slide-106.htm", name: "Bloco 3 — Estratégia" },
+            { file: "slide-107.htm", name: "Conexão Digital" },
+            { file: "slide-108.htm", name: "Era da Informação" },
+            { file: "slide-109.htm", name: "Imagem e Voz" },
+            { file: "slide-110.htm", name: "Imagem e Voz 2" },
+            { file: "slide-111.htm", name: "Linguagem Corporal" },
+            { file: "slide-112.htm", name: "Linguagem Corporal 2" },
+            { file: "slide-113.htm", name: "Os Olhos" },
+            { file: "slide-114.htm", name: "Atenção à Linguagem" },
+            { file: "slide-115.htm", name: "Sinais Corporais" },
+            { file: "slide-116.htm", name: "Modo de Comunicar" },
+            { file: "slide-117.htm", name: "7 / 38 / 55" },
+            { file: "slide-118.htm", name: "Treine Comunicar" },
+            { file: "slide-119.htm", name: "Palco do Atendimento" },
+            { file: "slide-120.htm", name: "Sua Comunicação" },
+            { file: "slide-121.htm", name: "Perfil Social" },
+            { file: "slide-122.htm", name: "Comunicação Clara" },
+            { file: "slide-123.htm", name: "Perfil Vitrine" },
+            { file: "slide-124.htm", name: "Equilíbrio do Perfil" },
+            { file: "slide-125.htm", name: "Rotina" },
+            { file: "slide-126.htm", name: "Rotina — Detalhe" },
+            { file: "slide-127.htm", name: "Carga Horária" },
+            { file: "slide-128.htm", name: "Ancoragem" },
+            { file: "slide-129.htm", name: "Âncora" },
+            { file: "slide-130.htm", name: "Verdade e Confiança" },
+            { file: "slide-131.htm", name: "Investimento" },
+            { file: "slide-132.htm", name: "Tráfego Pago" },
+            { file: "slide-133.htm", name: "Empatia" },
+            { file: "slide-134.htm", name: "Empatia Conecta" },
+            { file: "slide-135.htm", name: "Identifique-se" },
+            { file: "slide-136.htm", name: "Conhecimento" },
+            { file: "slide-137.htm", name: "Rebranding" },
+            { file: "slide-138.htm", name: "Negociação" },
+            { file: "slide-139.htm", name: "Negociação — Detalhe" },
+            { file: "slide-140.htm", name: "Persuasão" },
+            { file: "slide-141.htm", name: "Qual Comando?" },
+            { file: "slide-142.htm", name: "Ele Executa" },
+            { file: "slide-143.htm", name: "Fechamento" },
+            { file: "slide-144.htm", name: "Fechamento 1" },
+            { file: "slide-145.htm", name: "Fechamento 2" },
+            { file: "slide-146.htm", name: "Fechamento 3" },
+            { file: "slide-147.htm", name: "Fechamento 4" },
+            { file: "slide-148.htm", name: "Repete e Aprimora" },
+            { file: "slide-149.htm", name: "Precisa Ter" },
+            { file: "slide-150.htm", name: "Encantar" },
+            { file: "slide-151.htm", name: "Performance" },
+            { file: "slide-152.htm", name: "Métricas" },
+            { file: "slide-153.htm", name: "Psicologia das Cores" },
+            { file: "slide-154.htm", name: "Moeda de Valor" },
+            { file: "slide-155.htm", name: "Encerramento" },
+        ];
+
+        let currentIndex = 0;
+        const viewer     = document.getElementById('viewer');
+        const btnPrev    = document.getElementById('prev');
+        const btnNext    = document.getElementById('next');
+        const topCounter = document.getElementById('top-counter');
+        const topName    = document.getElementById('top-slide-name');
+
+        function update() {
+            viewer.src = pages[currentIndex].file;
+            topCounter.innerText = (currentIndex + 1) + " / " + pages.length;
+            topName.innerText    = pages[currentIndex].name;
+            btnPrev.disabled = currentIndex === 0;
+            btnNext.disabled = currentIndex === pages.length - 1;
+        }
+
+        function next() {
+            if (currentIndex < pages.length - 1) { currentIndex++; update(); }
+        }
+
+        function prev() {
+            if (currentIndex > 0) { currentIndex--; update(); }
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') next();
+            else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prev();
+        });
+
+        function addSwipe(target) {
+            let sx = 0, sy = 0;
+            target.addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+            target.addEventListener('touchend', (e) => {
+                const dx = e.changedTouches[0].clientX - sx;
+                const dy = e.changedTouches[0].clientY - sy;
+                if (Math.abs(dx) < 60 || Math.abs(dy) > Math.abs(dx) * 0.8) return;
+                if (dx < 0) next(); else prev();
+            }, { passive: true });
+        }
+
+        addSwipe(window);
+
+        const isMobile = window.matchMedia('(hover: none)').matches;
+
+        viewer.onload = function () {
+            try {
+                const cw = viewer.contentWindow;
+                const cd = viewer.contentDocument;
+
+                const styleInject = cd.createElement('style');
+                styleInject.textContent = `
+                    html, body {
+                        background: #010A26 !important;
+                        margin: 0 !important;
+                        padding: 0 !important;
+                    }
+                    .nav { display: none !important; }
+                    .logo { display: none !important; }
+                `;
+                cd.head.appendChild(styleInject);
+
+                if (isMobile) {
+                    const cur = cd.getElementById('cur');
+                    const curR = cd.getElementById('cur-r');
+                    if (cur) cur.style.display = 'none';
+                    if (curR) curR.style.display = 'none';
+                    addSwipe(cw);
+                } else {
+                    const cur = cd.getElementById('cur');
+                    const curR = cd.getElementById('cur-r');
+                    if (cur) cur.style.opacity = '0';
+                    if (curR) curR.style.opacity = '0';
+
+                    cw.addEventListener('mousemove', (e) => {
+                        if (cur) { cur.style.opacity = '1'; cur.style.left = (e.clientX - 5) + 'px'; cur.style.top = (e.clientY - 5) + 'px'; cur.style.transition = 'none'; }
+                        if (curR) { curR.style.opacity = '1'; curR.style.left = (e.clientX - 16) + 'px'; curR.style.top = (e.clientY - 16) + 'px'; curR.style.transition = 'left 0.15s ease-out, top 0.15s ease-out'; }
+                    });
+
+                    cw.addEventListener('keydown', (e) => {
+                        if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') next();
+                        else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prev();
+                    });
+                    cw.focus();
+                }
+            } catch(err) { console.log("iframe bind error: " + err); }
+        };
+
+        update();
+    </script>
+</body>
+</html>
