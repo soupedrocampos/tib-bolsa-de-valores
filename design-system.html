@@ -1,1268 +1,1432 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TIB — Design System</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="design-tokens.css">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      background: var(--blue-deep);
-      color: var(--white);
-      font-family: var(--font-body);
-      line-height: 1.6;
-      min-height: 100vh;
-    }
-
-    /* ────── SIDEBAR NAV ────── */
-    #sidebar {
-      position: fixed;
-      top: 0; left: 0;
-      width: 220px;
-      height: 100vh;
-      background: rgba(1, 10, 38, 0.97);
-      border-right: 1px solid var(--gold-20);
-      overflow-y: auto;
-      z-index: 100;
-      padding: 28px 0 40px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    #sidebar .brand {
-      padding: 0 20px 24px;
-      border-bottom: 1px solid var(--gold-15);
-      margin-bottom: 16px;
-    }
-
-    #sidebar .brand img {
-      height: 28px;
-      filter: brightness(0) invert(1);
-      opacity: 0.9;
-    }
-
-    #sidebar .brand span {
-      display: block;
-      font-family: var(--font-display);
-      font-size: 9px;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--gold-50);
-      margin-top: 6px;
-    }
-
-    #sidebar nav a {
-      display: block;
-      padding: 9px 20px;
-      font-family: var(--font-display);
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--white-60);
-      text-decoration: none;
-      transition: color var(--transition-fast), background var(--transition-fast);
-      border-left: 2px solid transparent;
-    }
-
-    #sidebar nav a:hover,
-    #sidebar nav a.active {
-      color: var(--gold-light);
-      background: var(--gold-10);
-      border-left-color: var(--gold);
-    }
-
-    #sidebar nav .group-label {
-      padding: 16px 20px 6px;
-      font-family: var(--font-display);
-      font-size: 9px;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--white-40);
-    }
-
-    /* ────── MAIN CONTENT ────── */
-    #main {
-      margin-left: 220px;
-      min-height: 100vh;
-    }
-
-    /* ────── TOP BAR ────── */
-    #topbar {
-      position: sticky;
-      top: 0;
-      background: rgba(1, 8, 30, 0.95);
-      border-bottom: 1px solid var(--gold-20);
-      backdrop-filter: blur(12px);
-      padding: 14px 48px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      z-index: 50;
-    }
-
-    #topbar h1 {
-      font-family: var(--font-display);
-      font-size: 13px;
-      font-weight: 400;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--gold);
-    }
-
-    #topbar .version {
-      font-family: var(--font-display);
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      color: var(--white-40);
-    }
-
-    /* ────── SECTIONS ────── */
-    .ds-section {
-      padding: 64px 48px;
-      border-bottom: 1px solid var(--gold-10);
-    }
-
-    .ds-section:last-child { border-bottom: none; }
-
-    .section-header {
-      margin-bottom: 48px;
-    }
-
-    .section-header h2 {
-      font-family: var(--font-display);
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.4em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 10px;
-    }
-
-    .section-header h3 {
-      font-family: var(--font-display);
-      font-size: var(--text-2xl);
-      font-weight: 600;
-      color: var(--white);
-      line-height: 1.1;
-    }
-
-    .section-header p {
-      margin-top: 12px;
-      color: var(--white-60);
-      font-size: 15px;
-      max-width: 560px;
-    }
-
-    /* ────── COLOR PALETTES ────── */
-    .color-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 16px;
-    }
-
-    .color-swatch {
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      border: 1px solid var(--white-12);
-      transition: transform var(--transition-fast);
-    }
-
-    .color-swatch:hover { transform: translateY(-3px); }
-
-    .color-swatch .swatch-bg {
-      height: 80px;
-    }
-
-    .color-swatch .swatch-info {
-      padding: 10px 12px;
-      background: rgba(1, 10, 38, 0.7);
-    }
-
-    .color-swatch .swatch-name {
-      font-family: var(--font-display);
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      color: var(--white-80);
-    }
-
-    .color-swatch .swatch-value {
-      font-family: monospace;
-      font-size: 10px;
-      color: var(--white-40);
-      margin-top: 2px;
-    }
-
-    .palette-label {
-      font-family: var(--font-display);
-      font-size: 10px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--gold-50);
-      margin-bottom: 16px;
-      margin-top: 32px;
-    }
-
-    .palette-label:first-child { margin-top: 0; }
-
-    /* ────── GRADIENT CARDS ────── */
-    .gradient-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 16px;
-    }
-
-    .gradient-card {
-      height: 100px;
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--white-12);
-      display: flex;
-      align-items: flex-end;
-      padding: 12px 16px;
-      transition: transform var(--transition-fast);
-    }
-
-    .gradient-card:hover { transform: translateY(-3px); }
-
-    .gradient-card span {
-      font-family: var(--font-display);
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--white-80);
-      background: rgba(1,10,38,0.5);
-      padding: 4px 8px;
-      border-radius: 4px;
-    }
-
-    /* ────── TYPOGRAPHY ────── */
-    .type-scale {
-      display: flex;
-      flex-direction: column;
-      gap: 32px;
-    }
-
-    .type-row {
-      display: grid;
-      grid-template-columns: 120px 1fr;
-      align-items: baseline;
-      gap: 24px;
-      padding-bottom: 32px;
-      border-bottom: 1px solid var(--white-05);
-    }
-
-    .type-row:last-child { border-bottom: none; padding-bottom: 0; }
-
-    .type-meta {
-      font-family: var(--font-display);
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      color: var(--gold-50);
-    }
-
-    .type-meta .size-val {
-      display: block;
-      color: var(--white-40);
-      margin-top: 4px;
-      letter-spacing: 0.1em;
-    }
-
-    /* ────── SPACING ────── */
-    .spacing-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .spacing-row {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .spacing-bar-wrap {
-      flex: 1;
-      height: 24px;
-      display: flex;
-      align-items: center;
-    }
-
-    .spacing-bar {
-      height: 10px;
-      background: var(--gold-grad-h);
-      border-radius: 2px;
-    }
-
-    .spacing-label {
-      font-family: var(--font-display);
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      color: var(--white-60);
-      width: 56px;
-    }
-
-    .spacing-val {
-      font-family: monospace;
-      font-size: 11px;
-      color: var(--gold-50);
-      width: 50px;
-    }
-
-    /* ────── BORDER RADIUS ────── */
-    .radius-grid {
-      display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-
-    .radius-card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .radius-box {
-      width: 80px;
-      height: 80px;
-      background: var(--gold-15);
-      border: 1px solid var(--gold-30);
-    }
-
-    .radius-card span {
-      font-family: var(--font-display);
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      color: var(--white-60);
-      text-align: center;
-    }
-
-    /* ────── COMPONENTS — Buttons ────── */
-    .component-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      align-items: center;
-      padding: 28px 32px;
-      background: rgba(1, 10, 38, 0.4);
-      border: 1px solid var(--white-05);
-      border-radius: var(--radius-lg);
-      margin-bottom: 16px;
-    }
-
-    .component-label {
-      font-family: var(--font-display);
-      font-size: 9px;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--white-40);
-      margin-bottom: 16px;
-    }
-
-    /* DS Buttons */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: var(--sp-3) var(--sp-6);
-      font-family: var(--font-display);
-      font-size: var(--text-xs);
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      border-radius: var(--radius-md);
-      cursor: pointer;
-      border: none;
-      text-decoration: none;
-      transition: all var(--transition-fast);
-    }
-
-    .btn-gold {
-      background: var(--gold-grad);
-      color: var(--blue-deep);
-      box-shadow: 0 4px 20px rgba(217,184,85,0.35);
-    }
-
-    .btn-gold:hover {
-      background: var(--gold-grad-rev);
-      box-shadow: 0 6px 28px rgba(217,184,85,0.55);
-      transform: translateY(-1px);
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--gold-light);
-      border: 1px solid var(--gold-30);
-    }
-
-    .btn-outline:hover {
-      background: var(--gold-15);
-      border-color: var(--gold-50);
-      transform: translateY(-1px);
-    }
-
-    .btn-ghost {
-      background: var(--white-12);
-      color: var(--white);
-      border: 1px solid var(--white-20);
-    }
-
-    .btn-ghost:hover {
-      background: var(--white-25);
-      border-color: var(--gold-50);
-      color: var(--gold-light);
-    }
-
-    .btn-sm { padding: var(--sp-2) var(--sp-4); font-size: 12px; }
-    .btn-lg { padding: var(--sp-4) var(--sp-8); font-size: 15px; }
-
-    /* ────── COMPONENTS — Badges ────── */
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      padding: 4px 12px;
-      border-radius: var(--radius-pill);
-      font-family: var(--font-display);
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-    }
-
-    .badge-gold {
-      background: var(--gold-15);
-      color: var(--gold-light);
-      border: 1px solid var(--gold-30);
-    }
-
-    .badge-navy {
-      background: var(--blue-royal);
-      color: var(--blue-light);
-      border: 1px solid rgba(201,215,242,0.2);
-    }
-
-    .badge-white {
-      background: var(--white-12);
-      color: var(--white-80);
-      border: 1px solid var(--white-20);
-    }
-
-    /* ────── COMPONENTS — Cards ────── */
-    .card {
-      background: var(--blue-grad-card);
-      border: 1px solid var(--gold-20);
-      border-radius: var(--radius-lg);
-      padding: var(--sp-8);
-      transition: all var(--transition-base);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
-      background: var(--gold-grad-sh);
-      opacity: 0;
-      transition: opacity var(--transition-base);
-    }
-
-    .card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(217,184,85,0.12); }
-    .card:hover::before { opacity: 1; }
-
-    .card h4 {
-      font-family: var(--font-display);
-      font-size: var(--text-sm);
-      font-weight: 600;
-      color: var(--gold-light);
-      margin-bottom: var(--sp-3);
-      letter-spacing: 0.08em;
-    }
-
-    .card p { color: var(--white-60); font-size: 14px; line-height: 1.7; }
-
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 20px;
-    }
-
-    /* ────── COMPONENTS — Metric ────── */
-    .metric-card {
-      background: rgba(1, 10, 38, 0.6);
-      border: 1px solid var(--gold-20);
-      border-radius: var(--radius-lg);
-      padding: var(--sp-8) var(--sp-6);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      transition: transform var(--transition-base);
-    }
-
-    .metric-card:hover { transform: translateY(-3px); }
-
-    .metric-card::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 2px;
-      background: var(--gold-grad-sh);
-    }
-
-    .metric-value {
-      font-family: var(--font-display);
-      font-size: var(--text-fluid-sm);
-      font-weight: 700;
-      background: var(--gold-grad);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      line-height: 1;
-      margin-bottom: var(--sp-3);
-    }
-
-    .metric-label {
-      font-family: var(--font-display);
-      font-size: 11px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--white-60);
-    }
-
-    .metric-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 16px;
-    }
-
-    /* ────── COMPONENTS — Top Bar ────── */
-    .topbar-demo {
-      background: rgba(1, 8, 30, 0.97);
-      border: 1px solid var(--gold-20);
-      border-radius: var(--radius-md);
-      height: 52px;
-      display: flex;
-      align-items: center;
-      padding: 0 20px;
-      gap: 16px;
-      backdrop-filter: blur(12px);
-    }
-
-    .topbar-demo img { height: 26px; filter: brightness(0) invert(1); opacity: 0.9; }
-
-    .topbar-demo .tb-title {
-      flex: 1;
-      text-align: center;
-      font-family: var(--font-display);
-      font-size: 11px;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--gold-50);
-    }
-
-    .topbar-demo .tb-counter {
-      font-family: var(--font-display);
-      font-weight: 600;
-      font-size: 12px;
-      letter-spacing: 0.15em;
-      color: var(--gold);
-      padding: 5px 14px;
-      border: 1px solid var(--gold-30);
-      border-radius: 4px;
-    }
-
-    /* ────── COMPONENTS — Nav ────── */
-    .nav-demo {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--sp-4);
-      padding: var(--sp-3) var(--sp-5);
-      border-radius: var(--radius-lg);
-      background: rgba(1, 10, 38, 0.75);
-      border: var(--border-gold);
-      backdrop-filter: blur(8px);
-    }
-
-    /* ────── COMPONENTS — Tag / Link ────── */
-    .tag-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-family: var(--font-display);
-      font-size: var(--text-xs);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--gold-50);
-      text-decoration: none;
-      padding: var(--sp-2) var(--sp-4);
-      border: var(--border-gold);
-      border-radius: var(--radius-md);
-      background: rgba(1, 10, 38, 0.6);
-      backdrop-filter: blur(6px);
-      transition: all var(--transition-fast);
-    }
-
-    .tag-link:hover {
-      color: var(--gold-light);
-      border-color: var(--gold-50);
-      background: rgba(1, 10, 38, 0.85);
-    }
-
-    /* ────── MOTION ────── */
-    .motion-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    .motion-card {
-      padding: 28px 24px;
-      background: rgba(1, 10, 38, 0.5);
-      border: 1px solid var(--white-12);
-      border-radius: var(--radius-lg);
-      text-align: center;
-    }
-
-    .motion-demo {
-      width: 48px;
-      height: 48px;
-      background: var(--gold-grad);
-      border-radius: var(--radius-sm);
-      margin: 0 auto 20px;
-    }
-
-    .motion-card:nth-child(1) .motion-demo { transition: transform var(--transition-fast); }
-    .motion-card:nth-child(2) .motion-demo { transition: transform var(--transition-base); }
-    .motion-card:nth-child(3) .motion-demo { transition: transform var(--transition-slow); }
-    .motion-card:hover .motion-demo { transform: scale(1.3) rotate(15deg); }
-
-    .motion-card h4 {
-      font-family: var(--font-display);
-      font-size: 13px;
-      letter-spacing: 0.15em;
-      color: var(--white-80);
-      margin-bottom: 8px;
-    }
-
-    .motion-card p {
-      font-family: monospace;
-      font-size: 11px;
-      color: var(--gold-50);
-    }
-
-    /* ────── DIVIDER ────── */
-    .gold-divider {
-      height: 1px;
-      background: var(--gold-grad-sh);
-      border: none;
-      margin: 0;
-      opacity: 0.4;
-    }
-
-    .code-tag {
-      display: inline-block;
-      background: var(--gold-15);
-      color: var(--gold-light);
-      border: 1px solid var(--gold-20);
-      border-radius: 4px;
-      padding: 2px 8px;
-      font-family: monospace;
-      font-size: 11px;
-    }
-
-    /* ────── HERO PREVIEW ────── */
-    .hero-preview {
-      position: relative;
-      background: var(--bg);
-      border-radius: var(--radius-xl);
-      overflow: hidden;
-      padding: 80px 60px;
-      text-align: center;
-      border: 1px solid var(--gold-20);
-    }
-
-    .hero-preview::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 50% 0%, rgba(217,184,85,0.08) 0%, transparent 65%);
-      pointer-events: none;
-    }
-
-    .hero-eyebrow {
-      font-family: var(--font-display);
-      font-size: 11px;
-      letter-spacing: 0.45em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 20px;
-    }
-
-    .hero-title {
-      font-family: var(--font-display);
-      font-size: var(--text-fluid-md);
-      font-weight: 700;
-      background: var(--gold-grad);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      line-height: 1.05;
-      margin-bottom: 24px;
-    }
-
-    .hero-body {
-      font-family: var(--font-body);
-      font-size: var(--text-md);
-      color: var(--white-60);
-      max-width: 520px;
-      margin: 0 auto 36px;
-      line-height: 1.7;
-    }
-
-    .hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-
-    /* Scrollbar */
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: var(--gold-30); border-radius: 2px; }
-
-    /* Active nav via scroll */
-    .active-section { scroll-margin-top: 80px; }
-  </style>
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Velos — Design System</title>
+<script src="assets/resource_3fa48481346f.es"></script>
+<script src="assets/iconify_654a1ef798a3.js"></script>
+<script src="assets/iconify-icon_e19829e7f0e8.js"></script>
+<link href="assets/css2_1e4ecb2bb338.css" rel="stylesheet"/>
+<style>
+body { font-family: 'Inter', sans-serif; }
+.font-serif { font-family: 'Playfair Display', serif; }
+.font-bricolage { font-family: 'Bricolage Grotesque', sans-serif !important; }
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+/* Global Grid Lines */
+.grid-lines {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: 80rem;
+  margin: 0 auto;
+  pointer-events: none;
+  z-index: 5;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  opacity: 0.15;
+}
+@media (min-width: 768px) { .grid-lines { padding: 0 3rem; } }
+.grid-line { width: 1px; height: 100%; background-color: rgba(255, 255, 255, 0.2); }
+/* Hero Animations */
+@keyframes cinematicEntrance {
+  0% { transform: scale(1.4); filter: blur(20px) grayscale(100%); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: scale(1); filter: blur(0px) grayscale(0%); opacity: 1; }
+}
+.animate-cinematic { animation: cinematicEntrance 3.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+@keyframes slideUpFade {
+  0% { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-slide-up { animation: slideUpFade 1s ease-out forwards; }
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-ticker { animation: ticker 20s linear infinite; }
+/* In-view Animation Logic */
+@keyframes animationIn {
+  0% { opacity: 0; transform: translateY(30px); filter: blur(8px); }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0px); }
+}
+/* Card Shimmer */
+@keyframes shimmerMove {
+  0% { transform: translateX(-150%) skewX(-20deg); }
+  100% { transform: translateX(200%) skewX(-20deg); }
+}
+.animate-shimmer-effect {
+  animation: shimmerMove 3s ease-in-out infinite;
+  animation-delay: 2s;
+}
+/* DS Nav */
+.ds-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(10,10,10,0.92);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  padding: 0;
+  overflow-x: auto;
+}
+.ds-nav a {
+  color: rgba(255,255,255,0.45);
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 14px 20px;
+  white-space: nowrap;
+  transition: color 0.2s;
+  border-right: 1px solid rgba(255,255,255,0.06);
+}
+.ds-nav a:last-child { border-right: none; }
+.ds-nav a:hover { color: #fff; }
+/* DS Section Labels */
+.ds-section-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  display: block;
+  margin-bottom: 32px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.ds-section-label-dark {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.3);
+  display: block;
+  margin-bottom: 32px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+}
+/* Typography table */
+.type-row {
+  display: grid;
+  grid-template-columns: 160px 1fr 140px;
+  align-items: center;
+  gap: 24px;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.type-row:last-child { border-bottom: none; }
+.type-name {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  font-family: 'Inter', sans-serif;
+}
+.type-spec {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  color: rgba(255,255,255,0.25);
+  font-family: monospace;
+  text-align: right;
+  white-space: nowrap;
+}
+/* Color swatches */
+.swatch-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.swatch {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.swatch-box {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+.swatch-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.swatch-name {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.7);
+  font-family: 'Bricolage Grotesque', sans-serif;
+}
+.swatch-value {
+  font-size: 10px;
+  font-family: monospace;
+  color: rgba(255,255,255,0.3);
+}
+/* Motion gallery */
+.motion-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 20px;
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+}
+.motion-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  font-family: 'Inter', sans-serif;
+}
+/* Component states */
+.state-label {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+  font-family: 'Inter', sans-serif;
+  margin-bottom: 8px;
+  display: block;
+}
+/* Layout demos */
+.layout-demo {
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.layout-demo-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+  font-family: 'Inter', sans-serif;
+  padding: 12px 16px;
+  background: rgba(255,255,255,0.03);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+</style>
+<script>
+(function () {
+  const style = document.createElement("style");
+  style.textContent = `
+    .animate-on-scroll { animation-play-state: paused !important; }
+    .animate-on-scroll.animate { animation-play-state: running !important; }
+  `;
+  document.head.appendChild(style);
+  const once = true;
+  if (!window.__inViewIO) {
+    window.__inViewIO = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("animate");
+          if (once) window.__inViewIO.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: "0px 0px -5% 0px" });
+  }
+  window.initInViewAnimations = function (selector = ".animate-on-scroll") {
+    document.querySelectorAll(selector).forEach((el) => {
+      window.__inViewIO.observe(el);
+    });
+  };
+  document.addEventListener("DOMContentLoaded", () => initInViewAnimations());
+})();
+</script>
 </head>
-<body>
+<body class="bg-neutral-950 text-neutral-50 w-full overflow-x-hidden selection:bg-white/20 selection:text-white relative">
 
-<!-- ═══════════════ SIDEBAR ═══════════════ -->
-<nav id="sidebar">
-  <div class="brand">
-    <img src="LOGO.png" alt="TIB">
-    <span>Design System</span>
-  </div>
-  <nav>
-    <div class="group-label">Fundação</div>
-    <a href="#colors">Cores</a>
-    <a href="#gradients">Gradientes</a>
-    <a href="#typography">Tipografia</a>
-    <a href="#spacing">Espaçamento</a>
-    <a href="#borders">Bordas & Raios</a>
-    <a href="#motion">Movimento</a>
+<!-- Vertical Lines Container -->
+<div class="grid-lines">
+  <div class="grid-line"></div>
+  <div class="grid-line hidden md:block"></div>
+  <div class="grid-line hidden md:block"></div>
+  <div class="grid-line"></div>
+</div>
 
-    <div class="group-label">Componentes</div>
-    <a href="#buttons">Botões</a>
-    <a href="#badges">Badges</a>
-    <a href="#cards">Cards</a>
-    <a href="#metrics">Métricas</a>
-    <a href="#navigation">Navegação</a>
-
-    <div class="group-label">Padrões</div>
-    <a href="#hero">Hero Pattern</a>
-    <a href="#tokens">CSS Tokens</a>
-  </nav>
+<!-- DS Bottom Nav -->
+<nav class="ds-nav">
+  <a href="#hero">Hero</a>
+  <a href="#typography">Typography</a>
+  <a href="#colors">Colors</a>
+  <a href="#components">Components</a>
+  <a href="#layout">Layout</a>
+  <a href="#motion">Motion</a>
+  <a href="#icons">Icons</a>
 </nav>
 
-<!-- ═══════════════ MAIN ═══════════════ -->
-<div id="main">
-
-  <!-- TOP BAR -->
-  <header id="topbar">
-    <h1>TIB · Design System</h1>
-    <span class="version">v1.0 — 2026</span>
-  </header>
-
-  <!-- ═══ CORES ═══ -->
-  <section class="ds-section active-section" id="colors">
-    <div class="section-header">
-      <h2>Fundação</h2>
-      <h3>Paleta de Cores</h3>
-      <p>Sistema cromático em duas famílias: Ouro (identidade premium) e Navy (fundo e estrutura). Todas as opacidades pré-calculadas como tokens.</p>
+<!-- ═══════════════════════════════════════════
+     0. HERO — Exact Clone, Text Adapted
+     ═══════════════════════════════════════════ -->
+<section id="hero">
+<!-- Navigation (Pill Shaped) -->
+<div class="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 animate-slide-up [animation-delay:0.5s] opacity-0">
+  <nav class="w-full max-w-4xl flex items-center justify-between px-2 py-2 pr-6 border border-white/10 bg-neutral-900/80 backdrop-blur-xl rounded-full shadow-2xl transition-all duration-300">
+    <div class="flex items-center gap-3 pl-4">
+      <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-black">
+        <iconify-icon icon="solar:infinity-bold" width="18"></iconify-icon>
+      </div>
+      <span class="font-bricolage font-semibold text-lg tracking-tight">Velos</span>
     </div>
-
-    <div class="palette-label">Família Ouro</div>
-    <div class="color-grid">
-      <div class="color-swatch">
-        <div class="swatch-bg" style="background: var(--gold-light)"></div>
-        <div class="swatch-info"><div class="swatch-name">gold-light</div><div class="swatch-value">#F2DEA0</div></div>
-      </div>
-      <div class="color-swatch">
-        <div class="swatch-bg" style="background: var(--gold)"></div>
-        <div class="swatch-info"><div class="swatch-name">gold</div><div class="swatch-value">#D9B855</div></div>
-      </div>
-      <div class="color-swatch">
-        <div class="swatch-bg" style="background: var(--gold-mid)"></div>
-        <div class="swatch-info"><div class="swatch-name">gold-mid</div><div class="swatch-value">#D9B36C</div></div>
-      </div>
-      <div class="color-swatch">
-        <div class="swatch-bg" style="background: var(--gold-dark)"></div>
-        <div class="swatch-info"><div class="swatch-name">gold-dark</div><div class="swatch-value">#A66617</div></div>
-      </div>
-      <div class="color-swatch">
-        <div class="swatch-bg" style="background: var(--gold-deep)"></div>
-        <div class="swatch-info"><div class="swatch-name">gold-deep</div><div class="swatch-value">#734610</div></div>
-      </div>
+    <div class="hidden md:flex items-center gap-8 text-sm font-medium text-white/60">
+      <a class="text-white hover:text-white transition-colors" href="#hero">Hero</a>
+      <a class="hover:text-white transition-colors" href="#typography">Typography</a>
+      <a class="hover:text-white transition-colors" href="#colors">Colors</a>
+      <a class="hover:text-white transition-colors" href="#components">Components</a>
+      <a class="hover:text-white transition-colors" href="#motion">Motion</a>
     </div>
-
-    <div class="palette-label">Opacidades Ouro</div>
-    <div class="color-grid">
-      <div class="color-swatch">
-        <div class="swatch-bg" style="background: var(--gold-50); outline: 1px dashed rgba(255,255,255,0.1)"></div>
-        <div class="swatch-info"><div class="swatch-name">gold-50</div><div class="swatch-value">50%</div></div>
-      </div>
-      <div class="color-swatch">
-        <div class="swatch-bg" style="background: var(--gold-30); outline: 1px dashed rgba(255,255,255,0.1)"></div>
-        <div class="swatch-info"><div class="swatch-name">gold-30</div><div class="swatch-value">30%</div></div>
-      </div>
-      <div class="color-swatch">
-        <div class="swatch-bg" style="background: var(--gold-20); outline: 1px dashed rgba(255,255,255,0.1)"></div>
-        <div class="swatch-info"><div class="swatch-name">gold-20</div><div class="swatch-value">20%</div></div>
-      </div>
-      <div class="color-swatch">
-        <div class="swatch-bg" style="background: var(--gold-15); outline: 1px dashed rgba(255,255,255,0.1)"></div>
-        <div class="swatch-info"><div class="swatch-name">gold-15</div><div class="swatch-value">15%</div></div>
-      </div>
-      <div class="color-swatch">
-        <div class="swatch-bg" style="background: var(--gold-10); outline: 1px dashed rgba(255,255,255,0.1)"></div>
-        <div class="swatch-info"><div class="swatch-name">gold-10</div><div class="swatch-value">10%</div></div>
-      </div>
+    <div class="flex items-center gap-2">
+      <button class="w-10 h-10 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors">
+        <iconify-icon icon="solar:magnifer-linear" width="20"></iconify-icon>
+      </button>
+      <button class="relative w-10 h-10 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors group">
+        <iconify-icon icon="solar:menu-dots-square-linear" width="20"></iconify-icon>
+        <span class="absolute top-2 right-2 w-1.5 h-1.5 bg-white rounded-full scale-0 group-hover:scale-100 transition-transform duration-300"></span>
+      </button>
     </div>
+  </nav>
+</div>
 
-    <div class="palette-label">Família Navy</div>
-    <div class="color-grid">
-      <div class="color-swatch">
-        <div class="swatch-bg" style="background: var(--blue-deep); border: 1px solid rgba(255,255,255,0.08)"></div>
-        <div class="swatch-info"><div class="swatch-name">blue-deep</div><div class="swatch-value">#010A26</div></div>
-      </div>
-      <div class="color-swatch">
-        <div class="swatch-bg" style="background: var(--blue-royal)"></div>
-        <div class="swatch-info"><div class="swatch-name">blue-royal</div><div class="swatch-value">#00113F</div></div>
-      </div>
-      <div class="color-swatch">
-        <div class="swatch-bg" style="background: var(--blue-mid)"></div>
-        <div class="swatch-info"><div class="swatch-name">blue-mid</div><div class="swatch-value">#011640</div></div>
-      </div>
-      <div class="color-swatch">
-        <div class="swatch-bg" style="background: var(--blue-light)"></div>
-        <div class="swatch-info"><div class="swatch-name">blue-light</div><div class="swatch-value">#C9D7F2</div></div>
-      </div>
+<!-- Hero Section (Exact Clone — text adapted for DS) -->
+<header class="relative w-full h-screen overflow-hidden flex flex-col justify-end pb-12 md:pb-24">
+  <!-- Background Image Layer with Cinematic Animation -->
+  <div class="absolute inset-0 z-0 bg-black">
+    <img alt="Brutalist Architecture Detail" class="w-full h-full object-cover animate-cinematic opacity-0" src="assets/182d91e1-5681-49cf-a16e-4d5686_14281933f22f.webp"/>
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/20 to-transparent opacity-80"></div>
+    <div class="absolute inset-0 bg-black/10 mix-blend-overlay"></div>
+  </div>
+  <!-- Floating Data Points -->
+  <div class="absolute top-32 right-6 md:right-12 z-20 flex flex-col items-end gap-2 animate-slide-up [animation-delay:2.5s] opacity-0">
+    <div class="px-4 py-2 rounded-lg bg-black/40 backdrop-blur-md border border-white/10 flex items-center gap-3">
+      <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+      <span class="text-xs font-mono tracking-wider uppercase text-white/90">Live: Design System</span>
     </div>
-
-    <div class="palette-label">Neutros (Branco)</div>
-    <div class="color-grid">
-      <div class="color-swatch">
-        <div class="swatch-bg" style="background: var(--white-80)"></div>
-        <div class="swatch-info"><div class="swatch-name">white-80</div><div class="swatch-value">80%</div></div>
+  </div>
+  <div class="relative z-10 w-full max-w-[90rem] mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 gap-6 items-end">
+    <!-- Left Column -->
+    <div class="md:col-span-7 relative">
+      <div class="flex items-center gap-3 mb-6 animate-slide-up [animation-delay:1.2s] opacity-0">
+        <span class="h-[1px] w-8 bg-white/60"></span>
+        <span class="text-xs font-mono uppercase tracking-widest text-white/80">Version 1.0</span>
       </div>
-      <div class="color-swatch">
-        <div class="swatch-bg" style="background: var(--white-60)"></div>
-        <div class="swatch-info"><div class="swatch-name">white-60</div><div class="swatch-value">60%</div></div>
-      </div>
-      <div class="color-swatch">
-        <div class="swatch-bg" style="background: var(--white-40)"></div>
-        <div class="swatch-info"><div class="swatch-name">white-40</div><div class="swatch-value">40%</div></div>
-      </div>
-      <div class="color-swatch">
-        <div class="swatch-bg" style="background: var(--white-25)"></div>
-        <div class="swatch-info"><div class="swatch-name">white-25</div><div class="swatch-value">25%</div></div>
-      </div>
-      <div class="color-swatch">
-        <div class="swatch-bg" style="background: var(--white-12)"></div>
-        <div class="swatch-info"><div class="swatch-name">white-12</div><div class="swatch-value">12%</div></div>
+      <h1 class="font-bricolage font-bold text-white leading-[0.85] tracking-tight">
+        <span class="block text-[15vw] md:text-[9rem] lg:text-[11rem] animate-slide-up [animation-delay:1.4s] opacity-0 mix-blend-normal text-white drop-shadow-2xl">FORM</span>
+        <div class="flex items-baseline gap-4 md:gap-8 -mt-2 md:-mt-8 animate-slide-up [animation-delay:1.6s] opacity-0">
+          <span class="text-[15vw] md:text-[9rem] lg:text-[11rem] font-serif italic font-thin text-white/60">&amp;</span>
+          <span class="text-[15vw] md:text-[9rem] lg:text-[11rem] text-white drop-shadow-2xl">RULE</span>
+        </div>
+      </h1>
+    </div>
+    <!-- Right Column -->
+    <div class="md:col-span-4 md:col-start-9 flex flex-col justify-end pb-4 md:pb-8">
+      <div class="relative overflow-hidden bg-neutral-950/60 backdrop-blur-2xl border border-white/10 p-8 rounded-2xl shadow-2xl animate-slide-up [animation-delay:1.8s] opacity-0 ring-1 ring-white/5">
+        <!-- Shimmer Overlay -->
+        <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/5 to-transparent z-0 pointer-events-none animate-shimmer-effect"></div>
+        <div class="relative z-10">
+          <p class="text-lg md:text-xl text-white font-light leading-relaxed mb-8 antialiased drop-shadow-md">
+            Every token, component, and motion rule that defines this visual language — documented with precision and purpose.
+          </p>
+          <div class="flex flex-col gap-6">
+            <div class="grid grid-cols-2 gap-4 border-t border-white/20 pt-6">
+              <div>
+                <span class="block text-[10px] uppercase tracking-widest text-white/50 mb-1">Sections</span>
+                <span class="text-2xl font-bricolage text-white">07</span>
+              </div>
+              <div>
+                <span class="block text-[10px] uppercase tracking-widest text-white/50 mb-1">Components</span>
+                <span class="text-2xl font-bricolage text-white">24</span>
+              </div>
+            </div>
+            <a class="group flex items-center justify-between w-full p-1 border-b border-white/30 hover:border-white transition-colors pb-2" href="#typography">
+              <span class="text-sm font-medium tracking-wide text-white">Explore System</span>
+              <iconify-icon class="text-white group-hover:translate-x-1 transition-transform" icon="solar:arrow-right-linear" width="18"></iconify-icon>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
+  <!-- Scroll Indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-slide-up [animation-delay:2.2s] opacity-0">
+    <span class="text-[10px] uppercase tracking-widest text-white/40">Scroll</span>
+    <div class="w-[1px] h-12 bg-gradient-to-b from-white to-transparent"></div>
+  </div>
+</header>
+</section>
 
-  <hr class="gold-divider">
+<!-- ═══════════════════════════════════════════
+     1. TYPOGRAPHY
+     ═══════════════════════════════════════════ -->
+<section class="bg-neutral-950 border-t border-white/5 py-24 px-6 relative" id="typography">
+  <div class="w-full max-w-5xl mx-auto relative z-10">
+    <span class="ds-section-label">01 — Typography</span>
 
-  <!-- ═══ GRADIENTES ═══ -->
-  <section class="ds-section active-section" id="gradients">
-    <div class="section-header">
-      <h2>Fundação</h2>
-      <h3>Gradientes</h3>
-      <p>Gradientes pré-compostos para uso em backgrounds, textos e separadores decorativos. Variações metálicas e shimmer.</p>
+    <!-- Heading 1 -->
+    <div class="type-row animate-on-scroll [animation:animationIn_0.8s_ease-out_0.1s_both]">
+      <span class="type-name">Heading 1</span>
+      <h1 class="font-bricolage font-bold text-white leading-[0.85] tracking-tight text-[9rem] leading-none">VOID</h1>
+      <span class="type-spec">~144px / 0.85</span>
     </div>
 
-    <div class="gradient-grid">
-      <div class="gradient-card" style="background: var(--gold-grad)">
-        <span>gold-grad</span>
-      </div>
-      <div class="gradient-card" style="background: var(--gold-grad-h)">
-        <span>gold-grad-h</span>
-      </div>
-      <div class="gradient-card" style="background: var(--gold-grad-rev)">
-        <span>gold-grad-rev</span>
-      </div>
-      <div class="gradient-card" style="background: var(--gold-grad-sh)">
-        <span>gold-grad-sh (shimmer)</span>
-      </div>
-      <div class="gradient-card" style="background: var(--blue-grad)">
-        <span>blue-grad</span>
-      </div>
-      <div class="gradient-card" style="background: var(--blue-grad-card)">
-        <span>blue-grad-card</span>
-      </div>
-      <div class="gradient-card" style="background: var(--bg)">
-        <span>bg (fundo padrão)</span>
-      </div>
-    </div>
-  </section>
-
-  <hr class="gold-divider">
-
-  <!-- ═══ TIPOGRAFIA ═══ -->
-  <section class="ds-section active-section" id="typography">
-    <div class="section-header">
-      <h2>Fundação</h2>
-      <h3>Tipografia</h3>
-      <p>Duas famílias: <strong>Oswald</strong> para display e <strong>Raleway</strong> para corpo. Escala modular de 7 tamanhos fixos + 4 fluidos responsivos.</p>
+    <!-- Heading 1 Serif Italic -->
+    <div class="type-row animate-on-scroll [animation:animationIn_0.8s_ease-out_0.15s_both]">
+      <span class="type-name">Heading 1 Serif</span>
+      <span class="text-[9rem] font-serif italic font-thin text-white/60 leading-none">&amp;</span>
+      <span class="type-spec">~144px / thin italic</span>
     </div>
 
-    <div class="palette-label">Escala Fixa</div>
-    <div class="type-scale">
-      <div class="type-row">
-        <div class="type-meta">--text-xs<span class="size-val">14px</span></div>
-        <div style="font-family:var(--font-display); font-size:var(--text-xs); letter-spacing:0.12em; text-transform:uppercase; color:var(--white-80)">THE REAL ESTATE EXPERIENCE</div>
+    <!-- Heading 2 -->
+    <div class="type-row animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both]">
+      <span class="type-name">Heading 2</span>
+      <h2 class="text-5xl md:text-7xl leading-[0.95] tracking-tighter font-bricolage font-light text-neutral-50">Defined Horizons.</h2>
+      <span class="type-spec">72px / 0.95</span>
+    </div>
+
+    <!-- Heading 2 Muted variant -->
+    <div class="type-row animate-on-scroll [animation:animationIn_0.8s_ease-out_0.25s_both]">
+      <span class="type-name">Heading 2 Dim</span>
+      <h2 class="text-5xl md:text-7xl leading-[0.95] tracking-tighter font-bricolage font-light text-white/50">Shape the Skyline.</h2>
+      <span class="type-spec">72px / opacity-50</span>
+    </div>
+
+    <!-- Heading 3 -->
+    <div class="type-row animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both]">
+      <span class="type-name">Heading 3</span>
+      <h3 class="text-3xl md:text-5xl font-bricolage font-light text-white">Tactile Substance</h3>
+      <span class="type-spec">48px / light</span>
+    </div>
+
+    <!-- Heading 4 -->
+    <div class="type-row animate-on-scroll [animation:animationIn_0.8s_ease-out_0.35s_both]">
+      <span class="type-name">Heading 4</span>
+      <h4 class="text-xl text-white font-bricolage font-light">Travertine Slate</h4>
+      <span class="type-spec">20px / light</span>
+    </div>
+
+    <!-- Heading 4 Medium -->
+    <div class="type-row animate-on-scroll [animation:animationIn_0.8s_ease-out_0.38s_both]">
+      <span class="type-name">Heading 4 Med</span>
+      <h4 class="text-xl font-bricolage font-medium text-white">Discovery</h4>
+      <span class="type-spec">20px / medium</span>
+    </div>
+
+    <!-- Bold L — nav brand -->
+    <div class="type-row animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both]">
+      <span class="type-name">Bold L</span>
+      <span class="font-bricolage font-semibold text-lg tracking-tight text-white">Velos</span>
+      <span class="type-spec">18px / semibold</span>
+    </div>
+
+    <!-- Bold M — job titles -->
+    <div class="type-row animate-on-scroll [animation:animationIn_0.8s_ease-out_0.45s_both]">
+      <span class="type-name">Bold M</span>
+      <h4 class="text-lg text-white font-bricolage font-normal">Design Principal</h4>
+      <span class="type-spec">18px / normal</span>
+    </div>
+
+    <!-- Bold S — stat numbers -->
+    <div class="type-row animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both]">
+      <span class="type-name">Bold S</span>
+      <span class="text-2xl font-bricolage text-white">42</span>
+      <span class="type-spec">24px / regular</span>
+    </div>
+
+    <!-- Paragraph / Body -->
+    <div class="type-row animate-on-scroll [animation:animationIn_0.8s_ease-out_0.55s_both]">
+      <span class="type-name">Paragraph</span>
+      <p class="text-lg md:text-xl text-white font-light leading-relaxed antialiased max-w-lg">We sculpt the negative space. A reductionist approach to modern living that prioritizes light, silence, and raw materiality.</p>
+      <span class="type-spec">20px / light / 1.6</span>
+    </div>
+
+    <!-- Regular L -->
+    <div class="type-row animate-on-scroll [animation:animationIn_0.8s_ease-out_0.6s_both]">
+      <span class="type-name">Regular L</span>
+      <p class="text-white/60 text-lg max-w-md font-light border-l border-white/10 pl-6">We are searching for minds that refuse to accept the standard geometry of today.</p>
+      <span class="type-spec">18px / light / opacity-60</span>
+    </div>
+
+    <!-- Regular M -->
+    <div class="type-row animate-on-scroll [animation:animationIn_0.8s_ease-out_0.65s_both]">
+      <span class="type-name">Regular M</span>
+      <p class="text-neutral-500 text-lg max-w-xl font-light">From abstract thought to concrete reality, our workflow is a disciplined reduction of chaos.</p>
+      <span class="type-spec">18px / light / neutral-500</span>
+    </div>
+
+    <!-- Regular S — card body -->
+    <div class="type-row animate-on-scroll [animation:animationIn_0.8s_ease-out_0.7s_both]">
+      <span class="type-name">Regular S</span>
+      <p class="text-sm text-neutral-500 leading-relaxed">Uncovering the hidden potential of the site and the unspoken desires of the inhabitant.</p>
+      <span class="type-spec">14px / regular / 1.6</span>
+    </div>
+
+    <!-- Serif Italic — status labels -->
+    <div class="type-row animate-on-scroll [animation:animationIn_0.8s_ease-out_0.75s_both]">
+      <span class="type-name">Serif Italic</span>
+      <span class="text-xl font-serif italic text-white">Finalized</span>
+      <span class="type-spec">20px / Playfair italic</span>
+    </div>
+
+    <!-- Mono / Label -->
+    <div class="type-row animate-on-scroll [animation:animationIn_0.8s_ease-out_0.8s_both]">
+      <span class="type-name">Mono Label</span>
+      <span class="text-xs font-mono tracking-wider uppercase text-white/90">Live: Tokyo Project</span>
+      <span class="type-spec">12px / mono / uppercase</span>
+    </div>
+
+    <!-- Overline / Eyebrow -->
+    <div class="type-row animate-on-scroll [animation:animationIn_0.8s_ease-out_0.85s_both]">
+      <span class="type-name">Eyebrow</span>
+      <span class="text-xs uppercase tracking-[0.3em] text-neutral-400 font-medium">Selected Works</span>
+      <span class="type-spec">12px / tracking-[0.3em]</span>
+    </div>
+
+    <!-- Micro / Tag -->
+    <div class="type-row animate-on-scroll [animation:animationIn_0.8s_ease-out_0.9s_both]">
+      <span class="type-name">Micro Tag</span>
+      <span class="text-xs tracking-wide uppercase text-white/50">Mexico City</span>
+      <span class="type-spec">12px / uppercase / opacity-50</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     2. COLORS & SURFACES
+     ═══════════════════════════════════════════ -->
+<section class="bg-neutral-950 border-t border-white/5 py-24 px-6 relative" id="colors">
+  <div class="w-full max-w-5xl mx-auto relative z-10">
+    <span class="ds-section-label">02 — Colors & Surfaces</span>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+
+      <!-- Backgrounds -->
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both]">
+        <p class="text-xs uppercase tracking-[0.3em] text-neutral-400 font-medium mb-8">Backgrounds</p>
+        <div class="flex flex-col gap-5">
+          <div class="swatch">
+            <div class="swatch-box bg-neutral-950 border border-white/10"></div>
+            <div class="swatch-info">
+              <span class="swatch-name">Page / Dark</span>
+              <span class="swatch-value">bg-neutral-950 · #0a0a0a</span>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-box" style="background:#fdfdfd; border:1px solid rgba(0,0,0,0.08);"></div>
+            <div class="swatch-info">
+              <span class="swatch-name" style="color:rgba(255,255,255,0.7)">Section / Light</span>
+              <span class="swatch-value">bg-[#fdfdfd] · #fdfdfd</span>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-box" style="background:#f8f8f8; border:1px solid rgba(0,0,0,0.08);"></div>
+            <div class="swatch-info">
+              <span class="swatch-name" style="color:rgba(255,255,255,0.7)">Section / Off-white</span>
+              <span class="swatch-value">bg-[#f8f8f8] · #f8f8f8</span>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-box bg-black border border-white/10"></div>
+            <div class="swatch-info">
+              <span class="swatch-name">Footer</span>
+              <span class="swatch-value">bg-black · #000000</span>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-box" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08);"></div>
+            <div class="swatch-info">
+              <span class="swatch-name">Card / Surface</span>
+              <span class="swatch-value">bg-white/5 · rgba(255,255,255,0.05)</span>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-box" style="background:rgba(21,21,21,1); border:1px solid rgba(255,255,255,0.05);"></div>
+            <div class="swatch-info">
+              <span class="swatch-name">Project Card</span>
+              <span class="swatch-value">bg-[#151515] · #151515</span>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-box bg-neutral-900 border border-white/10"></div>
+            <div class="swatch-info">
+              <span class="swatch-name">Nav / Glass</span>
+              <span class="swatch-value">bg-neutral-900/80 + backdrop-blur-xl</span>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-box" style="background:rgba(9,9,11,0.6); border:1px solid rgba(255,255,255,0.10); border-radius:10px; backdrop-filter:blur(24px);"></div>
+            <div class="swatch-info">
+              <span class="swatch-name">Glass Card</span>
+              <span class="swatch-value">bg-neutral-950/60 + backdrop-blur-2xl</span>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-box bg-white rounded-xl flex items-center justify-center text-black text-xs font-bold">W</div>
+            <div class="swatch-info">
+              <span class="swatch-name">Logo Badge / CTA</span>
+              <span class="swatch-value">bg-white text-black · #ffffff</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="type-row">
-        <div class="type-meta">--text-sm<span class="size-val">18px</span></div>
-        <div style="font-family:var(--font-display); font-size:var(--text-sm); color:var(--white-80)">Revolução no Mercado Imobiliário</div>
+
+      <!-- Borders, Dividers, Text Colors + Gradients -->
+      <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both]">
+        <p class="text-xs uppercase tracking-[0.3em] text-neutral-400 font-medium mb-8">Borders & Dividers</p>
+        <div class="flex flex-col gap-5 mb-12">
+          <div class="swatch">
+            <div class="swatch-box border border-white/10" style="background:transparent;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name">Default Border</span>
+              <span class="swatch-value">border-white/10</span>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-box border border-white/20" style="background:transparent;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name">Elevated Border</span>
+              <span class="swatch-value">border-white/20</span>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-box border border-white/5" style="background:transparent;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name">Subtle Border</span>
+              <span class="swatch-value">border-white/5</span>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-box border-b-2 border-black" style="background:transparent; border-top:none; border-left:none; border-right:none;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name" style="color:rgba(255,255,255,0.7)">Tab Active</span>
+              <span class="swatch-value">border-b-2 border-black</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-xs uppercase tracking-[0.3em] text-neutral-400 font-medium mb-8">Gradients</p>
+        <div class="flex flex-col gap-5">
+          <div class="swatch">
+            <div class="swatch-box rounded-xl" style="background: linear-gradient(to top, #0a0a0a, rgba(10,10,10,0.2), transparent); opacity:0.8;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name">Hero Overlay</span>
+              <span class="swatch-value">from-neutral-950 via-neutral-950/20 to-transparent</span>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-box rounded-xl" style="background: linear-gradient(to top, #151515, transparent);"></div>
+            <div class="swatch-info">
+              <span class="swatch-name">Card Scrim</span>
+              <span class="swatch-value">from-[#151515] to-transparent</span>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-box rounded-xl" style="background: linear-gradient(to bottom, white, transparent);"></div>
+            <div class="swatch-info">
+              <span class="swatch-name">Scroll Indicator</span>
+              <span class="swatch-value">from-white to-transparent (vertical)</span>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-box rounded-xl" style="background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent);"></div>
+            <div class="swatch-info">
+              <span class="swatch-name">Shimmer Pass</span>
+              <span class="swatch-value">via-white/5 shimmer gradient</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-xs uppercase tracking-[0.3em] text-neutral-400 font-medium mb-8 mt-12">Accent</p>
+        <div class="flex flex-col gap-5">
+          <div class="swatch">
+            <div class="swatch-box rounded-full" style="background:#10b981;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name">Live Dot</span>
+              <span class="swatch-value">bg-emerald-500 · #10b981</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="type-row">
-        <div class="type-meta">--text-md<span class="size-val">22px</span></div>
-        <div style="font-family:var(--font-body); font-size:var(--text-md); color:var(--white-60); line-height:1.6">Uma plataforma que redefine a forma como negócios são feitos.</div>
-      </div>
-      <div class="type-row">
-        <div class="type-meta">--text-lg<span class="size-val">28px</span></div>
-        <div style="font-family:var(--font-display); font-size:var(--text-lg); font-weight:600; color:var(--gold-light)">Licenciados em Todo o Brasil</div>
-      </div>
-      <div class="type-row">
-        <div class="type-meta">--text-xl<span class="size-val">34px</span></div>
-        <div style="font-family:var(--font-display); font-size:var(--text-xl); font-weight:600; color:var(--white)">O Maior Movimento</div>
-      </div>
-      <div class="type-row">
-        <div class="type-meta">--text-2xl<span class="size-val">48px</span></div>
-        <div style="font-family:var(--font-display); font-size:var(--text-2xl); font-weight:700; background:var(--gold-grad); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;">TIB</div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     3. UI COMPONENTS
+     ═══════════════════════════════════════════ -->
+<section class="bg-neutral-950 border-t border-white/5 py-24 px-6 relative" id="components">
+  <div class="w-full max-w-5xl mx-auto relative z-10">
+    <span class="ds-section-label">03 — UI Components</span>
+
+    <!-- BUTTONS -->
+    <div class="mb-20 animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both]">
+      <p class="text-xs uppercase tracking-[0.3em] text-neutral-400 font-medium mb-10">Buttons</p>
+      <div class="flex flex-wrap gap-10 items-end">
+
+        <!-- Primary CTA pill dark bg-neutral-900 -->
+        <div>
+          <span class="state-label">Default</span>
+          <button class="group flex items-center gap-3 px-8 py-4 bg-neutral-900 text-white rounded-full hover:bg-neutral-800 transition-all shadow-lg hover:shadow-xl">
+            <span class="font-medium tracking-wide">Explore All Projects</span>
+            <iconify-icon class="group-hover:translate-x-1 transition-transform" icon="solar:arrow-right-linear" width="20"></iconify-icon>
+          </button>
+        </div>
+
+        <!-- Primary CTA bg-white -->
+        <div>
+          <span class="state-label">Primary White</span>
+          <button class="bg-white text-black px-6 py-3 rounded-full font-medium hover:bg-neutral-200 transition-colors">Connect</button>
+        </div>
+
+        <!-- Link CTA with arrow -->
+        <div>
+          <span class="state-label">Link CTA</span>
+          <a class="group flex items-center justify-between w-full p-1 border-b border-white/30 hover:border-white transition-colors pb-2" href="#">
+            <span class="text-sm font-medium tracking-wide text-white">Explore Portfolio</span>
+            <iconify-icon class="text-white ml-4 group-hover:translate-x-1 transition-transform" icon="solar:arrow-right-linear" width="18"></iconify-icon>
+          </a>
+        </div>
+
+        <!-- Text Link -->
+        <div>
+          <span class="state-label">Text Link</span>
+          <a class="inline-flex items-center gap-2 text-neutral-900 border-b border-neutral-900 pb-0.5 hover:text-neutral-600 hover:border-neutral-600 transition-colors" href="#" style="color:#e5e5e5; border-color:#e5e5e5;">
+            Initiate Collaboration
+            <iconify-icon icon="solar:arrow-right-linear" width="16"></iconify-icon>
+          </a>
+        </div>
+
+        <!-- Icon Button round -->
+        <div>
+          <span class="state-label">Icon Btn</span>
+          <button class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition-colors">
+            <iconify-icon icon="solar:file-download-linear" width="18"></iconify-icon>
+          </button>
+        </div>
+
+        <!-- Icon Button nav -->
+        <div>
+          <span class="state-label">Nav Icon</span>
+          <button class="w-10 h-10 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors">
+            <iconify-icon icon="solar:magnifer-linear" width="20"></iconify-icon>
+          </button>
+        </div>
+
+        <!-- Job item arrow button -->
+        <div>
+          <span class="state-label">List Arrow</span>
+          <button class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/50 hover:text-white hover:border-white transition-all">
+            <iconify-icon icon="solar:arrow-right-linear" width="20"></iconify-icon>
+          </button>
+        </div>
+
+        <!-- Filter Tab Buttons -->
+        <div>
+          <span class="state-label">Tab Active</span>
+          <button class="text-2xl md:text-3xl text-neutral-900 font-bricolage font-light border-b-2 border-black pb-1" style="color:#fafafa; border-color:#fafafa;">Private</button>
+        </div>
+        <div>
+          <span class="state-label">Tab Inactive</span>
+          <button class="md:text-3xl hover:text-neutral-500 transition-colors text-2xl font-light text-neutral-300 font-bricolage pb-1" style="color:rgba(255,255,255,0.35);">Public</button>
+        </div>
+
       </div>
     </div>
 
-    <div class="palette-label" style="margin-top:40px">Escala Fluida (responsiva)</div>
-    <div class="type-scale">
-      <div class="type-row">
-        <div class="type-meta">--text-fluid-sm<span class="size-val">clamp(38–80px)</span></div>
-        <div style="font-family:var(--font-display); font-size:var(--text-fluid-sm); font-weight:700; color:var(--white); line-height:1">Mercado</div>
+    <!-- CARDS -->
+    <div class="mb-20 animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both]">
+      <p class="text-xs uppercase tracking-[0.3em] text-neutral-400 font-medium mb-10">Cards</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <!-- Project Card -->
+        <div class="group relative h-[520px] w-full bg-[#151515] rounded-[32px] overflow-hidden flex flex-col justify-between p-8 transition-transform duration-500 hover:-translate-y-2 hover:shadow-2xl">
+          <div class="absolute top-0 right-0 p-6 opacity-40 z-20 group-hover:opacity-100 transition-opacity">
+            <div class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center bg-white/5 backdrop-blur-sm text-white">
+              <iconify-icon icon="solar:arrow-right-up-linear" width="24"></iconify-icon>
+            </div>
+          </div>
+          <div class="absolute inset-0 w-full h-full">
+            <img alt="Modern Villa" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" src="assets/4774bd65-dd1f-43a8-9d99-2b78ca_ce5d19354d5d.jpg"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#151515] via-transparent to-transparent"></div>
+          </div>
+          <div class="mt-auto relative z-10">
+            <div class="mb-4">
+              <iconify-icon class="text-white/80" height="32" icon="solar:home-angle-linear" width="32"></iconify-icon>
+            </div>
+            <h3 class="text-white text-3xl tracking-tight leading-none mb-4 font-bricolage font-light">Casa Nocturna</h3>
+            <div class="flex justify-between items-center text-white/90 border-t border-white/10 pt-5">
+              <span class="text-xl font-serif italic">Finalized</span>
+              <span class="text-xs tracking-wide uppercase text-white/50">Mexico City</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Glassmorphism Hero Card -->
+        <div class="relative overflow-hidden bg-neutral-950/60 backdrop-blur-2xl border border-white/10 p-8 rounded-2xl shadow-2xl ring-1 ring-white/5 flex flex-col justify-between">
+          <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/5 to-transparent z-0 pointer-events-none animate-shimmer-effect"></div>
+          <div class="relative z-10">
+            <p class="text-lg text-white font-light leading-relaxed mb-8 antialiased">Glass card with shimmer — the hero info panel. Used for stat summaries.</p>
+            <div class="grid grid-cols-2 gap-4 border-t border-white/20 pt-6">
+              <div>
+                <span class="block text-[10px] uppercase tracking-widest text-white/50 mb-1">Projects</span>
+                <span class="text-2xl font-bricolage text-white">42</span>
+              </div>
+              <div>
+                <span class="block text-[10px] uppercase tracking-widest text-white/50 mb-1">Awards</span>
+                <span class="text-2xl font-bricolage text-white">18</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Methodology Card -->
+        <div class="group bg-white rounded-3xl p-8 border border-neutral-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+          <div class="w-14 h-14 rounded-2xl bg-neutral-100 text-neutral-900 flex items-center justify-center mb-6 group-hover:bg-neutral-900 group-hover:text-white transition-colors">
+            <iconify-icon icon="solar:chat-line-linear" width="28"></iconify-icon>
+          </div>
+          <span class="block text-xs font-bold text-neutral-400 mb-2 uppercase tracking-wider">Phase I</span>
+          <h3 class="text-xl font-bricolage font-medium mb-3">Discovery</h3>
+          <p class="text-sm text-neutral-500 leading-relaxed">Uncovering the hidden potential of the site and the unspoken desires of the inhabitant.</p>
+        </div>
       </div>
-      <div class="type-row">
-        <div class="type-meta">--text-fluid-md<span class="size-val">clamp(44–96px)</span></div>
-        <div style="font-family:var(--font-display); font-size:var(--text-fluid-md); font-weight:700; background:var(--gold-grad); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; line-height:1">OURO</div>
+
+      <!-- Material List Item -->
+      <p class="text-xs uppercase tracking-[0.3em] text-neutral-400 font-medium mb-6">List Item — Material Spec</p>
+      <div class="group grid grid-cols-1 md:grid-cols-12 gap-6 items-center p-4 md:p-6 bg-white/5 hover:bg-white/10 border border-white/5 rounded-2xl transition-all duration-300">
+        <div class="col-span-1 md:col-span-4 flex items-center gap-6">
+          <div class="w-20 h-20 md:w-24 md:h-24 bg-white rounded-xl overflow-hidden shrink-0 relative flex items-center justify-center">
+            <img alt="Concrete Texture" class="w-full h-full object-cover" src="assets/33b2ce34-6e4a-4514-b20d-7104ec_d2adbf5bf54c.webp"/>
+          </div>
+          <div>
+            <iconify-icon class="text-white/60 mb-1" icon="solar:layers-minimalistic-linear" width="32"></iconify-icon>
+            <h4 class="text-xl text-white font-bricolage font-light">Travertine Slate</h4>
+            <p class="text-xs text-white/40 mt-1 uppercase tracking-wider">Honed Finish</p>
+          </div>
+        </div>
+        <div class="col-span-1 md:col-span-6 grid grid-cols-3 gap-y-4 gap-x-2 border-l border-white/10 pl-6">
+          <div class="flex flex-col gap-1">
+            <div class="flex items-center gap-1.5 text-white/50 text-xs uppercase tracking-wide">
+              <iconify-icon icon="solar:scale-linear" width="14"></iconify-icon> Weight
+            </div>
+            <span class="text-white text-sm">2800 kg/m³</span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <div class="flex items-center gap-1.5 text-white/50 text-xs uppercase tracking-wide">
+              <iconify-icon icon="solar:map-point-linear" width="14"></iconify-icon> Origin
+            </div>
+            <span class="text-white text-sm">Tuscany</span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <div class="flex items-center gap-1.5 text-white/50 text-xs uppercase tracking-wide">
+              <iconify-icon icon="solar:shield-check-linear" width="14"></iconify-icon> Rating
+            </div>
+            <span class="text-white text-sm">Class A1 Fire</span>
+          </div>
+        </div>
+        <div class="col-span-1 md:col-span-2 flex items-center justify-between md:justify-end gap-6">
+          <span class="text-xl font-serif italic text-white">Tier S</span>
+          <button class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition-colors group-hover:border-white">
+            <iconify-icon icon="solar:file-download-linear" width="18"></iconify-icon>
+          </button>
+        </div>
       </div>
-    </div>
-  </section>
 
-  <hr class="gold-divider">
-
-  <!-- ═══ ESPAÇAMENTO ═══ -->
-  <section class="ds-section active-section" id="spacing">
-    <div class="section-header">
-      <h2>Fundação</h2>
-      <h3>Espaçamento</h3>
-      <p>Escala base 4px. 15 tokens pré-definidos de <code class="code-tag">--sp-1 (4px)</code> a <code class="code-tag">--sp-20 (80px)</code> para padding, gap e margin.</p>
-    </div>
-
-    <div class="spacing-grid">
-      <div class="spacing-row"><span class="spacing-label">--sp-1</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:4px"></div></div><span class="spacing-val">4px</span></div>
-      <div class="spacing-row"><span class="spacing-label">--sp-2</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:8px"></div></div><span class="spacing-val">8px</span></div>
-      <div class="spacing-row"><span class="spacing-label">--sp-3</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:12px"></div></div><span class="spacing-val">12px</span></div>
-      <div class="spacing-row"><span class="spacing-label">--sp-4</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:16px"></div></div><span class="spacing-val">16px</span></div>
-      <div class="spacing-row"><span class="spacing-label">--sp-5</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:20px"></div></div><span class="spacing-val">20px</span></div>
-      <div class="spacing-row"><span class="spacing-label">--sp-6</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:24px"></div></div><span class="spacing-val">24px</span></div>
-      <div class="spacing-row"><span class="spacing-label">--sp-8</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:32px"></div></div><span class="spacing-val">32px</span></div>
-      <div class="spacing-row"><span class="spacing-label">--sp-10</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:40px"></div></div><span class="spacing-val">40px</span></div>
-      <div class="spacing-row"><span class="spacing-label">--sp-12</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:48px"></div></div><span class="spacing-val">48px</span></div>
-      <div class="spacing-row"><span class="spacing-label">--sp-16</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:64px"></div></div><span class="spacing-val">64px</span></div>
-      <div class="spacing-row"><span class="spacing-label">--sp-20</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:80px"></div></div><span class="spacing-val">80px</span></div>
-    </div>
-  </section>
-
-  <hr class="gold-divider">
-
-  <!-- ═══ BORDAS ═══ -->
-  <section class="ds-section active-section" id="borders">
-    <div class="section-header">
-      <h2>Fundação</h2>
-      <h3>Bordas & Raios</h3>
-    </div>
-
-    <div class="palette-label">Border Radius</div>
-    <div class="radius-grid">
-      <div class="radius-card">
-        <div class="radius-box" style="border-radius: var(--radius-sm)"></div>
-        <span>--radius-sm<br>4px</span>
-      </div>
-      <div class="radius-card">
-        <div class="radius-box" style="border-radius: var(--radius-xl)"></div>
-        <span>--radius-md / lg / xl<br>16px</span>
-      </div>
-      <div class="radius-card">
-        <div class="radius-box" style="border-radius: var(--radius-pill); width:120px; height:48px"></div>
-        <span>--radius-pill<br>999px</span>
-      </div>
-    </div>
-
-    <div class="palette-label" style="margin-top:40px">Bordas Padrão</div>
-    <div style="display:flex; gap:20px; flex-wrap:wrap; margin-top:8px">
-      <div style="padding:20px 28px; border: var(--border-gold); border-radius:var(--radius-md)">
-        <div class="component-label">--border-gold</div>
-        <span style="font-family:monospace; font-size:11px; color:var(--gold-50)">1px solid gold-30</span>
-      </div>
-      <div style="padding:20px 28px; border: var(--border-white); border-radius:var(--radius-md)">
-        <div class="component-label">--border-white</div>
-        <span style="font-family:monospace; font-size:11px; color:var(--white-40)">1px solid white-20</span>
-      </div>
-      <div style="padding:20px 28px; border: var(--border-dark); border-radius:var(--radius-md)">
-        <div class="component-label">--border-dark</div>
-        <span style="font-family:monospace; font-size:11px; color:var(--white-40)">1px solid blue-light-10</span>
-      </div>
-    </div>
-  </section>
-
-  <hr class="gold-divider">
-
-  <!-- ═══ MOVIMENTO ═══ -->
-  <section class="ds-section active-section" id="motion">
-    <div class="section-header">
-      <h2>Fundação</h2>
-      <h3>Movimento & Transições</h3>
-      <p>Passe o mouse sobre os cards para ver as transições em ação.</p>
-    </div>
-
-    <div class="motion-grid">
-      <div class="motion-card">
-        <div class="motion-demo"></div>
-        <h4>Fast</h4>
-        <p>0.15s ease-out</p>
-      </div>
-      <div class="motion-card">
-        <div class="motion-demo"></div>
-        <h4>Base</h4>
-        <p>0.3s ease</p>
-      </div>
-      <div class="motion-card">
-        <div class="motion-demo"></div>
-        <h4>Slow</h4>
-        <p>0.75s ease</p>
-      </div>
-    </div>
-  </section>
-
-  <hr class="gold-divider">
-
-  <!-- ═══ BOTÕES ═══ -->
-  <section class="ds-section active-section" id="buttons">
-    <div class="section-header">
-      <h2>Componentes</h2>
-      <h3>Botões</h3>
-    </div>
-
-    <div class="component-label">Variantes</div>
-    <div class="component-row">
-      <button class="btn btn-gold">Gold Primary</button>
-      <button class="btn btn-outline">Outline Gold</button>
-      <button class="btn btn-ghost">Ghost</button>
-    </div>
-
-    <div class="component-label">Tamanhos</div>
-    <div class="component-row">
-      <button class="btn btn-gold btn-sm">Small</button>
-      <button class="btn btn-gold">Default</button>
-      <button class="btn btn-gold btn-lg">Large</button>
-    </div>
-
-    <div class="component-label">Estado desabilitado</div>
-    <div class="component-row">
-      <button class="btn btn-gold" disabled style="opacity:0.35;cursor:not-allowed">Gold Disabled</button>
-      <button class="btn btn-outline" disabled style="opacity:0.35;cursor:not-allowed">Outline Disabled</button>
-    </div>
-  </section>
-
-  <hr class="gold-divider">
-
-  <!-- ═══ BADGES ═══ -->
-  <section class="ds-section active-section" id="badges">
-    <div class="section-header">
-      <h2>Componentes</h2>
-      <h3>Badges & Tags</h3>
-    </div>
-
-    <div class="component-row">
-      <span class="badge badge-gold">Premium</span>
-      <span class="badge badge-navy">Navy</span>
-      <span class="badge badge-white">Neutro</span>
-      <a class="tag-link" href="#">Licenciados →</a>
-    </div>
-  </section>
-
-  <hr class="gold-divider">
-
-  <!-- ═══ CARDS ═══ -->
-  <section class="ds-section active-section" id="cards">
-    <div class="section-header">
-      <h2>Componentes</h2>
-      <h3>Cards</h3>
-      <p>Cards com efeito hover elevado e linha dourada animada no topo.</p>
-    </div>
-
-    <div class="card-grid">
-      <div class="card">
-        <h4>Elo Estratégico</h4>
-        <p>Conectamos licenciados ao maior ecossistema imobiliário do Brasil, com suporte e tecnologia de ponta.</p>
-      </div>
-      <div class="card">
-        <h4>Pacote Completo</h4>
-        <p>Entregáveis, treinamentos e ferramentas para você escalar suas vendas com a marca TIB.</p>
-      </div>
-      <div class="card">
-        <h4>Movimento Nacional</h4>
-        <p>Mais de 9.000 agentes conectados em uma rede de alto desempenho e resultados extraordinários.</p>
+      <!-- Job List Item -->
+      <p class="text-xs uppercase tracking-[0.3em] text-neutral-400 font-medium mb-6 mt-12">List Item — Job / Role</p>
+      <div class="group grid grid-cols-1 md:grid-cols-12 gap-4 items-center p-4 bg-white/5 hover:bg-white/10 border border-white/5 rounded-2xl transition-all duration-300 cursor-pointer">
+        <div class="col-span-1 md:col-span-6 flex items-center gap-5">
+          <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-white shrink-0 border border-white/10 group-hover:bg-white group-hover:text-black transition-colors">
+            <iconify-icon icon="solar:ruler-pen-linear" width="22"></iconify-icon>
+          </div>
+          <div>
+            <h4 class="text-lg text-white font-bricolage font-normal group-hover:translate-x-1 transition-transform">Design Principal</h4>
+            <div class="flex items-center gap-3 mt-1 text-sm text-white/40">
+              <span class="flex items-center gap-1"><iconify-icon icon="solar:map-point-linear" width="12"></iconify-icon> London</span>
+              <span class="w-1 h-1 rounded-full bg-white/20"></span>
+              <span>Creative</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-span-1 md:col-span-4 flex flex-wrap gap-2">
+          <span class="px-3 py-1 rounded-full border border-white/10 text-[11px] uppercase tracking-wider text-white/60 bg-white/5">Full-time</span>
+        </div>
+        <div class="col-span-1 md:col-span-2 flex justify-end">
+          <button class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/50 group-hover:text-white group-hover:border-white transition-all">
+            <iconify-icon icon="solar:arrow-right-linear" width="20"></iconify-icon>
+          </button>
+        </div>
       </div>
     </div>
-  </section>
 
-  <hr class="gold-divider">
+    <!-- FORM INPUTS & CONTROLS -->
+    <div class="mb-20 animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both]">
+      <p class="text-xs uppercase tracking-[0.3em] text-neutral-400 font-medium mb-10">Form Controls</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
 
-  <!-- ═══ MÉTRICAS ═══ -->
-  <section class="ds-section active-section" id="metrics">
-    <div class="section-header">
-      <h2>Componentes</h2>
-      <h3>Cards de Métricas</h3>
-      <p>Números grandes com texto em gradiente metalizado, ideal para KPIs e estatísticas.</p>
-    </div>
+        <!-- Input + CTA row (footer) -->
+        <div>
+          <span class="state-label">Email Input (Default)</span>
+          <div class="flex gap-4 mt-2">
+            <input class="bg-white/5 border border-white/10 rounded-full px-6 py-3 w-64 focus:outline-none focus:border-white/30 transition-colors placeholder:text-white/20" placeholder="Email address" type="email"/>
+            <button class="bg-white text-black px-6 py-3 rounded-full font-medium hover:bg-neutral-200 transition-colors">Connect</button>
+          </div>
+        </div>
 
-    <div class="metric-grid">
-      <div class="metric-card">
-        <div class="metric-value">9K+</div>
-        <div class="metric-label">Licenciados</div>
+        <!-- Checkbox group -->
+        <div>
+          <span class="state-label">Checkboxes</span>
+          <div class="space-y-3 mt-4">
+            <label class="flex items-center gap-3 group cursor-pointer">
+              <div class="relative flex items-center justify-center">
+                <input checked class="peer appearance-none w-5 h-5 rounded border border-white/20 checked:bg-white checked:border-white transition-colors" type="checkbox"/>
+                <iconify-icon class="absolute text-black opacity-0 peer-checked:opacity-100 pointer-events-none" icon="solar:check-read-linear" width="14"></iconify-icon>
+              </div>
+              <span class="text-white/70 group-hover:text-white transition-colors text-sm">Design (5) — checked</span>
+            </label>
+            <label class="flex items-center gap-3 group cursor-pointer">
+              <div class="relative flex items-center justify-center">
+                <input class="peer appearance-none w-5 h-5 rounded border border-white/20 checked:bg-white checked:border-white transition-colors" type="checkbox"/>
+                <iconify-icon class="absolute text-black opacity-0 peer-checked:opacity-100 pointer-events-none" icon="solar:check-read-linear" width="14"></iconify-icon>
+              </div>
+              <span class="text-white/70 group-hover:text-white transition-colors text-sm">Tech (2) — unchecked</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Radio group -->
+        <div>
+          <span class="state-label">Radio Buttons</span>
+          <div class="space-y-3 mt-4">
+            <label class="flex items-center gap-3 group cursor-pointer">
+              <div class="relative flex items-center justify-center">
+                <input checked class="peer appearance-none w-5 h-5 rounded-full border border-white/20 checked:border-white transition-colors" name="region-demo" type="radio"/>
+                <div class="absolute w-2.5 h-2.5 rounded-full bg-white opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+              </div>
+              <span class="text-white/70 group-hover:text-white transition-colors text-sm">Global — selected</span>
+            </label>
+            <label class="flex items-center gap-3 group cursor-pointer">
+              <div class="relative flex items-center justify-center">
+                <input class="peer appearance-none w-5 h-5 rounded-full border border-white/20 checked:border-white transition-colors" name="region-demo" type="radio"/>
+                <div class="absolute w-2.5 h-2.5 rounded-full bg-white opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+              </div>
+              <span class="text-white/70 group-hover:text-white transition-colors text-sm">HQ Only — default</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Badge / Tag pill -->
+        <div>
+          <span class="state-label">Tag / Badge</span>
+          <div class="flex gap-3 flex-wrap mt-4">
+            <span class="px-3 py-1 rounded-full border border-white/10 text-[11px] uppercase tracking-wider text-white/60 bg-white/5">Full-time</span>
+            <span class="px-3 py-1 rounded-full border border-white/10 text-[11px] uppercase tracking-wider text-white/60 bg-white/5">Contract</span>
+            <span class="px-3 py-1 rounded-full border border-white/10 text-[11px] uppercase tracking-wider text-white/60 bg-white/5">Project</span>
+          </div>
+        </div>
+
+        <!-- Filter sidebar card -->
+        <div class="md:col-span-2">
+          <span class="state-label">Filter Sidebar Panel</span>
+          <div class="bg-white/5 border border-white/5 rounded-3xl p-8 backdrop-blur-md mt-4 max-w-sm">
+            <div class="flex items-center justify-between mb-8">
+              <h3 class="text-white font-bricolage font-light text-xl">Refine Search</h3>
+              <button class="text-xs text-white/40 hover:text-white transition-colors underline">Clear</button>
+            </div>
+            <div class="mb-8">
+              <h4 class="text-xs uppercase tracking-widest text-white/40 font-medium mb-4">Focus Area</h4>
+              <div class="space-y-3">
+                <label class="flex items-center gap-3 group cursor-pointer">
+                  <div class="relative flex items-center justify-center">
+                    <input checked class="peer appearance-none w-5 h-5 rounded border border-white/20 checked:bg-white checked:border-white transition-colors" type="checkbox"/>
+                    <iconify-icon class="absolute text-black opacity-0 peer-checked:opacity-100 pointer-events-none" icon="solar:check-read-linear" width="14"></iconify-icon>
+                  </div>
+                  <span class="text-white/70 group-hover:text-white transition-colors text-sm">Design (5)</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
-      <div class="metric-card">
-        <div class="metric-value">R$2B</div>
-        <div class="metric-label">Em Negócios</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-value">10</div>
-        <div class="metric-label">Anos de Mercado</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-value">500+</div>
-        <div class="metric-label">Cidades</div>
-      </div>
-    </div>
-  </section>
-
-  <hr class="gold-divider">
-
-  <!-- ═══ NAVEGAÇÃO ═══ -->
-  <section class="ds-section active-section" id="navigation">
-    <div class="section-header">
-      <h2>Componentes</h2>
-      <h3>Navegação</h3>
     </div>
 
-    <div class="component-label" style="margin-bottom:16px">Top Bar</div>
-    <div class="topbar-demo">
-      <img src="LOGO.png" alt="TIB">
-      <span class="tb-title">Apresentação</span>
-      <span class="tb-counter">1 / 10</span>
-    </div>
-
-    <div class="component-label" style="margin-top:32px; margin-bottom:16px">Nav Flutuante</div>
-    <div class="component-row">
-      <div class="nav-demo">
-        <button class="btn btn-ghost btn-sm">← Anterior</button>
-        <span style="font-family:var(--font-display); font-size:12px; letter-spacing:0.15em; color:var(--gold); font-weight:600">2 / 10</span>
-        <button class="btn btn-ghost btn-sm">Próximo →</button>
+    <!-- NAV COMPONENT -->
+    <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both]">
+      <p class="text-xs uppercase tracking-[0.3em] text-neutral-400 font-medium mb-10">Navigation — Pill</p>
+      <div class="relative">
+        <nav class="w-full max-w-4xl flex items-center justify-between px-2 py-2 pr-6 border border-white/10 bg-neutral-900/80 backdrop-blur-xl rounded-full shadow-2xl transition-all duration-300">
+          <div class="flex items-center gap-3 pl-4">
+            <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-black">
+              <iconify-icon icon="solar:infinity-bold" width="18"></iconify-icon>
+            </div>
+            <span class="font-bricolage font-semibold text-lg tracking-tight">Velos</span>
+          </div>
+          <div class="hidden md:flex items-center gap-8 text-sm font-medium text-white/60">
+            <a class="text-white hover:text-white transition-colors" href="#">Atelier</a>
+            <a class="hover:text-white transition-colors" href="#">Selected Works</a>
+            <a class="hover:text-white transition-colors" href="#">Substance</a>
+          </div>
+          <div class="flex items-center gap-2">
+            <button class="w-10 h-10 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors">
+              <iconify-icon icon="solar:magnifer-linear" width="20"></iconify-icon>
+            </button>
+            <button class="relative w-10 h-10 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors group">
+              <iconify-icon icon="solar:menu-dots-square-linear" width="20"></iconify-icon>
+              <span class="absolute top-2 right-2 w-1.5 h-1.5 bg-white rounded-full scale-0 group-hover:scale-100 transition-transform duration-300"></span>
+            </button>
+          </div>
+        </nav>
       </div>
     </div>
-  </section>
 
-  <hr class="gold-divider">
+  </div>
+</section>
 
-  <!-- ═══ HERO ═══ -->
-  <section class="ds-section active-section" id="hero">
-    <div class="section-header">
-      <h2>Padrões</h2>
-      <h3>Hero Pattern</h3>
-      <p>Padrão de hero com eyebrow, título em gradiente, subtítulo e CTAs. Fundo com radial glow dourado.</p>
-    </div>
+<!-- ═══════════════════════════════════════════
+     4. LAYOUT & SPACING
+     ═══════════════════════════════════════════ -->
+<section class="bg-neutral-950 border-t border-white/5 py-24 px-6 relative" id="layout">
+  <div class="w-full max-w-5xl mx-auto relative z-10">
+    <span class="ds-section-label">04 — Layout & Spacing</span>
 
-    <div class="hero-preview">
-      <div class="hero-eyebrow">The Real Estate Experience</div>
-      <div class="hero-title">TIB — O Movimento<br>que Transforma</div>
-      <div class="hero-body">A maior plataforma de licenciados imobiliários do Brasil. Conectamos talentos, tecnologia e oportunidades em um único ecossistema.</div>
-      <div class="hero-actions">
-        <button class="btn btn-gold btn-lg">Seja Licenciado</button>
-        <button class="btn btn-outline btn-lg">Saiba Mais</button>
+    <!-- Layout Pattern 1: Hero 12-col grid -->
+    <div class="mb-16 animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both]">
+      <p class="text-xs uppercase tracking-[0.3em] text-neutral-400 font-medium mb-6">Pattern A — Hero 12-Column Grid</p>
+      <div class="layout-demo">
+        <div class="layout-demo-label">grid-cols-12 · col-span-7 + col-start-9 col-span-4 · max-w-[90rem] · px-6 md:px-12</div>
+        <div class="p-6">
+          <div class="grid grid-cols-12 gap-3" style="min-height:80px;">
+            <div class="col-span-7 bg-white/10 rounded-lg flex items-center justify-center text-xs text-white/40 font-mono py-6">col-span-7<br/>Primary Headline</div>
+            <div class="col-span-1 bg-white/3 rounded-lg" style="background:rgba(255,255,255,0.02);"></div>
+            <div class="col-span-4 bg-white/10 rounded-lg flex items-center justify-center text-xs text-white/40 font-mono py-6">col-start-9 col-span-4<br/>Info Card</div>
+          </div>
+        </div>
       </div>
     </div>
-  </section>
 
-  <hr class="gold-divider">
-
-  <!-- ═══ CSS TOKENS ═══ -->
-  <section class="ds-section active-section" id="tokens">
-    <div class="section-header">
-      <h2>Referência</h2>
-      <h3>CSS Custom Properties</h3>
-      <p>Todos os tokens importados via <code class="code-tag">design-tokens.css</code>. Use sempre os tokens, nunca valores hardcoded.</p>
+    <!-- Layout Pattern 2: Project 3-col grid -->
+    <div class="mb-16 animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both]">
+      <p class="text-xs uppercase tracking-[0.3em] text-neutral-400 font-medium mb-6">Pattern B — 3-Column Project Grid</p>
+      <div class="layout-demo">
+        <div class="layout-demo-label">grid-cols-1 md:grid-cols-2 lg:grid-cols-3 · gap-8 · max-w-7xl · px-6 md:px-12</div>
+        <div class="p-6">
+          <div class="grid grid-cols-3 gap-3">
+            <div class="bg-white/10 rounded-2xl flex items-center justify-center text-xs text-white/40 font-mono py-10">Card 1<br/>h-[520px]</div>
+            <div class="bg-white/10 rounded-2xl flex items-center justify-center text-xs text-white/40 font-mono py-10">Card 2<br/>h-[520px]</div>
+            <div class="bg-white/10 rounded-2xl flex items-center justify-center text-xs text-white/40 font-mono py-10">Card 3<br/>h-[520px]</div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div style="background: rgba(1,10,38,0.7); border: 1px solid var(--gold-15); border-radius: var(--radius-lg); padding: 32px; overflow-x: auto;">
-      <pre style="font-family: monospace; font-size: 12px; line-height: 2; color: var(--white-60)"><span style="color:var(--gold-50)">/* CORES */</span>
---gold: #D9B855          --gold-light: #F2DEA0      --gold-grad: linear-gradient(135deg, ...)
---blue-deep: #010A26     --blue-royal: #00113F      --blue-grad: linear-gradient(160deg, ...)
-
-<span style="color:var(--gold-50)">/* TIPOGRAFIA */</span>
---font-display: "Oswald"  --font-body: "Raleway"
---text-xs: 14px           --text-sm: 18px           --text-md: 22px
---text-lg: 28px           --text-xl: 34px           --text-2xl: 48px
---text-fluid-sm: clamp(38px, 5.5vw, 80px)
-
-<span style="color:var(--gold-50)">/* ESPAÇAMENTO */</span>
---sp-1: 4px   --sp-2: 8px    --sp-3: 12px   --sp-4: 16px
---sp-5: 20px  --sp-6: 24px   --sp-8: 32px   --sp-10: 40px
-
-<span style="color:var(--gold-50)">/* BORDAS */</span>
---radius-sm: 4px   --radius-md / --radius-lg / --radius-xl: 16px   --radius-pill: 999px
---border-gold: 1px solid var(--gold-30)   --border-white: 1px solid var(--white-20)
-
-<span style="color:var(--gold-50)">/* MOTION */</span>
---transition-fast: 0.15s ease-out   --transition-base: 0.3s ease   --transition-slow: 0.75s ease
-
-<span style="color:var(--gold-50)">/* Z-INDEX */</span>
---z-slide: 1   --z-ui: 100   --z-nav: 9998   --z-cursor: 9999</pre>
+    <!-- Layout Pattern 3: Careers 8+4 split -->
+    <div class="mb-16 animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both]">
+      <p class="text-xs uppercase tracking-[0.3em] text-neutral-400 font-medium mb-6">Pattern C — 8+4 List + Sidebar Split</p>
+      <div class="layout-demo">
+        <div class="layout-demo-label">grid-cols-12 · lg:col-span-8 + lg:col-span-4 · gap-8 lg:gap-12 · sticky top-32 sidebar</div>
+        <div class="p-6">
+          <div class="grid grid-cols-12 gap-3">
+            <div class="col-span-8 flex flex-col gap-2">
+              <div class="bg-white/10 rounded-xl py-4 px-4 text-xs text-white/40 font-mono">Job Item 1</div>
+              <div class="bg-white/10 rounded-xl py-4 px-4 text-xs text-white/40 font-mono">Job Item 2</div>
+              <div class="bg-white/10 rounded-xl py-4 px-4 text-xs text-white/40 font-mono">Job Item 3</div>
+            </div>
+            <div class="col-span-4">
+              <div class="bg-white/5 border border-white/5 rounded-2xl py-12 flex items-center justify-center text-xs text-white/40 font-mono">Sticky Sidebar<br/>Filter Panel</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </section>
 
-</div><!-- /#main -->
+    <!-- Layout Pattern 4: Methodology 4-col equal grid -->
+    <div class="mb-16 animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both]">
+      <p class="text-xs uppercase tracking-[0.3em] text-neutral-400 font-medium mb-6">Pattern D — 4-Column Equal Grid (Methodology)</p>
+      <div class="layout-demo">
+        <div class="layout-demo-label">grid-cols-1 md:grid-cols-4 · gap-8 · bg-[#f8f8f8] · py-32</div>
+        <div class="p-6" style="background:#f8f8f8;">
+          <div class="grid grid-cols-4 gap-3">
+            <div class="bg-white rounded-2xl border border-neutral-200 py-8 flex items-center justify-center text-xs text-neutral-400 font-mono">Phase I</div>
+            <div class="bg-white rounded-2xl border border-neutral-200 py-8 flex items-center justify-center text-xs text-neutral-400 font-mono">Phase II</div>
+            <div class="bg-white rounded-2xl border border-neutral-200 py-8 flex items-center justify-center text-xs text-neutral-400 font-mono">Phase III</div>
+            <div class="bg-white rounded-2xl border border-neutral-200 py-8 flex items-center justify-center text-xs text-neutral-400 font-mono">Phase IV</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<script>
-  // Highlight active sidebar link on scroll
-  const sections = document.querySelectorAll('.active-section');
-  const navLinks = document.querySelectorAll('#sidebar nav a');
+    <!-- Section Spacing Reference -->
+    <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.6s_both]">
+      <p class="text-xs uppercase tracking-[0.3em] text-neutral-400 font-medium mb-6">Section Spacing Reference</p>
+      <div class="bg-white/5 border border-white/5 rounded-2xl p-8 font-mono text-sm text-white/50 space-y-3">
+        <div class="flex justify-between"><span>Section padding</span><span class="text-white/70">py-24 md:py-32 px-6</span></div>
+        <div class="flex justify-between border-t border-white/5 pt-3"><span>Section padding (light)</span><span class="text-white/70">py-32 px-6</span></div>
+        <div class="flex justify-between border-t border-white/5 pt-3"><span>Content max-width (wide)</span><span class="text-white/70">max-w-7xl mx-auto</span></div>
+        <div class="flex justify-between border-t border-white/5 pt-3"><span>Content max-width (narrow)</span><span class="text-white/70">max-w-5xl mx-auto</span></div>
+        <div class="flex justify-between border-t border-white/5 pt-3"><span>Hero max-width</span><span class="text-white/70">max-w-[90rem] mx-auto</span></div>
+        <div class="flex justify-between border-t border-white/5 pt-3"><span>Section gap (headline/content)</span><span class="text-white/70">mb-20 / mb-16</span></div>
+        <div class="flex justify-between border-t border-white/5 pt-3"><span>Card gap</span><span class="text-white/70">gap-8</span></div>
+        <div class="flex justify-between border-t border-white/5 pt-3"><span>Card border-radius</span><span class="text-white/70">rounded-[32px] (project) · rounded-2xl (list) · rounded-3xl (sidebar)</span></div>
+        <div class="flex justify-between border-t border-white/5 pt-3"><span>Nav fixed position</span><span class="text-white/70">top-6 · z-50</span></div>
+        <div class="flex justify-between border-t border-white/5 pt-3"><span>Grid lines opacity</span><span class="text-white/70">opacity-0.15 · 4 lines (outer always, inner md+)</span></div>
+      </div>
+    </div>
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.id;
-        navLinks.forEach(a => {
-          a.classList.toggle('active', a.getAttribute('href') === '#' + id);
-        });
-      }
-    });
-  }, { rootMargin: '-20% 0px -70% 0px' });
+  </div>
+</section>
 
-  sections.forEach(s => observer.observe(s));
-</script>
+<!-- ═══════════════════════════════════════════
+     5. MOTION & INTERACTION
+     ═══════════════════════════════════════════ -->
+<section class="bg-neutral-950 border-t border-white/5 py-24 px-6 relative" id="motion">
+  <div class="w-full max-w-5xl mx-auto relative z-10">
+    <span class="ds-section-label">05 — Motion & Interaction</span>
 
-</body>
-</html>
+    <!-- Timing reference table -->
+    <div class="mb-16 animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both]">
+      <p class="text-xs uppercase tracking-[0.3em] text-neutral-400 font-medium mb-6">Animation Tokens</p>
+      <div class="bg-white/5 border border-white/5 rounded-2xl p-8 font-mono text-sm text-white/50 space-y-3">
+        <div class="flex justify-between"><span>cinematicEntrance</span><span class="text-white/70">3.5s · cubic-bezier(0.22, 1, 0.36, 1) · scale+blur+grayscale</span></div>
+        <div class="flex justify-between border-t border-white/5 pt-3"><span>slideUpFade</span><span class="text-white/70">1s · ease-out · translateY(40px→0) + opacity</span></div>
+        <div class="flex justify-between border-t border-white/5 pt-3"><span>animationIn</span><span class="text-white/70">0.8s · ease-out · translateY(30px) + blur(8px) + opacity · on-scroll</span></div>
+        <div class="flex justify-between border-t border-white/5 pt-3"><span>shimmerMove</span><span class="text-white/70">3s · ease-in-out · infinite · delay 2s · skewX(-20deg)</span></div>
+        <div class="flex justify-between border-t border-white/5 pt-3"><span>ticker</span><span class="text-white/70">20s · linear · infinite · translateX(-50%)</span></div>
+        <div class="flex justify-between border-t border-white/5 pt-3"><span>Hover lift (card)</span><span class="text-white/70">duration-500 · hover:-translate-y-2 + hover:shadow-2xl</span></div>
+        <div class="flex justify-between border-t border-white/5 pt-3"><span>Image zoom (card)</span><span class="text-white/70">group-hover:scale-105 · duration-700</span></div>
+        <div class="flex justify-between border-t border-white/5 pt-3"><span>Icon slide (arrow)</span><span class="text-white/70">group-hover:translate-x-1 · transition-transform</span></div>
+        <div class="flex justify-between border-t border-white/5 pt-3"><span>Icon slide (job title)</span><span class="text-white/70">group-hover:translate-x-1 · transition-transform</span></div>
+        <div class="flex justify-between border-t border-white/5 pt-3"><span>Nav dot scale</span><span class="text-white/70">scale-0 → group-hover:scale-100 · duration-300</span></div>
+        <div class="flex justify-between border-t border-white/5 pt-3"><span>Hover bg (list/nav)</span><span class="text-white/70">bg-white/5 → hover:bg-white/10 · duration-300</span></div>
+        <div class="flex justify-between border-t border-white/5 pt-3"><span>Hover bg (icon btn)</span><span class="text-white/70">hover:bg-white hover:text-black</span></div>
+        <div class="flex justify-between border-t border-white/5 pt-3"><span>Methodology card icon</span><span class="text-white/70">group-hover:bg-neutral-900 group-hover:text-white</span></div>
+        <div class="flex justify-between border-t border-white/5 pt-3"><span>Card opacity reveal</span><span class="text-white/70">opacity-40 → group-hover:opacity-100 (top-right arrow)</span></div>
+        <div class="flex justify-between border-t border-white/5 pt-3"><span>Stagger delays (hero)</span><span class="text-white/70">1.2s / 1.4s / 1.6s / 1.8s / 2.2s / 2.5s</span></div>
+        <div class="flex justify-between border-t border-white/5 pt-3"><span>Stagger delays (scroll)</span><span class="text-white/70">0.2s / 0.3s / 0.4s / 0.5s / 0.6s</span></div>
+        <div class="flex justify-between border-t border-white/5 pt-3"><span>pulse (live dot)</span><span class="text-white/70">animate-pulse · default Tailwind</span></div>
+      </div>
+    </div>
+
+    <!-- Motion Gallery -->
+    <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both]">
+      <p class="text-xs uppercase tracking-[0.3em] text-neutral-400 font-medium mb-10">Motion Gallery</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- cinematicEntrance -->
+        <div class="motion-card">
+          <div style="width:100%;height:120px;overflow:hidden;border-radius:12px;background:#111;position:relative;">
+            <img src="assets/182d91e1-5681-49cf-a16e-4d5686_14281933f22f.webp" style="width:100%;height:100%;object-fit:cover;" class="animate-cinematic opacity-0" id="demo-cinematic"/>
+          </div>
+          <span class="motion-label">cinematicEntrance</span>
+          <p class="text-xs text-white/30 text-center">3.5s · scale 1.4→1 · blur 20px→0 · grayscale→color</p>
+          <button onclick="var el=document.getElementById('demo-cinematic');el.classList.remove('animate-cinematic','opacity-0');void el.offsetWidth;el.classList.add('animate-cinematic','opacity-0');" class="px-4 py-2 rounded-full border border-white/20 text-xs text-white/60 hover:text-white hover:border-white transition-colors">Replay</button>
+        </div>
+
+        <!-- slideUpFade -->
+        <div class="motion-card">
+          <div style="height:80px;display:flex;align-items:center;justify-content:center;">
+            <span class="font-bricolage font-bold text-white text-4xl animate-slide-up opacity-0" id="demo-slideup" style="animation-delay:0s;">VOID</span>
+          </div>
+          <span class="motion-label">slideUpFade</span>
+          <p class="text-xs text-white/30 text-center">1s · ease-out · translateY(40px→0) + opacity</p>
+          <button onclick="var el=document.getElementById('demo-slideup');el.classList.remove('animate-slide-up','opacity-0');void el.offsetWidth;el.classList.add('animate-slide-up','opacity-0');" class="px-4 py-2 rounded-full border border-white/20 text-xs text-white/60 hover:text-white hover:border-white transition-colors">Replay</button>
+        </div>
+
+        <!-- animationIn (scroll-reveal) -->
+        <div class="motion-card">
+          <div style="height:80px;display:flex;align-items:center;justify-content:center;">
+            <div class="bg-white/10 rounded-xl px-6 py-3 text-white/70 text-sm animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both]">Scroll Reveal</div>
+          </div>
+          <span class="motion-label">animationIn (on-scroll)</span>
+          <p class="text-xs text-white/30 text-center">0.8s · ease-out · translateY(30px) + blur(8px)</p>
+        </div>
+
+        <!-- shimmerMove -->
+        <div class="motion-card">
+          <div style="width:100%;height:80px;background:rgba(255,255,255,0.05);border-radius:12px;overflow:hidden;position:relative;">
+            <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none animate-shimmer-effect"></div>
+          </div>
+          <span class="motion-label">shimmerMove</span>
+          <p class="text-xs text-white/30 text-center">3s · ease-in-out · infinite · delay 2s · skewX(-20deg)</p>
+        </div>
+
+        <!-- Hover Lift Card -->
+        <div class="motion-card">
+          <div class="group relative h-24 w-full bg-[#151515] rounded-2xl overflow-hidden transition-transform duration-500 hover:-translate-y-2 hover:shadow-2xl cursor-pointer flex items-center justify-center">
+            <span class="text-white/40 text-xs font-mono">hover me</span>
+            <img alt="" class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-105 transition-transform duration-700" src="assets/4774bd65-dd1f-43a8-9d99-2b78ca_ce5d19354d5d.jpg"/>
+          </div>
+          <span class="motion-label">Hover Lift + Image Zoom</span>
+          <p class="text-xs text-white/30 text-center">card: -translate-y-2 · duration-500 · img: scale-105 · duration-700</p>
+        </div>
+
+        <!-- Arrow + Group hover -->
+        <div class="motion-card">
+          <div class="group flex items-center gap-3 px-6 py-3 bg-neutral-900 text-white rounded-full hover:bg-neutral-800 transition-all cursor-pointer w-fit mx-auto">
+            <span class="font-medium tracking-wide text-sm">Explore</span>
+            <iconify-icon class="group-hover:translate-x-1 transition-transform" icon="solar:arrow-right-linear" width="18"></iconify-icon>
+          </div>
+          <span class="motion-label">Button + Arrow Translate</span>
+          <p class="text-xs text-white/30 text-center">group-hover:translate-x-1 · transition-transform</p>
+        </div>
+
+        <!-- Live pulse dot -->
+        <div class="motion-card">
+          <div class="px-4 py-2 rounded-lg bg-black/40 backdrop-blur-md border border-white/10 flex items-center gap-3">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span class="text-xs font-mono tracking-wider uppercase text-white/90">Live: Active</span>
+          </div>
+          <span class="motion-label">animate-pulse (live dot)</span>
+          <p class="text-xs text-white/30 text-center">bg-emerald-500 + Tailwind animate-pulse</p>
+        </div>
+
+        <!-- Icon button hover -->
+        <div class="motion-card">
+          <div class="flex gap-4 items-center">
+            <button class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition-colors">
+              <iconify-icon icon="solar:file-download-linear" width="18"></iconify-icon>
+            </button>
+            <button class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/50 hover:text-white hover:border-white transition-all">
+              <iconify-icon icon="solar:arrow-right-linear" width="20"></iconify-icon>
+            </button>
+            <button class="w-10 h-10 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors">
+              <iconify-icon icon="solar:magnifer-linear" width="20"></iconify-icon>
+            </button>
+          </div>
+          <span class="motion-label">Icon Button Hover States</span>
+          <p class="text-xs text-white/30 text-center">bg invert · border-white · bg-white/10</p>
+        </div>
+
+        <!-- Nav dot expand -->
+        <div class="motion-card">
+          <button class="relative w-10 h-10 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors group mx-auto">
+            <iconify-icon icon="solar:menu-dots-square-linear" width="20"></iconify-icon>
+            <span class="absolute top-2 right-2 w-1.5 h-1.5 bg-white rounded-full scale-0 group-hover:scale-100 transition-transform duration-300"></span>
+          </button>
+          <span class="motion-label">Nav Dot Scale</span>
+          <p class="text-xs text-white/30 text-center">scale-0 → group-hover:scale-100 · duration-300</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     6. ICONS
+     ═══════════════════════════════════════════ -->
+<section class="bg-neutral-950 border-t border-white/5 py-24 px-6 pb-40 relative" id="icons">
+  <div class="w-full max-w-5xl mx-auto relative z-10">
+    <span class="ds-section-label">06 — Icons (Solar Linear / Bold)</span>
+
+    <p class="text-xs uppercase tracking-[0.3em] text-neutral-400 font-medium mb-10">Icon Set — Solar by Iconify · All used in reference</p>
+
+    <!-- Size variants -->
+    <div class="mb-16 animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both]">
+      <p class="text-xs uppercase tracking-[0.3em] text-neutral-400 font-medium mb-6">Size Variants</p>
+      <div class="flex items-end gap-8 flex-wrap">
+        <div class="flex flex-col items-center gap-2">
+          <iconify-icon icon="solar:arrow-right-linear" width="12" class="text-white"></iconify-icon>
+          <span class="text-white/30 text-[10px] font-mono">12</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <iconify-icon icon="solar:arrow-right-linear" width="14" class="text-white"></iconify-icon>
+          <span class="text-white/30 text-[10px] font-mono">14</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <iconify-icon icon="solar:arrow-right-linear" width="16" class="text-white"></iconify-icon>
+          <span class="text-white/30 text-[10px] font-mono">16</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <iconify-icon icon="solar:arrow-right-linear" width="18" class="text-white"></iconify-icon>
+          <span class="text-white/30 text-[10px] font-mono">18</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <iconify-icon icon="solar:arrow-right-linear" width="20" class="text-white"></iconify-icon>
+          <span class="text-white/30 text-[10px] font-mono">20</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <iconify-icon icon="solar:arrow-right-linear" width="22" class="text-white"></iconify-icon>
+          <span class="text-white/30 text-[10px] font-mono">22</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <iconify-icon icon="solar:arrow-right-linear" width="24" class="text-white"></iconify-icon>
+          <span class="text-white/30 text-[10px] font-mono">24</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <iconify-icon icon="solar:arrow-right-linear" width="28" class="text-white"></iconify-icon>
+          <span class="text-white/30 text-[10px] font-mono">28</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <iconify-icon icon="solar:arrow-right-linear" width="32" class="text-white"></iconify-icon>
+          <span class="text-white/30 text-[10px] font-mono">32</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Color inheritance -->
+    <div class="mb-16 animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both]">
+      <p class="text-xs uppercase tracking-[0.3em] text-neutral-400 font-medium mb-6">Color Inheritance</p>
+      <div class="flex items-center gap-8 flex-wrap">
+        <div class="flex flex-col items-center gap-2">
+          <iconify-icon icon="solar:infinity-bold" width="24" class="text-white"></iconify-icon>
+          <span class="text-white/30 text-[10px] font-mono">text-white</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <iconify-icon icon="solar:infinity-bold" width="24" class="text-white/70"></iconify-icon>
+          <span class="text-white/30 text-[10px] font-mono">text-white/70</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <iconify-icon icon="solar:infinity-bold" width="24" class="text-white/60"></iconify-icon>
+          <span class="text-white/30 text-[10px] font-mono">text-white/60</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <iconify-icon icon="solar:infinity-bold" width="24" class="text-white/50"></iconify-icon>
+          <span class="text-white/30 text-[10px] font-mono">text-white/50</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <iconify-icon icon="solar:infinity-bold" width="24" class="text-white/40"></iconify-icon>
+          <span class="text-white/30 text-[10px] font-mono">text-white/40</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-black">
+            <iconify-icon icon="solar:infinity-bold" width="18"></iconify-icon>
+          </div>
+          <span class="text-white/30 text-[10px] font-mono">on bg-white</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <div class="w-14 h-14 rounded-2xl bg-neutral-100 flex items-center justify-center text-neutral-900">
+            <iconify-icon icon="solar:chat-line-linear" width="28"></iconify-icon>
+          </div>
+          <span class="text-white/30 text-[10px] font-mono">method card</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Full icon catalogue -->
+    <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both]">
+      <p class="text-xs uppercase tracking-[0.3em] text-neutral-400 font-medium mb-8">All Icons Used in Reference</p>
+      <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        <!-- Each cell: icon + name -->
+        <div class="bg-white/5 border border-white/5 rounded-xl p-4 flex flex-col items-center gap-3 hover:bg-white/10 transition-colors">
+          <iconify-icon icon="solar:infinity-bold" width="28" class="text-white"></iconify-icon>
+          <span class="text-[10px] text-white/30 font-mono text-center leading-tight">infinity-bold</span>
+        </div>
+        <div class="bg-white/5 border border-white/5 rounded-xl p-4 flex flex-col items-center gap-3 hover:bg-white/10 transition-colors">
+          <iconify-icon icon="solar:magnifer-linear" width="28" class="text-white"></iconify-icon>
+          <span class="text-[10px] text-white/30 font-mono text-center leading-tight">magnifer-linear</span>
+        </div>
+        <div class="bg-white/5 border border-white/5 rounded-xl p-4 flex flex-col items-center gap-3 hover:bg-white/10 transition-colors">
+          <iconify-icon icon="solar:menu-dots-square-linear" width="28" class="text-white"></iconify-icon>
+          <span class="text-[10px] text-white/30 font-mono text-center leading-tight">menu-dots-square</span>
+        </div>
+        <div class="bg-white/5 border border-white/5 rounded-xl p-4 flex flex-col items-center gap-3 hover:bg-white/10 transition-colors">
+          <iconify-icon icon="solar:arrow-right-linear" width="28" class="text-white"></iconify-icon>
+          <span class="text-[10px] text-white/30 font-mono text-center leading-tight">arrow-right</span>
+        </div>
+        <div class="bg-white/5 border border-white/5 rounded-xl p-4 flex flex-col items-center gap-3 hover:bg-white/10 transition-colors">
+          <iconify-icon icon="solar:arrow-right-up-linear" width="28" class="text-white"></iconify-icon>
+          <span class="text-[10px] text-white/30 font-mono text-center leading-tight">arrow-right-up</span>
+        </div>
+        <div class="bg-white/5 border border-white/5 rounded-xl p-4 flex flex-col items-center gap-3 hover:bg-white/10 transition-colors">
+          <iconify-icon icon="solar:home-angle-linear" width="28" class="text-white"></iconify-icon>
+          <span class="text-[10px] text-white/30 font-mono text-center leading-tight">home-angle</span>
+        </div>
+        <div class="bg-white/5 border border-white/5 rounded-xl p-4 flex flex-col items-center gap-3 hover:bg-white/10 transition-colors">
+          <iconify-icon icon="solar:buildings-linear" width="28" class="text-white"></iconify-icon>
+          <span class="text-[10px] text-white/30 font-mono text-center leading-tight">buildings</span>
+        </div>
+        <div class="bg-white/5 border border-white/5 rounded-xl p-4 flex flex-col items-center gap-3 hover:bg-white/10 transition-colors">
+          <iconify-icon icon="solar:tea-cup-linear" width="28" class="text-white"></iconify-icon>
+          <span class="text-[10px] text-white/30 font-mono text-center leading-tight">tea-cup</span>
+        </div>
+        <div class="bg-white/5 border border-white/5 rounded-xl p-4 flex flex-col items-center gap-3 hover:bg-white/10 transition-colors">
+          <iconify-icon icon="solar:layers-minimalistic-linear" width="28" class="text-white"></iconify-icon>
+          <span class="text-[10px] text-white/30 font-mono text-center leading-tight">layers-minimalistic</span>
+        </div>
+        <div class="bg-white/5 border border-white/5 rounded-xl p-4 flex flex-col items-center gap-3 hover:bg-white/10 transition-colors">
+          <iconify-icon icon="solar:scale-linear" width="28" class="text-white"></iconify-icon>
+          <span class="text-[10px] text-white/30 font-mono text-center leading-tight">scale</span>
+        </div>
+        <div class="bg-white/5 border border-white/5 rounded-xl p-4 flex flex-col items-center gap-3 hover:bg-white/10 transition-colors">
+          <iconify-icon icon="solar:map-point-linear" width="28" class="text-white"></iconify-icon>
+          <span class="text-[10px] text-white/30 font-mono text-center leading-tight">map-point</span>
+        </div>
+        <div class="bg-white/5 border border-white/5 rounded-xl p-4 flex flex-col items-center gap-3 hover:bg-white/10 transition-colors">
+          <iconify-icon icon="solar:shield-check-linear" width="28" class="text-white"></iconify-icon>
+          <span class="text-[10px] text-white/30 font-mono text-center leading-tight">shield-check</span>
+        </div>
+        <div class="bg-white/5 border border-white/5 rounded-xl p-4 flex flex-col items-center gap-3 hover:bg-white/10 transition-colors">
+          <iconify-icon icon="solar:file-download-linear" width="28" class="text-white"></iconify-icon>
+          <span class="text-[10px] text-white/30 font-mono text-center leading-tight">file-download</span>
+        </div>
+        <div class="bg-white/5 border border-white/5 rounded-xl p-4 flex flex-col items-center gap-3 hover:bg-white/10 transition-colors">
+          <iconify-icon icon="solar:tree-linear" width="28" class="text-white"></iconify-icon>
+          <span class="text-[10px] text-white/30 font-mono text-center leading-tight">tree</span>
+        </div>
+        <div class="bg-white/5 border border-white/5 rounded-xl p-4 flex flex-col items-center gap-3 hover:bg-white/10 transition-colors">
+          <iconify-icon icon="solar:clock-circle-linear" width="28" class="text-white"></iconify-icon>
+          <span class="text-[10px] text-white/30 font-mono text-center leading-tight">clock-circle</span>
+        </div>
+        <div class="bg-white/5 border border-white/5 rounded-xl p-4 flex flex-col items-center gap-3 hover:bg-white/10 transition-colors">
+          <iconify-icon icon="solar:check-circle-linear" width="28" class="text-white"></iconify-icon>
+          <span class="text-[10px] text-white/30 font-mono text-center leading-tight">check-circle</span>
+        </div>
+        <div class="bg-white/5 border border-white/5 rounded-xl p-4 flex flex-col items-center gap-3 hover:bg-white/10 transition-colors">
+          <iconify-icon icon="solar:umbrella-linear" width="28" class="text-white"></iconify-icon>
+          <span class="text-[10px] text-white/30 font-mono text-center leading-tight">umbrella</span>
+        </div>
+        <div class="bg-white/5 border border-white/5 rounded-xl p-4 flex flex-col items-center gap-3 hover:bg-white/10 transition-colors">
+          <iconify-icon icon="solar:ruler-pen-linear" width="28" class="text-white"></iconify-icon>
+          <span class="text-[10px] text-white/30 font-mono text-center leading-tight">ruler-pen</span>
+        </div>
+        <div class="bg-white/5 border border-white/5 rounded-xl p-4 flex flex-col items-center gap-3 hover:bg-white/10 transition-colors">
+          <iconify-icon icon="solar:sofa-linear" width="28" class="text-white"></iconify-icon>
+          <span class="text-[10px] text-white/30 font-mono text-center leading-tight">sofa</span>
+        </div>
+        <div class="bg-white/5 border border-white/5 rounded-xl p-4 flex flex-col items-center gap-3 hover:bg-white/10 transition-colors">
+          <iconify-icon icon="solar:clipboard-check-linear" width="28" class="text-white"></iconify-icon>
+          <span class="text-[10px] text-white/30 font-mono text-center leading-tight">clipboard-check</span>
+        </div>
+        <div class="bg-white/5 border border-white/5 rounded-xl p-4 flex flex-col items-center gap-3 hover:bg-white/10 transition-colors">
+          <iconify-icon icon="solar:check-read-linear" width="28" class="text-white"></iconify-icon>
+          <span class="text-[10px] text-white/30 font-mono text-center leading-tight">check-read</span>
+        </div>
+        <div class="bg-white/5 border border-white/5 rounded-xl p-4 flex flex-col items-center gap-3 hover:bg-white/10 transition-colors">
+          <iconify-icon icon="solar:chat-line-linear" width="28" class="text-white"></iconify-icon>
+          <span class="text-[10px] text-white/30 font-mono text-center leading-tight">chat-line</span>
+        </div>
+        <div class="bg-white/5 border border-white/5 rounded-xl p-4 flex flex-col items-center gap-3 hover:bg-white/10 transition-colors">
+          <iconify-icon icon="solar:pen-new-square-linear" width="28" class="text-white"></iconify-icon>
+          <span class="text-[10px] text-white/30 font-mono text-center leading-tight">pen-new-square</span>
+        </div>
+        <div class="bg-white/5 border border-white/5 rounded-xl p-4 flex flex-col items-center gap-3 hover:bg-white/10 transition-colors">
+          <iconify-icon icon="solar:documents-linear" width="28" class="text-white"></iconify-icon>
+          <span class="text-[10px] text-white/30 font-mono text-center leading-tight">documents</span>
+        </div>
+        <div class="bg-white/5 border border-white/5 rounded-xl p-4 flex flex-col items-center gap-3 hover:bg-white/10 transition-colors">
+          <iconify-icon icon="solar:hammer-2-linear" width="28" class="text-white"></iconify-icon>
+          <span class="text-[10px] text-white/30 font-mono text-center leading-tight">hammer-2</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</body></html>
