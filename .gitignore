@@ -1,0 +1,7 @@
+# Python
+*.py
+*.ps1
+pyproject.toml
+__pycache__/
+.venv/
+*.pyc
