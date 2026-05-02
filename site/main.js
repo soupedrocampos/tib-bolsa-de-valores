@@ -95,7 +95,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ── NAV visible + scrolled ───────────────
     const nav = document.getElementById('siteNav');
-    setTimeout(() => nav.classList.add('visible'), 80);
+    const navCtaFixed = document.querySelector('.nav-cta-fixed');
+    setTimeout(() => {
+        nav.classList.add('visible');
+        if (navCtaFixed) navCtaFixed.classList.add('visible');
+    }, 80);
     window.addEventListener('scroll', () => {
         nav.classList.toggle('scrolled', window.scrollY > 60);
     }, { passive: true });
