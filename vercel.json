@@ -1,7 +1,7 @@
 {
   "framework": null,
   "buildCommand": "",
-  "outputDirectory": ".",
+  "outputDirectory": "SITE",
   "headers": [
     {
       "source": "/(.*)\\.htm",
