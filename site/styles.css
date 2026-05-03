@@ -973,7 +973,7 @@ ul { list-style: none; }
     margin-top: 1.5rem;
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 1.4rem;
 }
 .sobre-manifesto p {
     font-size: var(--fs-body);
