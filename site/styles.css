@@ -941,6 +941,7 @@ ul { list-style: none; }
 .sobre-left {
     margin-left: 0;
     padding-left: 0;
+    padding-right: clamp(1rem, 3vw, 3rem);
 }
 .sobre-manifesto {
     margin-left: 0;
