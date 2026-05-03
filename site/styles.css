@@ -514,11 +514,6 @@ ul { list-style: none; }
 }
 .ht-line.italic-serif .serif-em {
     display: inline-block;
-    animation: serifZoom 3.6s var(--ease-in-out) infinite alternate;
-}
-@keyframes serifZoom {
-    0%   { transform: scale(1);    letter-spacing: 0; }
-    100% { transform: scale(1.06); letter-spacing: 0.02em; }
 }
 .ht-line.italic-serif-full {
     margin-bottom: -0.38em;
