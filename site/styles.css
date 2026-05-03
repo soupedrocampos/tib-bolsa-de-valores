@@ -1584,10 +1584,12 @@ ul { list-style: none; }
     pointer-events: auto; position: relative;
 }
 .tti-text-intro {
-    font-size: clamp(1rem, 1.6vw, 1.2rem);
-    font-weight: 600; color: var(--navy-deep);
-    line-height: 1.4; margin-bottom: 1.2rem;
+    font-family: var(--font-display);
+    font-size: 0.8rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--navy-deep);
+    font-weight: 700; line-height: 1.4; margin-bottom: 1.2rem;
 }
+.tti-text-intro strong { font-weight: 700; }
 .tti-text-body {
     font-size: var(--fs-body); color: var(--text-muted);
     line-height: 1.85; margin-bottom: 1rem;
