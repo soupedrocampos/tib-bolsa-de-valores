@@ -932,7 +932,7 @@ ul { list-style: none; }
 }
 .sobre-grid {
     display: grid;
-    grid-template-columns: 1.35fr 1.5fr;
+    grid-template-columns: 1.6fr 1.2fr;
     gap: clamp(3rem, 8vw, 8rem);
     align-items: start;
     margin-left: 0;
@@ -941,7 +941,6 @@ ul { list-style: none; }
 .sobre-left {
     margin-left: 0;
     padding-left: 0;
-    padding-right: clamp(1rem, 3vw, 3rem);
 }
 .sobre-manifesto {
     margin-left: 0;
@@ -1022,8 +1021,8 @@ ul { list-style: none; }
     object-fit: contain;
 }
 .sobre-touro-img {
-    width: 100%;
-    max-width: 840px;
+    width: 140%;
+    max-width: 900px;
     height: auto;
     object-fit: contain;
 }
