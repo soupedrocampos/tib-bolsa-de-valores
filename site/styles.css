@@ -838,7 +838,7 @@ ul { list-style: none; }
 /* ─── SUNSET CTA BANNER ────────────────────── */
 .s-visual-cta {
     position: relative;
-    height: clamp(420px, 52vw, 620px);
+    height: clamp(520px, 75vw, 820px);
     overflow: hidden;
     display: flex; align-items: center; justify-content: center;
 }
