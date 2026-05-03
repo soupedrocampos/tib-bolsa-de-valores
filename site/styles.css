@@ -1679,7 +1679,7 @@ ul { list-style: none; }
 }
 .pc {
     background: var(--bg-card);
-    padding: clamp(2rem, 3.5vw, 2.8rem) clamp(1.5rem, 2.5vw, 2rem);
+    padding: clamp(1.1rem, 2vw, 1.5rem) clamp(1rem, 1.8vw, 1.4rem);
     position: relative; overflow: hidden;
     transition: background 0.3s;
     display: grid;
