@@ -1021,8 +1021,8 @@ ul { list-style: none; }
     object-fit: contain;
 }
 .sobre-touro-img {
-    width: 140%;
-    max-width: 900px;
+    width: 200%;
+    max-width: 1100px;
     height: auto;
     object-fit: contain;
 }
