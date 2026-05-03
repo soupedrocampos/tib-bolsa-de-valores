@@ -257,7 +257,7 @@
             <div class="op-chart-wrap sa sa-delay-2">
                 <div class="ramp-card" id="rampCard">
                     <div class="chart-eyebrow">4 Fases do Ramp-Up · Valorização Linear</div>
-                    <svg class="ramp-svg" viewBox="50 66 428 268" xmlns="http://www.w3.org/2000/svg" aria-label="Gráfico Ramp-Up TIB">
+                    <svg class="ramp-svg" viewBox="50 44 428 290" xmlns="http://www.w3.org/2000/svg" aria-label="Gráfico Ramp-Up TIB">
                         <defs>
                             <linearGradient id="rg" x1="80" y1="0" x2="455" y2="0" gradientUnits="userSpaceOnUse">
                                 <stop offset="0%"   stop-color="#A66617" stop-opacity="0.6"/>
@@ -294,17 +294,11 @@
                         <line x1="270" y1="80" x2="270" y2="305" stroke="rgba(217,184,85,0.07)" stroke-width="1"/>
                         <line x1="361" y1="80" x2="361" y2="305" stroke="rgba(217,184,85,0.07)" stroke-width="1"/>
 
-                        <!-- Area fill -->
-                        <polygon
-                            points="80,298  127,285  174,285  222,240  270,240  316,170  361,170  408,98  455,98  455,300  80,300"
-                            fill="url(#ag)"
-                            clip-path="url(#clip)"/>
-
-                        <!-- 4 line segments -->
-                        <polyline id="seg1" class="seg" points="80,298  127,285  174,285"/>
-                        <polyline id="seg2" class="seg" points="174,285  222,240  270,240"/>
-                        <polyline id="seg3" class="seg" points="270,240  316,170  361,170"/>
-                        <polyline id="seg4" class="seg" points="361,170  408,98  455,98"/>
+                        <!-- 4 line segments: horizontal curta → diagonal até próximo ponto -->
+                        <polyline id="seg1" class="seg" points="80,298  105,298  174,285"/>
+                        <polyline id="seg2" class="seg" points="174,285  199,285  270,240"/>
+                        <polyline id="seg3" class="seg" points="270,240  295,240  361,170"/>
+                        <polyline id="seg4" class="seg" points="361,170  386,170  455,98"/>
 
                         <!-- Setas internas -->
                         <text x="105" y="294" fill="rgba(217,184,85,0.13)" font-size="11" font-family="Oswald" text-anchor="middle">↑</text>

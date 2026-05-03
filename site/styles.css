@@ -1322,10 +1322,10 @@ ul { list-style: none; }
     stroke-linejoin: round;
     transition: stroke-dashoffset 1.5s cubic-bezier(0.45,0,0.55,1);
 }
-#seg1 { stroke-dasharray: 83;  stroke-dashoffset: 83;  transition-delay: 0s; }
-#seg2 { stroke-dasharray: 127; stroke-dashoffset: 127; transition-delay: 1.5s; }
-#seg3 { stroke-dasharray: 141; stroke-dashoffset: 141; transition-delay: 3.0s; }
-#seg4 { stroke-dasharray: 123; stroke-dashoffset: 123; transition-delay: 4.5s; }
+#seg1 { stroke-dasharray: 96;  stroke-dashoffset: 96;  transition-delay: 0s; }
+#seg2 { stroke-dasharray: 110; stroke-dashoffset: 110; transition-delay: 1.5s; }
+#seg3 { stroke-dasharray: 122; stroke-dashoffset: 122; transition-delay: 3.0s; }
+#seg4 { stroke-dasharray: 125; stroke-dashoffset: 125; transition-delay: 4.5s; }
 .ramp-card.animate .seg { stroke-dashoffset: 0; }
 
 /* Bullet dots */
