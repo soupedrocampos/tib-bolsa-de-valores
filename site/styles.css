@@ -499,11 +499,7 @@ ul { list-style: none; }
 .ht-line { display: block; padding-bottom: 0.08em; }
 .ht-inner {
     display: block; color: #fff;
-    animation: lineIn 0.9s var(--ease-out) both;
 }
-.ht-line:nth-child(1) .ht-inner { animation-delay: 0.1s; }
-.ht-line:nth-child(2) .ht-inner { animation-delay: 0.2s; }
-.ht-line:nth-child(3) .ht-inner { animation-delay: 0.3s; }
 .ht-line.italic-serif {
     margin-bottom: -0.05em;
     margin-top: -0.15em;
