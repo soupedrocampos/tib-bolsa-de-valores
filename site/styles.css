@@ -852,7 +852,9 @@ ul { list-style: none; }
 }
 .s-visual-cta-overlay {
     position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.1) 50%, transparent 100%);
+    background:
+        linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.15) 60%, rgba(0,0,0,0.65) 100%),
+        linear-gradient(to right, rgba(0,0,0,0.35) 0%, transparent 60%);
 }
 .s-visual-cta-inner {
     position: relative; z-index: 2;
@@ -864,7 +866,7 @@ ul { list-style: none; }
     font-size: clamp(2rem, 5vw, 4.5rem);
     font-weight: 700; text-transform: uppercase;
     letter-spacing: -0.02em; color: #fff;
-    line-height: 0.9; margin-bottom: 2.8rem;
+    line-height: 0.9; margin-bottom: 4.5rem;
 }
 .s-visual-cta-inner h3 em {
     font-family: var(--font-serif);
