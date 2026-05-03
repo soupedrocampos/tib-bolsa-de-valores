@@ -75,22 +75,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (heroNext) heroNext.addEventListener('click', () => { nextSlide(); startTimer(); });
     if (heroPrev) heroPrev.addEventListener('click', () => { prevSlide(); startTimer(); });
 
-    // startTimer(); — apresentação: hero fixo no slide 1
+    startTimer();
 
-    // ── Parallax hero + sunset ────────────────
-    const heroImg   = document.getElementById('heroImg');
-    const sunsetImg = document.getElementById('sunsetImg');
+    // ── Parallax hero ────────────────
+    const heroImg = document.getElementById('heroImg');
     window.addEventListener('scroll', () => {
         const y = window.scrollY;
-        if (heroImg)   heroImg.style.transform   = `translateY(${y * 0.25}px)`;
-        if (sunsetImg) {
-            const el   = sunsetImg.closest('.s-visual-cta');
-            const rect = el ? el.getBoundingClientRect() : null;
-            if (rect) {
-                const offset = (window.innerHeight - rect.top) * 0.1;
-                sunsetImg.style.transform = `translateY(${offset}px)`;
-            }
-        }
+        if (heroImg) heroImg.style.transform = `translateY(${y * 0.25}px)`;
     }, { passive: true });
 
     // ── NAV visible + scrolled ───────────────
@@ -290,4 +281,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         tick();
     })();
+
+    // ── TTI tabs ─────────────────────────────
+    document.querySelectorAll('.tti-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            const panel = tab.closest('.planta-tti-text');
+            if (!panel) return;
+            const idx = tab.dataset.ttiSlide;
+            panel.querySelectorAll('.tti-tab').forEach(t => t.classList.remove('tti-tab--active'));
+            panel.querySelectorAll('.tti-slide').forEach(s => s.classList.remove('tti-slide--active'));
+            tab.classList.add('tti-tab--active');
+            const target = panel.querySelector(`.tti-slide:nth-child(${+idx + 1})`);
+            if (target) target.classList.add('tti-slide--active');
+        });
+    });
 });
