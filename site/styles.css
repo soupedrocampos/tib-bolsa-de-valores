@@ -1686,6 +1686,12 @@ ul { list-style: none; }
     padding: clamp(2rem, 3.5vw, 2.8rem) clamp(1.5rem, 2.5vw, 2rem);
     position: relative; overflow: hidden;
     transition: background 0.3s;
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    column-gap: 0.75rem;
+    row-gap: 0.75rem;
+    align-items: start;
+    align-content: start;
 }
 .pc::after {
     content: ''; position: absolute; top: 0; left: 0; right: 0;
@@ -1695,19 +1701,26 @@ ul { list-style: none; }
 }
 .pc:hover { background: var(--navy-mist); }
 .pc:hover::after { transform: scaleX(1); }
-.pc-num {
-    font-family: var(--font-display);
-    font-size: 0.80rem; letter-spacing: 0.28em;
-    color: var(--gold-dark); margin-bottom: 1rem;
+.pc-num { display: none; }
+.pc-icon {
+    color: rgba(217,184,85,0.75);
+    grid-column: 1; grid-row: 1;
+    margin-bottom: 0; align-self: start;
 }
-.pc-icon { color: var(--navy-royal); margin-bottom: 1rem; }
 .pc h3 {
     font-family: var(--font-display);
     font-size: var(--fs-body);
     font-weight: 600; letter-spacing: 0.05em;
-    color: var(--navy-deep); margin-bottom: 0.6rem;
+    color: rgba(217,184,85,0.85);
+    margin-bottom: 0;
+    grid-column: 2; grid-row: 1;
+    align-self: start;
 }
-.pc p { font-size: var(--fs-body); color: var(--text-muted); line-height: 1.85; }
+.pc p {
+    font-size: var(--fs-body); color: var(--text-muted); line-height: 1.55;
+    grid-column: 1 / -1; grid-row: 2;
+    margin-top: 0; align-self: start;
+}
 
 .planta-btn-row { margin-top: 2.5rem; }
 
@@ -2170,18 +2183,7 @@ ul { list-style: none; }
     .litoral-list  { grid-template-columns: 1fr; }
     .ll-header h4  { font-size: 0.88rem; }
 
-    /* Ícone e título na mesma linha nos cards de planta */
-    .pc {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        grid-template-rows: auto auto auto;
-        column-gap: 0.85rem;
-        align-items: center;
-    }
-    .pc-num  { grid-column: 1 / -1; margin-bottom: 0.6rem; }
-    .pc-icon { grid-column: 1; grid-row: 2; margin-bottom: 0; align-self: center; }
-    .pc h3   { grid-column: 2; grid-row: 2; align-self: center; font-size: 0.95rem; }
-    .pc p    { grid-column: 1 / -1; grid-row: 3; margin-top: 0.75rem; }
+    .pc h3 { font-size: 0.95rem; }
 
     /* Menu secreto abre para cima no mobile */
     #secret-nav {
