@@ -110,7 +110,7 @@
 
 /* ─── RESET ──────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
 body {
     background: var(--bg);
     color: var(--text);
@@ -1651,7 +1651,7 @@ ul { list-style: none; }
     .site-nav { padding: 0 6px 0 14px; height: 46px; }
     .nav-logo  { font-size: 1.1rem; margin-right: 0.75rem; }
     .nav-cta   { padding: 0 1rem; height: 36px; font-size: 0.72rem; }
-    .hero-title { font-size: clamp(2.2rem, 10vw, 3.5rem); line-height: 0.92; }
+    .hero-title { font-size: clamp(2.2rem, 10vw, 3.5rem); line-height: 0.92; overflow: hidden; }
     .op-kpi-row { gap: 0; }
     .op-kpi-n   { font-size: clamp(1.8rem, 9vw, 2.8rem); }
     .op-kpi-sfx { font-size: clamp(0.9rem, 3.5vw, 1.2rem); }
