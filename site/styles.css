@@ -1020,6 +1020,9 @@ ul { list-style: none; }
     height: auto;
     object-fit: contain;
 }
+@media (max-width: 900px) {
+    .sobre-touro-img { width: 100%; max-width: 100%; }
+}
 .sobre-stats {
     display: flex; gap: 2.5rem; flex-wrap: wrap;
     padding: 2rem 0; border-top: 1px solid var(--border);
@@ -2155,6 +2158,12 @@ ul { list-style: none; }
 }
 @media (max-width: 900px) {
     .nav-links { display: none; }
+    .site-nav {
+        padding: 0 6px 0 16px;
+        width: calc(100vw - 1.5rem);
+        max-width: calc(100vw - 1.5rem);
+    }
+    .nav-logo { margin-right: 0.5rem; font-size: 1.1rem; }
     .op-grid, .cta-body, .sobre-grid { grid-template-columns: 1fr; }
     .depo-card { flex: 0 0 calc((100% - 1.4rem) / 2); }
     .litoral-title br { display: none; }
