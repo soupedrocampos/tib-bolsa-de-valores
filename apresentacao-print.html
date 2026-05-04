@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TIB — Apresentação</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+  body { background:#000; overflow:hidden; font-family:'Oswald',sans-serif; }
+
+  /* ── Topbar ─────────────────────────────── */
+  #topbar {
+    position: fixed; top:0; left:0; right:0; height:48px;
+    background: #010A26;
+    border-bottom: 1px solid rgba(217,184,85,.18);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 24px; z-index: 9999;
+  }
+  .tb-brand { font-size:12px; letter-spacing:8px; color:rgba(217,184,85,.7); text-transform:uppercase; }
+  .tb-center { display:flex; align-items:center; gap:16px; }
+  .tb-dots { display:flex; gap:7px; }
+  .tb-dot {
+    width:5px; height:5px; border-radius:50%;
+    background:rgba(217,184,85,.18); border:1px solid rgba(217,184,85,.3);
+    cursor:pointer; padding:0; transition:.25s;
+  }
+  .tb-dot.active { background:#D9B855; transform:scale(1.5); }
+  .tb-label { font-size:10px; letter-spacing:4px; color:rgba(217,184,85,.45); text-transform:uppercase; }
+  .tb-right { display:flex; align-items:center; gap:12px; }
+  .tb-counter { font-size:11px; letter-spacing:3px; color:rgba(217,184,85,.4); }
+  .tb-counter strong { color:#D9B855; }
+  #btn-pdf {
+    display:flex; align-items:center; gap:7px;
+    background:linear-gradient(135deg,#F2DEA0,#D9B855);
+    color:#010A26; border:none; border-radius:4px;
+    padding:6px 16px; font-family:'Oswald',sans-serif;
+    font-size:11px; font-weight:600; letter-spacing:3px;
+    text-transform:uppercase; cursor:pointer; transition:opacity .2s;
+  }
+  #btn-pdf:hover { opacity:.85; }
+  #btn-pdf svg { width:12px; height:12px; stroke:#010A26; fill:none; stroke-width:2; }
+
+  /* ── Stage ──────────────────────────────── */
+  #stage {
+    position: fixed; top:48px; left:0; right:0; bottom:0;
+    display: flex; align-items:center; justify-content:center;
+    background: #000; overflow:hidden;
+  }
+
+  /* ── Slide track (handles horizontal animation) ── */
+  #slide-track {
+    position: absolute; inset:0;
+    display: flex; align-items:center; justify-content:center;
+    will-change: transform;
+  }
+
+  /* ── Frame wrapper (handles scale only) ──── */
+  #frame-wrap {
+    width: 1440px; height: 810px;
+    transform-origin: center center;
+    flex-shrink: 0; position:relative;
+  }
+  #site-frame {
+    width: 1440px; height: 810px;
+    border: none; display:block;
+  }
+
+  /* ── Loading overlay ────────────────────── */
+  #loading {
+    position: absolute; inset:0; z-index:10;
+    display:flex; align-items:center; justify-content:center;
+    background:#010A26;
+  }
+  #loading span {
+    font-size:11px; letter-spacing:6px; color:rgba(217,184,85,.5); text-transform:uppercase;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:.3} 50%{opacity:1} }
+
+  /* ── Arrows ─────────────────────────────── */
+  .nav-arrow {
+    position: fixed; top:50%; transform:translateY(-50%); z-index:9998;
+    width:44px; height:44px; border-radius:50%;
+    background:rgba(1,10,38,.7); border:1px solid rgba(217,184,85,.35);
+    color:rgba(217,184,85,.8); cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition:.2s; backdrop-filter:blur(6px);
+  }
+  .nav-arrow:hover { background:rgba(1,10,38,.95); border-color:rgba(217,184,85,.8); }
+  .nav-arrow svg { width:20px; height:20px; stroke:currentColor; fill:none; stroke-width:2.2; }
+  #nav-prev { left:14px; }
+  #nav-next { right:14px; }
+
+  /* ── Slide label strip ──────────────────── */
+  #slide-label {
+    position:fixed; bottom:0; left:50%; transform:translateX(-50%); z-index:9998;
+    background:rgba(1,10,38,.85); border-top:1px solid rgba(217,184,85,.15);
+    padding:6px 28px; font-size:10px; letter-spacing:5px;
+    color:rgba(217,184,85,.55); text-transform:uppercase;
+    backdrop-filter:blur(8px); white-space:nowrap;
+    transition:opacity .3s;
+  }
+
+  /* ── Print ──────────────────────────────── */
+  @media print {
+    #topbar, .nav-arrow, #slide-label { display:none !important; }
+    #stage {
+      position:static !important; top:auto !important;
+      height:auto !important; overflow:visible !important;
+    }
+    #frame-wrap, #site-frame {
+      width:100% !important; height:100vh !important;
+      transform:none !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Topbar -->
+<div id="topbar">
+  <div class="tb-brand">TIB</div>
+  <div class="tb-center">
+    <div class="tb-dots" id="tb-dots"></div>
+    <span class="tb-label" id="tb-label">Banner</span>
+  </div>
+  <div class="tb-right">
+    <span class="tb-counter"><strong id="tb-cur">01</strong> / 10</span>
+    <button id="btn-pdf" onclick="openPdf()">
+      <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Salvar PDF
+    </button>
+  </div>
+</div>
+
+<!-- Stage -->
+<div id="stage">
+  <div id="slide-track">
+    <div id="frame-wrap">
+      <div id="loading"><span>Carregando…</span></div>
+      <iframe id="site-frame"
+        src="site v2/OFICIAL.html"
+        title="TIB — Apresentação">
+      </iframe>
+    </div>
+  </div>
+</div>
+
+<!-- Nav arrows -->
+<button class="nav-arrow" id="nav-prev" aria-label="Anterior">
+  <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+</button>
+<button class="nav-arrow" id="nav-next" aria-label="Próximo">
+  <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+</button>
+
+<!-- Bottom label -->
+<div id="slide-label">Banner</div>
+
+<script>
+(function () {
+
+  /* ── Seções da apresentação ────────────────── */
+  const SECTIONS = [
+    { sel: '#hero',            label: 'Banner · 01' },
+    { sel: '#sobre',           label: 'Sobre a TIB · 02' },
+    { sel: '#operacao',        label: 'Nossa Operação · 03' },
+    { sel: '#planta',          label: 'Por que investir na Planta? · 04' },
+    { sel: '#litoral',         label: 'Por que o Litoral de SC? · 05' },
+    { sel: '.premium-gallery', label: 'Opções de Investimento · 06' },
+    { sel: '#depoimentos',     label: 'Depoimentos · 07' },
+    { sel: '#parte',           label: 'Faça parte do TIB · 08' },
+    { sel: '.s-visual-cta',    label: 'Litoral mais Valorizado · 09' },
+    { sel: '#blog',            label: 'Notícias & Insights · 10' },
+  ];
+
+  let cur        = 0;
+  let ready      = false;
+  let animating  = false;
+  let scale      = 1;
+
+  const iframe      = document.getElementById('site-frame');
+  const frameWrap   = document.getElementById('frame-wrap');
+  const slideTrack  = document.getElementById('slide-track');
+  const loading     = document.getElementById('loading');
+  const labelEl     = document.getElementById('slide-label');
+  const tbLabel     = document.getElementById('tb-label');
+  const tbCur       = document.getElementById('tb-cur');
+  const dotsEl      = document.getElementById('tb-dots');
+
+  const SLIDE_MS = 380; // duração da animação horizontal
+
+  /* ── Dots ────────────────────────────────── */
+  const dots = SECTIONS.map((_, i) => {
+    const b = document.createElement('button');
+    b.className = 'tb-dot' + (i === 0 ? ' active' : '');
+    b.setAttribute('aria-label', 'Slide ' + (i + 1));
+    b.addEventListener('click', () => goTo(i));
+    dotsEl.appendChild(b);
+    return b;
+  });
+
+  /* ── Escala ──────────────────────────────── */
+  function applyScale() {
+    scale = Math.min(
+      window.innerWidth        / 1440,
+      (window.innerHeight - 48) / 810
+    );
+    frameWrap.style.transform = `scale(${scale})`;
+  }
+
+  /* ── Scroll interno do iframe ────────────── */
+  function scrollIframe(idx, behavior) {
+    try {
+      const doc = iframe.contentDocument || iframe.contentWindow.document;
+      const { sel } = SECTIONS[idx];
+      const el = sel.startsWith('#')
+        ? doc.getElementById(sel.slice(1))
+        : doc.querySelector(sel);
+      if (!el) return;
+      if (behavior === 'instant') {
+        const htmlEl = doc.documentElement;
+        htmlEl.style.scrollSnapType = 'none';
+        iframe.contentWindow.scrollTo({ top: el.offsetTop, behavior: 'instant' });
+        requestAnimationFrame(() => { htmlEl.style.scrollSnapType = ''; });
+      } else {
+        el.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      }
+    } catch (e) { console.warn('iframe scroll:', e); }
+  }
+
+  /* ── Navegação horizontal ────────────────── */
+  function goTo(n, behavior) {
+    if (animating && behavior !== 'instant') return;
+
+    const prev = cur;
+    cur = (n + SECTIONS.length) % SECTIONS.length;
+    updateUI();
+    if (!ready) return;
+
+    /* Scroll inicial sem animação */
+    if (behavior === 'instant') {
+      scrollIframe(cur, 'instant');
+      return;
+    }
+
+    /* Direção: goingForward = true → slide sai pela esquerda */
+    const delta = ((cur - prev + SECTIONS.length) % SECTIONS.length);
+    const goingForward = delta <= SECTIONS.length / 2;
+    const exitX  =  goingForward ? '-110vw' : '110vw';
+    const enterX =  goingForward ?  '110vw' : '-110vw';
+
+    animating = true;
+
+    /* 1. Desliza o track para fora */
+    slideTrack.style.transition = `transform ${SLIDE_MS}ms cubic-bezier(0.4,0,0.2,1)`;
+    slideTrack.style.transform  = `translateX(${exitX})`;
+
+    setTimeout(() => {
+      /* 2. Rola o iframe para a nova seção enquanto está fora da tela */
+      scrollIframe(cur, 'instant');
+
+      /* 3. Reposiciona o track no lado oposto, sem transição */
+      slideTrack.style.transition = 'none';
+      slideTrack.style.transform  = `translateX(${enterX})`;
+
+      /* 4. Força reflow para o browser registrar a posição */
+      void slideTrack.offsetWidth;
+
+      /* 5. Desliza de volta ao centro */
+      slideTrack.style.transition = `transform ${SLIDE_MS}ms cubic-bezier(0.4,0,0.2,1)`;
+      slideTrack.style.transform  = 'translateX(0)';
+
+      setTimeout(() => { animating = false; }, SLIDE_MS);
+    }, SLIDE_MS);
+  }
+
+  function updateUI() {
+    const lbl = SECTIONS[cur].label;
+    tbLabel.textContent    = lbl;
+    labelEl.textContent    = lbl;
+    tbCur.textContent      = String(cur + 1).padStart(2, '0');
+    dots.forEach((d, i) => d.classList.toggle('active', i === cur));
+  }
+
+  /* ── Carregamento do iframe ──────────────── */
+  iframe.addEventListener('load', function () {
+    try {
+      const doc = iframe.contentDocument || iframe.contentWindow.document;
+      const win = iframe.contentWindow;
+
+      const style = doc.createElement('style');
+      style.id    = 'pres-overrides';
+      style.textContent = `
+        .site-nav, nav.site-nav, #siteNav,
+        .site-nav.visible, .site-nav.scrolled {
+          display:none !important;
+          opacity:0 !important;
+          visibility:hidden !important;
+          pointer-events:none !important;
+        }
+        .grid-lines { display:none !important; }
+        #pres-nav, #pres-counter { display:none !important; }
+        html::-webkit-scrollbar, body::-webkit-scrollbar { display:none !important; width:0 !important; height:0 !important; }
+        html, body { scrollbar-width:none !important; -ms-overflow-style:none !important; }
+      `;
+      doc.head.appendChild(style);
+
+      const presNav = doc.getElementById('pres-nav');
+      if (presNav) presNav.remove();
+
+      /* Remove a nav do site do DOM para garantir que não reaparece */
+      const siteNav = doc.getElementById('siteNav') || doc.querySelector('nav.site-nav');
+      if (siteNav) siteNav.remove();
+
+      if (typeof win.stopTimer === 'function') win.stopTimer();
+
+      doc.addEventListener('keydown', function (e) {
+        const nav = ['ArrowDown','ArrowUp','ArrowLeft','ArrowRight','PageDown','PageUp',' '];
+        if (nav.includes(e.key)) e.stopPropagation();
+      }, true);
+
+    } catch (e) { console.warn('iframe inject:', e); }
+
+    ready = true;
+    loading.style.display = 'none';
+    goTo(cur, 'instant');
+  });
+
+  /* ── Botões de seta ─────────────────────── */
+  document.getElementById('nav-prev').addEventListener('click', () => goTo(cur - 1));
+  document.getElementById('nav-next').addEventListener('click', () => goTo(cur + 1));
+
+  /* ── Teclado ─────────────────────────────── */
+  document.addEventListener('keydown', function (e) {
+    if (['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)) {
+      e.preventDefault(); goTo(cur + 1);
+    } else if (['ArrowLeft','ArrowUp','PageUp'].includes(e.key)) {
+      e.preventDefault(); goTo(cur - 1);
+    }
+  });
+
+  /* ── Swipe touch ─────────────────────────── */
+  let tx0 = 0;
+  document.addEventListener('touchstart', e => { tx0 = e.touches[0].clientX; }, { passive:true });
+  document.addEventListener('touchend',   e => {
+    const dx = e.changedTouches[0].clientX - tx0;
+    if (Math.abs(dx) > 60) goTo(cur + (dx < 0 ? 1 : -1));
+  });
+
+  /* ── Escala inicial e resize ─────────────── */
+  applyScale();
+  window.addEventListener('resize', applyScale);
+
+  /* ── PDF / Print ─────────────────────────── */
+  window.openPdf = function () {
+    const w = window.open('site v2/OFICIAL.html', '_blank');
+    if (w) {
+      w.addEventListener('load', function () {
+        setTimeout(() => w.print(), 1500);
+      });
+    }
+  };
+
+}());
+</script>
+</body>
+</html>

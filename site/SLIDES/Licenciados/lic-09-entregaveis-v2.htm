@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&amp;family=Work+Sans:wght@300;400;500;600&amp;family=Raleway:wght@300;400;500;600&amp;family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            deep: "#000814",
+                            primary: "#010A26",
+                            mid: "#021852",
+                            bright: "#0D2F82"
+                        },
+                        gold: {
+                            DEFAULT: "#D9B855",
+                            light: "#F0D475",
+                            dark: "#B8922A"
+                        }
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    fontFamily: {
+                        headline: ["Oswald", "sans-serif"],
+                        display: ["Oswald", "sans-serif"],
+                        body: ["Work Sans", "sans-serif"],
+                        raleway: ["Raleway", "sans-serif"],
+                        label: ["Oswald", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            overflow: hidden;
+            background-color: #000814;
+            color: white;
+            font-family: 'Work Sans', sans-serif;
+        }
+        .oswald { font-family: 'Oswald', sans-serif; }
+        .raleway { font-family: 'Raleway', sans-serif; }
+        .gold-gradient-text {
+            background: linear-gradient(to bottom, #F0D475, #D9B855, #B8922A);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-border-gradient {
+            border-top: 2px solid;
+            border-image-source: linear-gradient(90deg, transparent, #D9B855, transparent);
+            border-image-slice: 1;
+        }
+        .watermark-box {
+            position: absolute;
+            bottom: -10%;
+            right: -5%;
+            width: 45vw;
+            height: 45vw;
+            opacity: 0.05;
+            z-index: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-navy-deep min-h-screen flex flex-col">
+<!-- Shared TopAppBar -->
+<header class="flex justify-between items-center px-8 w-full fixed top-0 z-50 bg-[#010A26]/97 backdrop-blur-md dark:bg-[#010A26]/97 h-[52px] border-b border-[#D9B855]/35 shadow-2xl">
+<div class="text-xl font-bold tracking-[0.2em] text-[#D9B855] oswald uppercase">TIB</div>
+<div class="flex-1 flex justify-center space-x-8">
+<span class="text-white/80 font-['Oswald'] uppercase tracking-[0.15em] text-xs hover:text-[#F0D475] transition-colors cursor-pointer">Início</span>
+<span class="text-white/80 font-['Oswald'] uppercase tracking-[0.15em] text-xs hover:text-[#F0D475] transition-colors cursor-pointer">Mercado</span>
+<span class="text-white/80 font-['Oswald'] uppercase tracking-[0.15em] text-xs hover:text-[#F0D475] transition-colors cursor-pointer">Solução</span>
+<span class="text-white/80 font-['Oswald'] uppercase tracking-[0.15em] text-xs hover:text-[#F0D475] transition-colors cursor-pointer">Estratégia</span>
+<span class="text-[#D9B855] font-semibold font-['Oswald'] uppercase tracking-[0.15em] text-xs">Entregáveis</span>
+</div>
+<div class="font-['Oswald'] uppercase tracking-[0.15em] text-[#D9B855] font-bold">09/11</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 mt-[52px] relative overflow-hidden flex flex-col px-12 py-10">
+<!-- Top Gradient Border Decoration -->
+<div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-gold to-transparent opacity-40"></div>
+<!-- Watermark Background -->
+<div class="watermark-box">
+<svg fill="none" stroke="#D9B855" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5" viewbox="0 0 24 24">
+<path d="M21 8l-9-4-9 4v8l9 4 9-4V8z"></path>
+<path d="M12 12l9-4"></path>
+<path d="M12 12v8"></path>
+<path d="M12 12L3 8"></path>
+<circle cx="12" cy="5" fill="#D9B855" r="0.5"></circle>
+<circle cx="6" cy="18" fill="#D9B855" r="0.5"></circle>
+<circle cx="18" cy="18" fill="#D9B855" r="0.5"></circle>
+</svg>
+</div>
+<!-- Header Section -->
+<section class="flex justify-between items-start mb-12 relative z-10">
+<div>
+<div class="flex items-center gap-3 mb-2">
+<div class="h-[1px] w-8 bg-gradient-to-r from-gold-dark to-transparent"></div>
+<span class="oswald text-[10px] tracking-[0.35em] text-gold-dark uppercase font-medium">09 — O QUE VOCÊ RECEBE</span>
+</div>
+<h1 class="oswald text-[3.5vw] font-medium uppercase tracking-wider leading-tight gold-gradient-text">
+                    ENTREGÁVEIS TIB
+                </h1>
+</div>
+<div class="text-right flex flex-col items-end">
+<span class="oswald text-[5vw] font-semibold leading-none gold-gradient-text">13</span>
+<span class="oswald text-gold/50 uppercase tracking-[0.2em] text-sm">entregáveis</span>
+</div>
+</section>
+<!-- Two Column Content -->
+<section class="grid grid-cols-2 gap-16 relative z-10 flex-1">
+<!-- Left Column: Suporte Contínuo -->
+<div class="flex flex-col">
+<div class="flex items-center gap-3 mb-6 pb-2 border-b border-gold/35">
+<span class="text-xl">🏛️</span>
+<h2 class="oswald text-gold/50 text-sm tracking-[0.3em] font-medium uppercase">SUPORTE CONTÍNUO DA MATRIZ</h2>
+</div>
+<div class="grid grid-cols-1 gap-3 overflow-y-auto pr-4 custom-scrollbar">
+<!-- Standard Items -->
+<div class="flex items-center gap-4 p-3 bg-white/[0.02] border border-gold/14 rounded-[6px]">
+<div class="w-1.5 h-1.5 rounded-full bg-gold shadow-[0_0_8px_#D9B855]"></div>
+<span class="raleway text-white/80 text-sm font-medium">Suporte contábil</span>
+</div>
+<div class="flex items-center gap-4 p-3 bg-white/[0.02] border border-gold/14 rounded-[6px]">
+<div class="w-1.5 h-1.5 rounded-full bg-gold shadow-[0_0_8px_#D9B855]"></div>
+<span class="raleway text-white/80 text-sm font-medium">Suporte jurídico</span>
+</div>
+<div class="flex items-center gap-4 p-3 bg-white/[0.02] border border-gold/14 rounded-[6px]">
+<div class="w-1.5 h-1.5 rounded-full bg-gold shadow-[0_0_8px_#D9B855]"></div>
+<span class="raleway text-white/80 text-sm font-medium">Suporte tributário</span>
+</div>
+<div class="flex items-center gap-4 p-3 bg-white/[0.02] border border-gold/14 rounded-[6px]">
+<div class="w-1.5 h-1.5 rounded-full bg-gold shadow-[0_0_8px_#D9B855]"></div>
+<span class="raleway text-white/80 text-sm font-medium">Suporte de marketing</span>
+</div>
+<div class="flex items-center gap-4 p-3 bg-white/[0.02] border border-gold/14 rounded-[6px]">
+<div class="w-1.5 h-1.5 rounded-full bg-gold shadow-[0_0_8px_#D9B855]"></div>
+<span class="raleway text-white/80 text-sm font-medium">Suporte de gestão</span>
+</div>
+<div class="flex items-center gap-4 p-3 bg-white/[0.02] border border-gold/14 rounded-[6px]">
+<div class="w-1.5 h-1.5 rounded-full bg-gold shadow-[0_0_8px_#D9B855]"></div>
+<span class="raleway text-white/80 text-sm font-medium">Suporte estratégico</span>
+</div>
+<div class="flex items-center gap-4 p-3 bg-white/[0.02] border border-gold/14 rounded-[6px]">
+<div class="w-1.5 h-1.5 rounded-full bg-gold shadow-[0_0_8px_#D9B855]"></div>
+<span class="raleway text-white/80 text-sm font-medium">Suporte comercial</span>
+</div>
+<!-- Highlighted Items -->
+<div class="flex items-center gap-4 p-3 bg-gold/[0.06] border border-gold/[0.28] rounded-[6px]">
+<div class="w-1.5 h-1.5 rounded-full bg-gold shadow-[0_0_8px_#D9B855]"></div>
+<span class="raleway text-gold font-semibold text-sm">3 meses de Gestor de Tráfego pago pela Matriz</span>
+</div>
+<div class="flex items-center gap-4 p-3 bg-gold/[0.06] border border-gold/[0.28] rounded-[6px]">
+<div class="w-1.5 h-1.5 rounded-full bg-gold shadow-[0_0_8px_#D9B855]"></div>
+<span class="raleway text-gold font-semibold text-sm">50 cards estratégicos para as campanhas</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Ativações e Acompanhamento -->
+<div class="flex flex-col">
+<div class="flex items-center gap-3 mb-6 pb-2 border-b border-gold/35">
+<span class="text-xl">🚀</span>
+<h2 class="oswald text-gold/50 text-sm tracking-[0.3em] font-medium uppercase">ATIVAÇÕES E ACOMPANHAMENTO</h2>
+</div>
+<div class="flex flex-col gap-4">
+<!-- High Priority Highlight -->
+<div class="p-4 bg-gold/[0.06] border border-gold/[0.28] rounded-[6px] flex gap-4">
+<div class="flex-shrink-0 mt-1">
+<span class="material-symbols-outlined text-gold" style="font-variation-settings: 'FILL' 1;">stars</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="raleway text-gold font-bold text-sm uppercase tracking-wider">Colaboração Exclusiva</span>
+<p class="raleway text-white/90 text-[13px] leading-relaxed">
+                                1 colab mensal com @peixoto_x — sócio fundador com +400 mil seguidores e +10 milhões de visualizações mensais
+                            </p>
+</div>
+</div>
+<div class="p-4 bg-gold/[0.06] border border-gold/[0.28] rounded-[6px] flex gap-4">
+<div class="flex-shrink-0 mt-1">
+<span class="material-symbols-outlined text-gold" style="font-variation-settings: 'FILL' 1;">rocket_launch</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="raleway text-gold font-bold text-sm uppercase tracking-wider">Tração Inicial Acelerada</span>
+<p class="raleway text-white/90 text-[13px] leading-relaxed">
+                                500 leads qualificados em tráfego pago pela matriz TIB nos primeiros 30 dias
+                            </p>
+</div>
+</div>
+<!-- Standard items with different focus -->
+<div class="p-4 bg-white/[0.02] border border-gold/14 rounded-[6px] flex gap-4">
+<div class="flex-shrink-0 mt-1">
+<span class="material-symbols-outlined text-white/40">event_seat</span>
+</div>
+<p class="raleway text-white/80 text-[13px] leading-relaxed">
+                            Evento de inauguração com presença de dois sócios fundadores e foco em investidores qualificados.
+                        </p>
+</div>
+<div class="p-4 bg-white/[0.02] border border-gold/14 rounded-[6px] flex gap-4">
+<div class="flex-shrink-0 mt-1">
+<span class="material-symbols-outlined text-white/40">query_stats</span>
+</div>
+<p class="raleway text-white/80 text-[13px] leading-relaxed">
+                            Acompanhamento contínuo pela Matriz com foco total em performance, batimento de metas de vendas e geração de receita previsível.
+                        </p>
+</div>
+</div>
+<!-- Footer Visual Decoration -->
+<div class="mt-auto pt-8">
+<div class="flex items-center gap-4">
+<div class="h-[1px] flex-1 bg-gradient-to-r from-gold/40 to-transparent"></div>
+<div class="oswald text-[9px] tracking-[0.4em] text-gold/30 uppercase">Premium Investment Branch</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Shared BottomNavBar -->
+<nav class="fixed bottom-0 left-1/2 -translate-x-1/2 z-50 flex items-center p-1 bg-[#010A26]/80 backdrop-blur-xl dark:bg-[#010A26]/80 rounded-full border border-[#D9B855]/35 mb-8 mx-auto w-fit divide-x divide-[#D9B855]/20 shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+<a class="flex flex-col items-center justify-center text-white/55 px-6 py-2 hover:text-[#D9B855] hover:bg-white/10 transition-all" href="#">
+<span class="material-symbols-outlined text-sm mb-1" data-icon="dashboard">dashboard</span>
+<span class="font-['Oswald'] uppercase tracking-[0.08em] text-[10px] font-medium">Início</span>
+</a>
+<a class="flex flex-col items-center justify-center text-white/55 px-6 py-2 hover:text-[#D9B855] hover:bg-white/10 transition-all" href="#">
+<span class="material-symbols-outlined text-sm mb-1" data-icon="trending_up">trending_up</span>
+<span class="font-['Oswald'] uppercase tracking-[0.08em] text-[10px] font-medium">Mercado</span>
+</a>
+<a class="flex flex-col items-center justify-center text-white/55 px-6 py-2 hover:text-[#D9B855] hover:bg-white/10 transition-all" href="#">
+<span class="material-symbols-outlined text-sm mb-1" data-icon="lightbulb">lightbulb</span>
+<span class="font-['Oswald'] uppercase tracking-[0.08em] text-[10px] font-medium">Solução</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#D9B855] bg-white/5 px-6 py-2 rounded-full" href="#">
+<span class="material-symbols-outlined text-sm mb-1" data-icon="insights" style="font-variation-settings: 'FILL' 1;">insights</span>
+<span class="font-['Oswald'] uppercase tracking-[0.08em] text-[10px] font-medium">Estratégia</span>
+</a>
+<a class="flex flex-col items-center justify-center text-white/55 px-6 py-2 hover:text-[#D9B855] hover:bg-white/10 transition-all" href="#">
+<span class="material-symbols-outlined text-sm mb-1" data-icon="mail">mail</span>
+<span class="font-['Oswald'] uppercase tracking-[0.08em] text-[10px] font-medium">Contato</span>
+</a>
+</nav>
+</body></html>

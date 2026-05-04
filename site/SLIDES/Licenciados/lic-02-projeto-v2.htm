@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&amp;family=Work+Sans:wght@300;400;500&amp;family=Raleway:wght@300;400;500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            deep: "#000814",
+                            primary: "#010A26",
+                            mid: "#021852",
+                            bright: "#0D2F82"
+                        },
+                        gold: {
+                            DEFAULT: "#D9B855",
+                            light: "#F0D475",
+                            dark: "#B8922A"
+                        }
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    fontFamily: {
+                        headline: ["Oswald", "sans-serif"],
+                        body: ["Work Sans", "sans-serif"],
+                        accent: ["Raleway", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            overflow: hidden;
+            background: radial-gradient(circle at top left, #010A26 0%, #000814 100%);
+            height: 100vh;
+            width: 100vw;
+        }
+        .circuit-bg {
+            background-image: url("data:image/svg+xml,%3Csvg width='400' height='400' viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 10 L10 50 L50 50 M100 10 L100 100 L10 100 M200 10 L200 50 L250 50 M300 10 L300 200 L10 200' stroke='%23D9B855' stroke-width='0.5' fill='none' opacity='0.045'/%3E%3Ccircle cx='10' cy='10' r='2' fill='%23D9B855' opacity='0.045'/%3E%3Ccircle cx='50' cy='50' r='2' fill='%23D9B855' opacity='0.045'/%3E%3Ccircle cx='100' cy='100' r='2' fill='%23D9B855' opacity='0.045'/%3E%3C/svg%3E");
+            mask-image: linear-gradient(to left, rgba(0,0,0,1), rgba(0,0,0,0));
+        }
+        .gold-gradient-text {
+            background: linear-gradient(to right, #D9B855, #F0D475, #B8922A);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .card-hover-line::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #D9B855, #F0D475);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .card-hover-line:hover::before {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="text-white selection:bg-gold/30">
+<!-- Top Border Line -->
+<div class="fixed top-0 left-0 w-full h-[2px] bg-gradient-to-right from-gold-dark via-gold to-gold-light z-[100]"></div>
+<!-- Background Decoration -->
+<div class="fixed inset-0 pointer-events-none">
+<div class="absolute top-0 right-0 w-1/2 h-full circuit-bg"></div>
+<div class="absolute -bottom-24 -left-24 w-96 h-96 bg-navy-bright/10 blur-[120px] rounded-full"></div>
+<div class="absolute -top-24 -right-24 w-96 h-96 bg-gold/5 blur-[120px] rounded-full"></div>
+</div>
+<!-- Top Navigation Anchor (Shared Component Placeholder) -->
+<header class="fixed top-0 w-full h-[52px] bg-[#010A26]/95 backdrop-blur-md flex justify-between items-center px-6 w-full z-50 border-b border-[#D9B855]/35">
+<div class="text-lg font-bold uppercase tracking-[0.2em] text-[#D9B855]">TIB LICENCIADOS</div>
+<div class="flex gap-6 items-center">
+<span class="material-symbols-outlined text-[#D9B855] cursor-pointer">notifications</span>
+<span class="material-symbols-outlined text-[#D9B855] cursor-pointer">account_circle</span>
+</div>
+</header>
+<main class="relative z-10 w-full h-screen flex flex-col pt-[52px] px-12 pb-8">
+<!-- Header Row -->
+<div class="flex justify-between items-end mb-12 mt-8">
+<div class="flex flex-col">
+<span class="font-headline text-[11px] text-gold/50 tracking-[0.35em] uppercase mb-2">02 — O PROJETO</span>
+<h1 class="font-headline font-medium text-[3.2vw] leading-none gold-gradient-text uppercase">TUDO QUE A TIB OFERECE</h1>
+</div>
+<div class="max-w-[400px] text-right">
+<p class="font-accent text-[13px] text-white/60 leading-relaxed">
+                    Tecnologia, inteligência comercial e suporte completo para o licenciado operar com escala e segurança.
+                </p>
+</div>
+</div>
+<!-- Bento Grid 5x3 -->
+<div class="flex-grow grid grid-cols-5 grid-rows-3 gap-4">
+<!-- Card 1 (Highlighted) -->
+<div class="relative overflow-hidden bg-gold/5 border border-gold/30 rounded-[6px] p-5 flex flex-col justify-between card-hover-line group transition-all duration-300">
+<span class="text-2xl">🤖</span>
+<div>
+<h3 class="font-headline text-gold-light text-[11px] tracking-widest uppercase mb-1">TECNOLOGIA &amp; IA</h3>
+<p class="font-accent text-white/60 text-[10px] leading-tight">Ferramentas de IA integradas</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="relative overflow-hidden bg-white/[0.025] border border-gold/18 rounded-[6px] p-5 flex flex-col justify-between card-hover-line group transition-all duration-300">
+<span class="text-2xl">🏛️</span>
+<div>
+<h3 class="font-headline text-gold-light text-[11px] tracking-widest uppercase mb-1">ESTRUTURA ASSOCIATIVA</h3>
+<p class="font-accent text-white/60 text-[10px] leading-tight">Modelo jurídico e operacional próprio</p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="relative overflow-hidden bg-white/[0.025] border border-gold/18 rounded-[6px] p-5 flex flex-col justify-between card-hover-line group transition-all duration-300">
+<span class="text-2xl">📊</span>
+<div>
+<h3 class="font-headline text-gold-light text-[11px] tracking-widest uppercase mb-1">CRM PROPRIETÁRIO</h3>
+<p class="font-accent text-white/60 text-[10px] leading-tight">Pipeline, leads e performance em tempo real</p>
+</div>
+</div>
+<!-- Card 4 (Highlighted) -->
+<div class="relative overflow-hidden bg-gold/5 border border-gold/30 rounded-[6px] p-5 flex flex-col justify-between card-hover-line group transition-all duration-300">
+<span class="text-2xl">🌐</span>
+<div>
+<h3 class="font-headline text-gold-light text-[11px] tracking-widest uppercase mb-1">REDE GLOBAL</h3>
+<p class="font-accent text-white/60 text-[10px] leading-tight">Rede internacional de parceiros e construtoras</p>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="relative overflow-hidden bg-white/[0.025] border border-gold/18 rounded-[6px] p-5 flex flex-col justify-between card-hover-line group transition-all duration-300">
+<span class="text-2xl">📈</span>
+<div>
+<h3 class="font-headline text-gold-light text-[11px] tracking-widest uppercase mb-1">BOLSA DE IMÓVEIS</h3>
+<p class="font-accent text-white/60 text-[10px] leading-tight">Portfólio exclusivo em mercados premium</p>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="relative overflow-hidden bg-white/[0.025] border border-gold/18 rounded-[6px] p-5 flex flex-col justify-between card-hover-line group transition-all duration-300">
+<span class="text-2xl">🎯</span>
+<div>
+<h3 class="font-headline text-gold-light text-[11px] tracking-widest uppercase mb-1">METODOLOGIA PRÓPRIA</h3>
+<p class="font-accent text-white/60 text-[10px] leading-tight">Processo validado com mais de 14bi em VGV</p>
+</div>
+</div>
+<!-- Card 7 (Highlighted) -->
+<div class="relative overflow-hidden bg-gold/5 border border-gold/30 rounded-[6px] p-5 flex flex-col justify-between card-hover-line group transition-all duration-300">
+<span class="text-2xl">🚀</span>
+<div>
+<h3 class="font-headline text-gold-light text-[11px] tracking-widest uppercase mb-1">MARKETING DIGITAL</h3>
+<p class="font-accent text-white/60 text-[10px] leading-tight">Tráfego pago e 500 leads nos primeiros 30 dias</p>
+</div>
+</div>
+<!-- Card 8 -->
+<div class="relative overflow-hidden bg-white/[0.025] border border-gold/18 rounded-[6px] p-5 flex flex-col justify-between card-hover-line group transition-all duration-300">
+<span class="text-2xl">⚖️</span>
+<div>
+<h3 class="font-headline text-gold-light text-[11px] tracking-widest uppercase mb-1">SUPORTE JURÍDICO</h3>
+<p class="font-accent text-white/60 text-[10px] leading-tight">Assessoria para contratos e compliance</p>
+</div>
+</div>
+<!-- Card 9 (Highlighted) -->
+<div class="relative overflow-hidden bg-gold/5 border border-gold/30 rounded-[6px] p-5 flex flex-col justify-between card-hover-line group transition-all duration-300">
+<span class="text-2xl">📋</span>
+<div>
+<h3 class="font-headline text-gold-light text-[11px] tracking-widest uppercase mb-1">SUPORTE DE GESTÃO</h3>
+<p class="font-accent text-white/60 text-[10px] leading-tight">Contábil, tributário e administrativo</p>
+</div>
+</div>
+<!-- Card 10 -->
+<div class="relative overflow-hidden bg-white/[0.025] border border-gold/18 rounded-[6px] p-5 flex flex-col justify-between card-hover-line group transition-all duration-300">
+<span class="text-2xl">🎓</span>
+<div>
+<h3 class="font-headline text-gold-light text-[11px] tracking-widest uppercase mb-1">FORMAÇÃO DE CORRETORES</h3>
+<p class="font-accent text-white/60 text-[10px] leading-tight">Treinamento com métodos exclusivos TIB</p>
+</div>
+</div>
+<!-- Card 11 -->
+<div class="relative overflow-hidden bg-white/[0.025] border border-gold/18 rounded-[6px] p-5 flex flex-col justify-between card-hover-line group transition-all duration-300">
+<span class="text-2xl">🤝</span>
+<div>
+<h3 class="font-headline text-gold-light text-[11px] tracking-widest uppercase mb-1">EMBAIXADOR DPA</h3>
+<p class="font-accent text-white/60 text-[10px] leading-tight">Acesso à maior Aceleradora de Negócios do Brasil</p>
+</div>
+</div>
+<!-- Card 12 (Highlighted) -->
+<div class="relative overflow-hidden bg-gold/5 border border-gold/30 rounded-[6px] p-5 flex flex-col justify-between card-hover-line group transition-all duration-300">
+<span class="text-2xl">💎</span>
+<div>
+<h3 class="font-headline text-gold-light text-[11px] tracking-widest uppercase mb-1">MARCA PREMIUM</h3>
+<p class="font-accent text-white/60 text-[10px] leading-tight">Identidade consolidada no mercado nacional</p>
+</div>
+</div>
+<!-- Card 13 -->
+<div class="relative overflow-hidden bg-white/[0.025] border border-gold/18 rounded-[6px] p-5 flex flex-col justify-between card-hover-line group transition-all duration-300">
+<span class="text-2xl">📡</span>
+<div>
+<h3 class="font-headline text-gold-light text-[11px] tracking-widest uppercase mb-1">INTELIGÊNCIA DE MERCADO</h3>
+<p class="font-accent text-white/60 text-[10px] leading-tight">Dados exclusivos para decisões estratégicas</p>
+</div>
+</div>
+<!-- Card 14 -->
+<div class="relative overflow-hidden bg-white/[0.025] border border-gold/18 rounded-[6px] p-5 flex flex-col justify-between card-hover-line group transition-all duration-300">
+<span class="text-2xl">🏆</span>
+<div>
+<h3 class="font-headline text-gold-light text-[11px] tracking-widest uppercase mb-1">PARTICIPAÇÃO MATRICIAL</h3>
+<p class="font-accent text-white/60 text-[10px] leading-tight">Matriz presente em 30% dos resultados</p>
+</div>
+</div>
+<!-- Card 15 -->
+<div class="relative overflow-hidden bg-white/[0.025] border border-gold/18 rounded-[6px] p-5 flex flex-col justify-between card-hover-line group transition-all duration-300">
+<span class="text-2xl">➕</span>
+<div>
+<h3 class="font-headline text-gold-light text-[11px] tracking-widest uppercase mb-1">OUTROS</h3>
+<p class="font-accent text-white/60 text-[10px] leading-tight">Benefícios adicionais conforme a praça</p>
+</div>
+</div>
+</div>
+<!-- Footer Visual Hint (Pill Nav Anchor) -->
+<div class="fixed bottom-8 left-1/2 -translate-x-1/2 w-auto min-w-[320px] rounded-full border border-[#D9B855]/35 px-8 py-3 bg-[#010A26]/80 backdrop-blur-xl flex gap-10 items-center z-50 shadow-2xl shadow-black/50">
+<div class="flex flex-col items-center justify-center text-white/55 transition-all">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="font-headline text-[9px] uppercase tracking-[0.15em] font-semibold mt-1">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#D9B855] scale-110">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span class="font-headline text-[9px] uppercase tracking-[0.15em] font-semibold mt-1">Investments</span>
+</div>
+<div class="flex flex-col items-center justify-center text-white/55 transition-all">
+<span class="material-symbols-outlined text-[20px]">account_balance_wallet</span>
+<span class="font-headline text-[9px] uppercase tracking-[0.15em] font-semibold mt-1">Portfolio</span>
+</div>
+<div class="flex flex-col items-center justify-center text-white/55 transition-all">
+<span class="material-symbols-outlined text-[20px]">contact_support</span>
+<span class="font-headline text-[9px] uppercase tracking-[0.15em] font-semibold mt-1">Support</span>
+</div>
+</div>
+</main>
+<!-- Visual Polish: Bottom Label Decoration -->
+<div class="fixed bottom-4 left-12 flex items-center gap-2">
+<div class="w-12 h-[1px] bg-gradient-to-r from-gold to-transparent"></div>
+<span class="font-headline text-[10px] text-gold-dark uppercase tracking-[0.35em]">Luxury Investment Assets</span>
+</div>
+</body></html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TIB Licenciados — Slide 07/11</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&amp;family=Work+Sans:wght@300;400;500&amp;family=Raleway:wght@300;400;500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        'tib-navy-deep': '#000814',
+                        'tib-navy-primary': '#010A26',
+                        'tib-navy-mid': '#021852',
+                        'tib-navy-bright': '#0D2F82',
+                        'tib-gold': '#D9B855',
+                        'tib-gold-light': '#F0D475',
+                        'tib-gold-dark': '#B8922A',
+                    },
+                    fontFamily: {
+                        headline: ['Oswald', 'sans-serif'],
+                        display: ['Oswald', 'sans-serif'],
+                        body: ['Raleway', 'sans-serif'],
+                        label: ['Oswald', 'sans-serif'],
+                    },
+                    letterSpacing: {
+                        'ultra-wide': '0.35em',
+                        'wide': '0.15em',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #000814;
+            color: white;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            font-family: 'Raleway', sans-serif;
+        }
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #F0D475 0%, #D9B855 50%, #B8922A 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-border-gradient {
+            border-image: linear-gradient(to right, #B8922A, #F0D475, #B8922A) 1;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.025);
+            backdrop-filter: blur(4px);
+        }
+        .network-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            z-index: 0;
+            opacity: 0.045;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-tib-navy-deep min-h-screen w-full flex flex-col">
+<!-- Top Gold Gradient Border -->
+<div class="h-[2px] w-full bg-gradient-to-right from-tib-gold-dark via-tib-gold-light to-tib-gold-dark" style="background: linear-gradient(90deg, #B8922A 0%, #F0D475 50%, #B8922A 100%);"></div>
+<!-- Main Content Container -->
+<main class="relative flex-1 w-full h-[calc(100vh-2px)] flex overflow-hidden">
+<!-- SVG Watermark Background -->
+<div class="network-watermark">
+<svg fill="none" viewbox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+<circle cx="400" cy="300" r="40" stroke="#D9B855" stroke-width="1"></circle>
+<circle cx="200" cy="150" r="20" stroke="#D9B855" stroke-width="1"></circle>
+<circle cx="600" cy="150" r="25" stroke="#D9B855" stroke-width="1"></circle>
+<circle cx="200" cy="450" r="15" stroke="#D9B855" stroke-width="1"></circle>
+<circle cx="600" cy="450" r="30" stroke="#D9B855" stroke-width="1"></circle>
+<line stroke="#D9B855" stroke-width="0.5" x1="400" x2="200" y1="300" y2="150"></line>
+<line stroke="#D9B855" stroke-width="0.5" x1="400" x2="600" y1="300" y2="150"></line>
+<line stroke="#D9B855" stroke-width="0.5" x1="400" x2="200" y1="300" y2="450"></line>
+<line stroke="#D9B855" stroke-width="0.5" x1="400" x2="600" y1="300" y2="450"></line>
+<line stroke="#D9B855" stroke-dasharray="4 4" stroke-width="0.5" x1="200" x2="600" y1="150" y2="150"></line>
+<circle cx="400" cy="300" r="100" stroke="#D9B855" stroke-dasharray="10 10" stroke-width="0.2"></circle>
+</svg>
+</div>
+<!-- Vertical Divider -->
+<div class="absolute left-1/2 top-0 bottom-0 w-[1px] bg-white/5 z-10"></div>
+<!-- Left Column -->
+<section class="w-1/2 h-full flex items-center px-16 z-20">
+<div class="max-w-xl">
+<div class="mb-6 flex items-center gap-4">
+<span class="font-headline text-[11px] tracking-ultra-wide text-tib-gold/50 uppercase">07 — QUEM É O LICENCIADO</span>
+</div>
+<h1 class="font-headline font-medium text-[4vw] leading-none gold-gradient-text uppercase mb-6">
+                    LÍDERES &amp; PARCEIROS TIB
+                </h1>
+<div class="w-12 h-[2px] bg-gradient-to-r from-tib-gold-dark to-tib-gold-light mb-10"></div>
+<div class="space-y-6 mb-12">
+<p class="font-body text-[1.35vw] text-white/80 leading-relaxed">
+                        O licenciado TIB é um <span class="text-tib-gold font-medium">empreendedor visionário</span> que entende que o mercado imobiliário é a maior oportunidade de geração de riqueza do Brasil.
+                    </p>
+<p class="font-body text-[1.2vw] text-white/60 leading-relaxed">
+                        Não é preciso ser corretor de imóveis. É preciso ter visão estratégica, rede de relacionamentos e disposição para liderar uma equipe de alta performance.
+                    </p>
+</div>
+<div class="space-y-4">
+<span class="font-headline text-[10px] tracking-[0.3em] text-tib-gold/50 uppercase block mb-6">PERFIL IDEAL</span>
+<ul class="space-y-4">
+<li class="flex items-center gap-4 group">
+<div class="w-6 h-[1px] bg-tib-gold group-hover:w-8 transition-all"></div>
+<span class="font-body text-[1.1vw] text-white/80">Visão estratégica e foco em resultado</span>
+</li>
+<li class="flex items-center gap-4 group">
+<div class="w-6 h-[1px] bg-tib-gold group-hover:w-8 transition-all"></div>
+<span class="font-body text-[1.1vw] text-white/80">Rede de relacionamentos consolidada</span>
+</li>
+<li class="flex items-center gap-4 group">
+<div class="w-6 h-[1px] bg-tib-gold group-hover:w-8 transition-all"></div>
+<span class="font-body text-[1.1vw] text-white/80">Capacidade de gestão de pessoas</span>
+</li>
+<li class="flex items-center gap-4 group">
+<div class="w-6 h-[1px] bg-tib-gold group-hover:w-8 transition-all"></div>
+<span class="font-body text-[1.1vw] text-white/80">Disposição para liderar com a metodologia TIB</span>
+</li>
+<li class="flex items-center gap-4 group">
+<div class="w-6 h-[1px] bg-tib-gold group-hover:w-8 transition-all"></div>
+<span class="font-body text-[1.1vw] text-white/80">Capital para o setup inicial de R$ 120.000</span>
+</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Right Column -->
+<section class="w-1/2 h-full flex items-center px-16 z-20">
+<div class="w-full space-y-6">
+<!-- Card 1 -->
+<div class="glass-card border border-tib-gold/20 rounded-[16px] p-8 relative overflow-hidden group hover:border-tib-gold/40 transition-colors">
+<div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-tib-gold-dark via-tib-gold-light to-tib-gold-dark opacity-80"></div>
+<div class="flex items-center gap-6 mb-4">
+<div class="w-14 h-14 rounded-[16px] bg-gradient-to-br from-tib-gold/15 to-tib-gold/5 border border-tib-gold/20 flex items-center justify-center text-2xl">
+                            🎯
+                        </div>
+<h3 class="font-headline text-tib-gold-light uppercase text-[1.4vw] tracking-wide font-semibold">
+                            VISÃO ESTRATÉGICA
+                        </h3>
+</div>
+<p class="font-body text-white/60 text-[1.1vw] leading-relaxed">
+                        Capacidade de enxergar o mercado além do imediato — posicionando a unidade TIB como referência regional no segmento premium.
+                    </p>
+</div>
+<!-- Card 2 -->
+<div class="glass-card border border-tib-gold/20 rounded-[16px] p-8 relative overflow-hidden group hover:border-tib-gold/40 transition-colors">
+<div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-tib-gold-dark via-tib-gold-light to-tib-gold-dark opacity-80"></div>
+<div class="flex items-center gap-6 mb-4">
+<div class="w-14 h-14 rounded-[16px] bg-gradient-to-br from-tib-gold/15 to-tib-gold/5 border border-tib-gold/20 flex items-center justify-center text-2xl">
+                            🤝
+                        </div>
+<h3 class="font-headline text-tib-gold-light uppercase text-[1.4vw] tracking-wide font-semibold">
+                            REDE DE RELACIONAMENTOS
+                        </h3>
+</div>
+<p class="font-body text-white/60 text-[1.1vw] leading-relaxed">
+                        Conexões com investidores, construtoras e o público de alta renda que são o motor inicial da operação.
+                    </p>
+</div>
+<!-- Card 3 -->
+<div class="glass-card border border-tib-gold/20 rounded-[16px] p-8 relative overflow-hidden group hover:border-tib-gold/40 transition-colors">
+<div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-tib-gold-dark via-tib-gold-light to-tib-gold-dark opacity-80"></div>
+<div class="flex items-center gap-6 mb-4">
+<div class="w-14 h-14 rounded-[16px] bg-gradient-to-br from-tib-gold/15 to-tib-gold/5 border border-tib-gold/20 flex items-center justify-center text-2xl">
+                            📈
+                        </div>
+<h3 class="font-headline text-tib-gold-light uppercase text-[1.4vw] tracking-wide font-semibold">
+                            EXPERIÊNCIA EM ESCALA
+                        </h3>
+</div>
+<p class="font-body text-white/60 text-[1.1vw] leading-relaxed">
+                        Histórico de liderança, gestão de equipes e crescimento de negócios — ou vontade real de construir isso com nosso suporte.
+                    </p>
+</div>
+</div>
+</section>
+</main>
+<!-- Slide Number Marker (Bottom Left) -->
+<div class="fixed bottom-8 left-8 z-50">
+<div class="flex items-center gap-3">
+<div class="h-[1px] w-8 bg-tib-gold/30"></div>
+<span class="font-headline text-[12px] tracking-widest text-tib-gold/50 font-bold">07 / 11</span>
+</div>
+</div>
+</body></html>

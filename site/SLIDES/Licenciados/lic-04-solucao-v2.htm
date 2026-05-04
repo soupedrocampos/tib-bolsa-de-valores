@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TIB Licenciados - A Solução</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&amp;family=Work+Sans:wght@300;400;500&amp;family=Public+Sans:wght@400;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #000814;
+            font-family: 'Work Sans', sans-serif;
+        }
+
+        .font-oswald { font-family: 'Oswald', sans-serif; }
+        .font-raleway { font-family: 'Raleway', sans-serif; }
+        
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #D9B855 0%, #F0D475 50%, #B8922A 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gold-border-glow {
+            border: 1px solid rgba(217, 184, 85, 0.18);
+            box-shadow: 0 0 15px rgba(217, 184, 85, 0.05);
+        }
+
+        .bg-mesh {
+            background-image: 
+                radial-gradient(circle at 0% 0%, rgba(217, 184, 85, 0.08) 0%, transparent 25%),
+                radial-gradient(circle at 100% 100%, rgba(217, 184, 85, 0.08) 0%, transparent 25%),
+                linear-gradient(150deg, #000814 0%, #010A26 100%);
+        }
+
+        .network-watermark {
+            opacity: 0.05;
+            mask-image: linear-gradient(to bottom, black, transparent);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            deep: "#000814",
+                            primary: "#010A26",
+                            mid: "#021852",
+                            bright: "#0D2F82"
+                        },
+                        gold: {
+                            DEFAULT: "#D9B855",
+                            light: "#F0D475",
+                            dark: "#B8922A"
+                        }
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    fontFamily: {
+                        "headline": ["Oswald"],
+                        "display": ["Oswald"],
+                        "body": ["Work Sans"],
+                        "label": ["Oswald"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-mesh text-white h-screen w-screen selection:bg-gold/30">
+<!-- Top Border Line -->
+<div class="fixed top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-gold/40 to-transparent z-[60]"></div>
+<!-- Top Navigation Bar (Shared Component Logic) -->
+<header class="flex justify-between items-center px-8 w-full fixed top-0 z-50 bg-[#010A26]/97 backdrop-blur-md dark:bg-[#010A26]/97 h-[52px] border-b border-[#D9B855]/35 shadow-2xl">
+<div class="text-xl font-bold tracking-[0.2em] text-[#D9B855] font-oswald">TIB</div>
+<div class="font-['Oswald'] uppercase tracking-[0.15em] text-white/80">A SOLUÇÃO</div>
+<div class="text-[#D9B855] font-semibold font-oswald text-sm tracking-widest bg-gold/10 px-3 py-1 rounded">04/11</div>
+</header>
+<!-- Background Watermark -->
+<div class="fixed inset-0 pointer-events-none flex items-center justify-center z-0 overflow-hidden">
+<svg class="network-watermark w-[120%] h-[120%] text-gold" preserveaspectratio="none" viewbox="0 0 100 100">
+<circle cx="10" cy="20" fill="currentColor" r="0.5"></circle>
+<circle cx="30" cy="40" fill="currentColor" r="0.5"></circle>
+<circle cx="50" cy="15" fill="currentColor" r="0.5"></circle>
+<circle cx="70" cy="60" fill="currentColor" r="0.5"></circle>
+<circle cx="90" cy="30" fill="currentColor" r="0.5"></circle>
+<circle cx="20" cy="80" fill="currentColor" r="0.5"></circle>
+<circle cx="50" cy="85" fill="currentColor" r="0.5"></circle>
+<circle cx="80" cy="80" fill="currentColor" r="0.5"></circle>
+<path d="M10 20 L30 40 L50 15 L90 30 L70 60 L80 80 L50 85 L20 80 L30 40" fill="none" stroke="currentColor" stroke-width="0.1"></path>
+<path d="M30 40 L20 80 M50 15 L70 60 M90 30 L50 15" fill="none" stroke="currentColor" stroke-width="0.05"></path>
+</svg>
+</div>
+<!-- Main Content Canvas -->
+<main class="relative z-10 w-full h-full pt-[52px] flex flex-col px-12 pb-12">
+<!-- Header Section -->
+<div class="mt-12 mb-10 text-center">
+<span class="font-oswald text-[11px] tracking-[0.35em] text-gold/50 uppercase block mb-2">04 — A SOLUÇÃO TIB</span>
+<h1 class="font-oswald font-medium text-[4vw] gold-gradient-text leading-tight uppercase">COMO A TIB RESOLVE</h1>
+<div class="w-24 h-[1px] bg-gold/30 mx-auto mt-4"></div>
+</div>
+<!-- Solution Cards Grid -->
+<div class="flex-1 flex flex-col justify-center gap-6 max-w-7xl mx-auto w-full">
+<!-- Top Row: 3 Cards -->
+<div class="grid grid-cols-3 gap-6">
+<!-- Card 01 -->
+<div class="group relative bg-white/[0.025] rounded-[16px] gold-border-glow p-8 flex flex-col transition-all duration-500 hover:bg-white/[0.05]">
+<div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-gold/40 to-transparent"></div>
+<span class="font-oswald font-semibold text-[4.5vw] gold-gradient-text leading-none mb-4">01</span>
+<div class="border-t border-gold/25 pt-4">
+<h3 class="font-oswald font-medium text-[1.5vw] text-gold-light uppercase tracking-wider mb-3 leading-tight">TECNOLOGIA PROPRIETÁRIA</h3>
+<p class="font-raleway text-white/60 text-[1.1vw] leading-relaxed">CRM integrado com IA que automatiza prospecção, qualificação e acompanhamento de leads em tempo real</p>
+</div>
+</div>
+<!-- Card 02 -->
+<div class="group relative bg-white/[0.025] rounded-[16px] gold-border-glow p-8 flex flex-col transition-all duration-500 hover:bg-white/[0.05]">
+<div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-gold/40 to-transparent"></div>
+<span class="font-oswald font-semibold text-[4.5vw] gold-gradient-text leading-none mb-4">02</span>
+<div class="border-t border-gold/25 pt-4">
+<h3 class="font-oswald font-medium text-[1.5vw] text-gold-light uppercase tracking-wider mb-3 leading-tight">METODOLOGIA COMPROVADA</h3>
+<p class="font-raleway text-white/60 text-[1.1vw] leading-relaxed">Processo comercial validado em mais de 14 bilhões de reais em VGV — replicável e escalável</p>
+</div>
+</div>
+<!-- Card 03 -->
+<div class="group relative bg-white/[0.025] rounded-[16px] gold-border-glow p-8 flex flex-col transition-all duration-500 hover:bg-white/[0.05]">
+<div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-gold/40 to-transparent"></div>
+<span class="font-oswald font-semibold text-[4.5vw] gold-gradient-text leading-none mb-4">03</span>
+<div class="border-t border-gold/25 pt-4">
+<h3 class="font-oswald font-medium text-[1.5vw] text-gold-light uppercase tracking-wider mb-3 leading-tight">FORMAÇÃO DE ALTA PERFORMANCE</h3>
+<p class="font-raleway text-white/60 text-[1.1vw] leading-relaxed">Programa completo de treinamento de corretores com metas claras e suporte contínuo</p>
+</div>
+</div>
+</div>
+<!-- Bottom Row: 2 Cards Centered -->
+<div class="grid grid-cols-3 gap-6">
+<div class="col-start-1 col-span-1 hidden lg:block"></div> <!-- Spacer -->
+<!-- Card 04 -->
+<div class="group relative bg-white/[0.025] rounded-[16px] gold-border-glow p-8 flex flex-col transition-all duration-500 hover:bg-white/[0.05] col-start-1 lg:col-start-1">
+<div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-gold/40 to-transparent"></div>
+<span class="font-oswald font-semibold text-[4.5vw] gold-gradient-text leading-none mb-4">04</span>
+<div class="border-t border-gold/25 pt-4">
+<h3 class="font-oswald font-medium text-[1.5vw] text-gold-light uppercase tracking-wider mb-3 leading-tight">MARKETING &amp; GERAÇÃO DE LEADS</h3>
+<p class="font-raleway text-white/60 text-[1.1vw] leading-relaxed">500 leads qualificados nos primeiros 30 dias + gestor de tráfego pago por 3 meses pela matriz</p>
+</div>
+</div>
+<!-- Card 05 -->
+<div class="group relative bg-white/[0.025] rounded-[16px] gold-border-glow p-8 flex flex-col transition-all duration-500 hover:bg-white/[0.05]">
+<div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-gold/40 to-transparent"></div>
+<span class="font-oswald font-semibold text-[4.5vw] gold-gradient-text leading-none mb-4">05</span>
+<div class="border-t border-gold/25 pt-4">
+<h3 class="font-oswald font-medium text-[1.5vw] text-gold-light uppercase tracking-wider mb-3 leading-tight">SUPORTE MATRICIAL COMPLETO</h3>
+<p class="font-raleway text-white/60 text-[1.1vw] leading-relaxed">Jurídico, contábil, tributário, estratégico e comercial — a matriz trabalha junto para o seu sucesso</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Shared Component Logic) -->
+<nav class="fixed bottom-0 left-1/2 -translate-x-1/2 z-50 flex items-center p-1 bg-[#010A26]/80 backdrop-blur-xl dark:bg-[#010A26]/80 rounded-full border border-[#D9B855]/35 mb-8 mx-auto w-fit divide-x divide-[#D9B855]/20 shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+<a class="flex flex-col items-center justify-center text-white/55 px-6 py-2 hover:text-[#D9B855] hover:bg-white/10 transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="dashboard">dashboard</span>
+<span class="font-oswald uppercase tracking-[0.08em] text-[10px] font-medium">Início</span>
+</a>
+<a class="flex flex-col items-center justify-center text-white/55 px-6 py-2 hover:text-[#D9B855] hover:bg-white/10 transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="trending_up">trending_up</span>
+<span class="font-oswald uppercase tracking-[0.08em] text-[10px] font-medium">Mercado</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#D9B855] bg-white/5 px-6 py-2 rounded-full" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="lightbulb" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+<span class="font-oswald uppercase tracking-[0.08em] text-[10px] font-medium">Solução</span>
+</a>
+<a class="flex flex-col items-center justify-center text-white/55 px-6 py-2 hover:text-[#D9B855] hover:bg-white/10 transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="insights">insights</span>
+<span class="font-oswald uppercase tracking-[0.08em] text-[10px] font-medium">Estratégia</span>
+</a>
+<a class="flex flex-col items-center justify-center text-white/55 px-6 py-2 hover:text-[#D9B855] hover:bg-white/10 transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="mail">mail</span>
+<span class="font-oswald uppercase tracking-[0.08em] text-[10px] font-medium">Contato</span>
+</a>
+</nav>
+</body></html>

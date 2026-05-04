@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TIB Licenciados — Projeções Financeiras</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&amp;family=Work+Sans:wght@300;400;500;600&amp;family=Raleway:wght@300;400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            deep: "#000814",
+                            navy: "#010A26",
+                            mid: "#021852",
+                            bright: "#0D2F82",
+                            gold: "#D9B855",
+                            goldLight: "#F0D475",
+                            goldDark: "#B8922A"
+                        }
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    fontFamily: {
+                        headline: ["Oswald", "sans-serif"],
+                        display: ["Oswald", "sans-serif"],
+                        body: ["Work Sans", "sans-serif"],
+                        raleway: ["Raleway", "sans-serif"],
+                        label: ["Oswald", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            overflow: hidden;
+            background-color: #000814;
+            font-family: 'Work Sans', sans-serif;
+        }
+        .gold-gradient-text {
+            background: linear-gradient(to bottom, #F0D475, #D9B855, #B8922A);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-border-gradient {
+            border-image: linear-gradient(to right, transparent, #D9B855, transparent) 1;
+        }
+        .scenario-box-shadow {
+            box-shadow: 0 0 40px rgba(217, 184, 85, 0.05);
+        }
+        .gold-glow {
+            box-shadow: 0 0 20px rgba(217, 184, 85, 0.4);
+        }
+    </style>
+</head>
+<body class="text-white selection:bg-brand-gold/30">
+<!-- Top Border Line -->
+<div class="fixed top-0 left-0 w-full h-[2px] bg-gradient-to-right from-transparent via-brand-gold to-transparent z-[60]"></div>
+<!-- TopNavBar Shell -->
+<nav class="fixed top-0 left-0 w-full h-[52px] bg-[#010A26]/95 backdrop-blur-md border-b border-[#D9B855]/35 flex justify-between items-center px-6 z-50 shadow-xl">
+<div class="text-xl font-bold tracking-[0.25em] uppercase text-white font-headline">TIB</div>
+<div class="flex items-center gap-6">
+<span class="hidden md:block text-white/55 font-headline uppercase tracking-widest text-xs">Apresentação de Licenciamento</span>
+<div class="px-3 py-1 border border-[#D9B855]/50 rounded text-[#D9B855] font-headline font-bold tracking-[0.15em] text-sm">
+                08 / 11
+            </div>
+</div>
+</nav>
+<!-- Main Viewport Content -->
+<main class="relative w-full h-screen pt-[52px] pb-[80px] overflow-hidden flex flex-col items-center justify-center bg-gradient-to-br from-brand-deep via-brand-navy to-brand-mid">
+<!-- Background Watermark: Candlestick Chart -->
+<div class="absolute inset-0 z-0 pointer-events-none opacity-5 flex items-center justify-center overflow-hidden">
+<svg class="scale-110 translate-y-10" fill="none" height="120%" viewbox="0 0 800 600" width="120%" xmlns="http://www.w3.org/2000/svg">
+<path d="M50 500 L150 450 M150 480 L250 400 M250 430 L350 320 M350 350 L450 250 M450 280 L550 180 M550 210 L650 120" stroke="#D9B855" stroke-dasharray="10 5" stroke-width="2"></path>
+<rect fill="#D9B855" height="60" width="20" x="140" y="440"></rect>
+<rect fill="#D9B855" height="100" width="20" x="240" y="380"></rect>
+<rect fill="#D9B855" height="130" width="20" x="340" y="300"></rect>
+<rect fill="#D9B855" height="150" width="20" x="440" y="230"></rect>
+<rect fill="#D9B855" height="180" width="20" x="540" y="160"></rect>
+<rect fill="#D9B855" height="220" width="20" x="640" y="80"></rect>
+</svg>
+</div>
+<!-- Content Canvas -->
+<div class="relative z-10 w-full max-w-7xl px-8 flex flex-col h-full justify-center">
+<!-- Header Section -->
+<header class="mb-8">
+<p class="font-headline text-[11px] font-bold tracking-[0.35em] text-brand-gold/50 uppercase mb-2 flex items-center">
+<span class="w-8 h-px bg-brand-gold/30 mr-3"></span>
+                    08 — FINANCEIRO
+                </p>
+<h1 class="font-headline font-medium text-[4vw] gold-gradient-text uppercase leading-none tracking-tight">
+                    PROJEÇÕES FINANCEIRAS
+                </h1>
+</header>
+<!-- Intro Bar -->
+<div class="w-full bg-white/[0.02] border border-white/[0.06] rounded-[6px] p-4 flex items-center gap-6 backdrop-blur-sm mb-10">
+<div class="flex-shrink-0 w-12 h-12 flex items-center justify-center text-3xl">📐</div>
+<p class="font-raleway text-[1.15vw] text-white/60 leading-relaxed">
+                    Modelagem baseada em <span class="text-brand-goldLight font-semibold">dados reais</span> das operações próprias da matriz no litoral de Santa Catarina. Ticket médio de <span class="text-brand-goldLight font-semibold">R$ 700.000</span> por unidade vendida. Cenário construído com premissas conservadoras.
+                </p>
+</div>
+<!-- Scenario Section Grid -->
+<div class="flex flex-row gap-12 items-stretch">
+<!-- Left Sidebar -->
+<aside class="flex flex-col items-center flex-shrink-0">
+<div class="w-16 h-16 rounded-full bg-gradient-to-b from-brand-goldLight to-brand-goldDark flex items-center justify-center font-headline font-bold text-[2.2vw] text-brand-deep gold-glow mb-4">
+                        1
+                    </div>
+<div class="w-px h-full bg-gradient-to-b from-brand-gold to-transparent opacity-50 mb-4"></div>
+<div class="whitespace-nowrap transform -rotate-90 origin-center py-12">
+<span class="font-headline text-[10px] tracking-[0.35em] text-brand-gold/50 font-bold uppercase">CENÁRIO CONSERVADOR</span>
+</div>
+</aside>
+<!-- Main Scenario Box -->
+<div class="flex-grow bg-gradient-to-br from-brand-gold/10 to-brand-gold/05 border border-brand-gold/30 rounded-[16px] scenario-box-shadow relative overflow-hidden flex flex-col">
+<!-- Top accent line -->
+<div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-brand-gold/0 via-brand-gold to-brand-gold/0"></div>
+<div class="p-10 flex flex-col h-full">
+<h2 class="font-headline font-medium text-[2.2vw] text-brand-goldLight uppercase tracking-wide mb-8">
+                            CENÁRIO CONSERVADOR
+                        </h2>
+<!-- Data Grid -->
+<div class="grid grid-cols-2 gap-6">
+<!-- Cell 1 -->
+<div class="bg-white/[0.03] border border-white/[0.06] rounded-[16px] p-6 flex flex-col justify-between hover:bg-white/[0.05] transition-colors">
+<span class="text-xs font-raleway text-white/50 uppercase tracking-wider mb-2">Leads entregues pela matriz TIB nos primeiros 30 dias</span>
+<span class="font-headline text-[2.8vw] leading-none gold-gradient-text font-bold">500 leads</span>
+</div>
+<!-- Cell 2 -->
+<div class="bg-white/[0.03] border border-white/[0.06] rounded-[16px] p-6 flex flex-col justify-between hover:bg-white/[0.05] transition-colors">
+<span class="text-xs font-raleway text-white/50 uppercase tracking-wider mb-2">Taxa de conversão estimada (cenário conservador)</span>
+<span class="font-headline text-[2.8vw] leading-none gold-gradient-text font-bold">1%</span>
+</div>
+<!-- Cell 3 -->
+<div class="bg-white/[0.03] border border-white/[0.06] rounded-[16px] p-6 flex flex-col justify-between hover:bg-white/[0.05] transition-colors">
+<span class="text-xs font-raleway text-white/50 uppercase tracking-wider mb-2">Vendas realizadas · Ticket médio R$ 700.000</span>
+<span class="font-headline text-[2.8vw] leading-none gold-gradient-text font-bold">5 vendas</span>
+</div>
+<!-- Cell 4 -->
+<div class="bg-white/[0.03] border border-white/[0.06] rounded-[16px] p-6 flex flex-col justify-between hover:bg-white/[0.05] transition-colors">
+<span class="text-xs font-raleway text-white/50 uppercase tracking-wider mb-2">VGV mensal médio gerado</span>
+<span class="font-headline text-[2.8vw] leading-none gold-gradient-text font-bold">R$ 3.500.000</span>
+</div>
+<!-- Cell 5 (Span 2) -->
+<div class="col-span-2 bg-white/[0.03] border border-white/[0.06] rounded-[16px] p-6 flex flex-col justify-between hover:bg-white/[0.05] transition-colors">
+<span class="text-xs font-raleway text-white/50 uppercase tracking-wider mb-2">Corretagem mensal para a unidade licenciada</span>
+<span class="font-headline text-[3.2vw] leading-none gold-gradient-text font-bold">R$ 196.000</span>
+</div>
+</div>
+<!-- Payback Highlight -->
+<div class="flex flex-row bg-brand-gold/[0.08] border border-brand-gold/50 rounded-[16px] p-6 mt-8 items-center gap-6">
+<div class="text-3xl text-brand-gold">⚡</div>
+<div class="flex flex-col">
+<h3 class="font-headline font-medium text-xl text-brand-gold uppercase tracking-wider">PAYBACK ESTIMADO EM 30 DIAS</h3>
+<p class="font-raleway text-sm text-white/60">Após implementação completa da operação, no cenário conservador</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar Shell -->
+<footer class="fixed bottom-0 left-0 right-0 z-50 flex justify-center pb-8 pointer-events-none">
+<div class="flex justify-center items-center gap-1 bg-[#010A26]/80 backdrop-blur-xl border border-[#D9B855]/35 rounded-full px-2 py-2 shadow-2xl shadow-black pointer-events-auto scale-90 md:scale-100">
+<!-- Portfolio (Inactive) -->
+<button class="text-white/80 px-6 py-2 flex flex-col items-center justify-center hover:bg-white/10 rounded-full transition-all">
+<span class="material-symbols-outlined mb-1">domain</span>
+<span class="font-label text-[10px] font-medium tracking-[0.08em] uppercase">Portfolio</span>
+</button>
+<!-- Projections (Active) -->
+<button class="bg-[#D9B855] text-[#000814] rounded-full px-6 py-2 flex flex-col items-center justify-center scale-105 shadow-lg">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+<span class="font-label text-[10px] font-medium tracking-[0.08em] uppercase">Projections</span>
+</button>
+<!-- Documents (Inactive) -->
+<button class="text-white/80 px-6 py-2 flex flex-col items-center justify-center hover:bg-white/10 rounded-full transition-all">
+<span class="material-symbols-outlined mb-1">description</span>
+<span class="font-label text-[10px] font-medium tracking-[0.08em] uppercase">Documents</span>
+</button>
+<!-- Contact (Inactive) -->
+<button class="text-white/80 px-6 py-2 flex flex-col items-center justify-center hover:bg-white/10 rounded-full transition-all">
+<span class="material-symbols-outlined mb-1">mail</span>
+<span class="font-label text-[10px] font-medium tracking-[0.08em] uppercase">Contact</span>
+</button>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TIB - Meta 90 Dias</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&amp;family=Work+Sans:wght@300;400;500;600&amp;family=Raleway:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        'tib-navy-deep': '#000814',
+                        'tib-navy-primary': '#010A26',
+                        'tib-navy-mid': '#021852',
+                        'tib-navy-bright': '#0D2F82',
+                        'tib-gold': '#D9B855',
+                        'tib-gold-light': '#F0D475',
+                        'tib-gold-dark': '#B8922A',
+                    },
+                    fontFamily: {
+                        headline: ['Oswald', 'sans-serif'],
+                        display: ['Oswald', 'sans-serif'],
+                        body: ['Work Sans', 'sans-serif'],
+                        content: ['Raleway', 'sans-serif'],
+                    },
+                    letterSpacing: {
+                        'widest-extra': '0.35em',
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #000814;
+            color: white;
+            font-family: 'Work Sans', sans-serif;
+        }
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #D9B855 0%, #F0D475 50%, #B8922A 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-border-gradient {
+            border-image: linear-gradient(to right, transparent, #D9B855, transparent) 1;
+        }
+        .pulse-ring {
+            border: 1px solid rgba(217, 184, 85, 0.1);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body class="bg-tib-navy-deep select-none">
+<!-- Top Navigation Shell (Fixed) -->
+<nav class="fixed top-0 w-full h-[52px] bg-[#010A26]/95 backdrop-blur-md flex justify-between items-center px-6 z-50 border-b border-[#D9B855]/35">
+<div class="font-oswald uppercase tracking-widest text-[#D9B855] text-xl font-bold">TIB</div>
+<div class="flex items-center gap-4">
+<span class="font-headline text-[#D9B855] text-sm font-bold tracking-[0.15em]">05/11</span>
+<span class="material-symbols-outlined text-[#D9B855] text-xl">countertops</span>
+</div>
+</nav>
+<!-- Main Viewport Canvas -->
+<main class="relative w-screen h-screen flex flex-col items-center justify-center overflow-hidden bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-tib-navy-mid via-tib-navy-primary to-tib-navy-deep">
+<!-- Top Visual Accent -->
+<div class="absolute top-[52px] left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-tib-gold to-transparent opacity-60"></div>
+<!-- Background Decoration: Pulse Rings & Watermark -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="pulse-ring w-[40vw] h-[40vw]"></div>
+<div class="pulse-ring w-[60vw] h-[60vw]"></div>
+<div class="pulse-ring w-[80vw] h-[80vw]"></div>
+<!-- Bullseye Watermark -->
+<svg class="absolute w-[30vw] opacity-[0.04] fill-tib-gold" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<circle cx="50" cy="50" fill="none" r="45" stroke="currentColor" stroke-width="0.5"></circle>
+<circle cx="50" cy="50" fill="none" r="30" stroke="currentColor" stroke-width="0.5"></circle>
+<circle cx="50" cy="50" fill="none" r="15" stroke="currentColor" stroke-width="0.5"></circle>
+<circle cx="50" cy="50" fill="currentColor" r="5"></circle>
+</svg>
+</div>
+<!-- Content Layer -->
+<div class="relative z-10 flex flex-col items-center w-full max-w-6xl px-8 mt-12">
+<!-- Header Section -->
+<header class="text-center mb-16">
+<div class="flex items-center justify-center gap-3 mb-2">
+<div class="w-8 h-[1px] bg-gradient-to-r from-transparent to-tib-gold-dark"></div>
+<span class="font-headline text-[11px] tracking-widest-extra text-tib-gold/70 uppercase">05 — OBJETIVOS</span>
+<div class="w-8 h-[1px] bg-gradient-to-l from-transparent to-tib-gold-dark"></div>
+</div>
+<h1 class="font-headline text-[4vw] leading-none font-bold uppercase tracking-tight gold-gradient-text">
+                    META DOS PRIMEIROS 90 DIAS
+                </h1>
+</header>
+<!-- Metrics Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-0 items-center w-full mb-20 relative">
+<!-- Vertical Divider -->
+<div class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-40 flex-col items-center justify-between">
+<div class="w-[1px] h-full bg-gradient-to-b from-transparent via-tib-gold/30 to-transparent"></div>
+<div class="w-2 h-2 rounded-full bg-tib-gold shadow-[0_0_10px_rgba(217,184,85,0.8)]"></div>
+<div class="w-[1px] h-full bg-gradient-to-t from-transparent via-tib-gold/30 to-transparent"></div>
+</div>
+<!-- Metric 1 -->
+<div class="flex flex-col items-center px-12 group transition-transform duration-500 hover:scale-105">
+<span class="font-headline text-[13vw] leading-none font-bold gold-gradient-text drop-shadow-2xl">10</span>
+<span class="font-headline text-2xl tracking-[0.25em] text-white/80 uppercase mt-[-1rem]">CORRETORES</span>
+<p class="font-content text-sm text-white/50 mt-4 tracking-wide text-center">Foco total em prospecção e engajamento da rede exclusiva.</p>
+</div>
+<!-- Metric 2 -->
+<div class="flex flex-col items-center px-12 group transition-transform duration-500 hover:scale-105">
+<span class="font-headline text-[13vw] leading-none font-bold gold-gradient-text drop-shadow-2xl">10</span>
+<span class="font-headline text-2xl tracking-[0.25em] text-white/80 uppercase mt-[-1rem]">CONSTRUTORAS</span>
+<p class="font-content text-sm text-white/50 mt-4 tracking-wide text-center">Fechamento de parcerias estratégicas em ativos premium.</p>
+</div>
+</div>
+<!-- Bottom Highlight Box -->
+<div class="w-full max-w-2xl bg-white/5 backdrop-blur-xl border border-tib-gold/20 rounded-lg overflow-hidden relative group">
+<!-- Top 2px Bar -->
+<div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-tib-gold-dark via-tib-gold-light to-tib-gold-dark"></div>
+<div class="p-8 flex items-center gap-6">
+<div class="flex-shrink-0 w-16 h-16 rounded-full border border-tib-gold/30 flex items-center justify-center bg-tib-navy-mid/50">
+<span class="material-symbols-outlined text-tib-gold text-4xl" data-icon="bolt">bolt</span>
+</div>
+<div class="flex-grow">
+<h2 class="font-headline text-xl tracking-widest text-white font-bold mb-1 uppercase">SETUP COMPLETO OPERACIONAL EM 90 DIAS</h2>
+<p class="font-content text-sm text-white/70 leading-relaxed">
+                            Implementação total da estrutura tecnológica, processos comerciais e ativação das frentes de investimento para operação em alta performance.
+                        </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Decorative Background Image (Subtle) -->
+<div class="absolute bottom-0 right-0 w-full h-full opacity-10 pointer-events-none">
+<img class="w-full h-full object-cover mix-blend-overlay grayscale" data-alt="A cinematic low-angle shot of a modern skyscraper made of dark glass and steel, reaching into a deep twilight sky. The building surfaces reflect a sophisticated navy and gold color palette, with sharp architectural lines creating a sense of luxury and precision. The lighting is dramatic, with soft glows emanating from within the building, suggesting a high-end corporate environment. The overall mood is powerful, professional, and aspirational, perfectly aligned with a premium real estate investment brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuACEo2IAj38LdtyTeGjcClLIBLDSvjF1-7qqceTn-8-kEyEVIuXlswMjNpgwreWBaB9b34OmUN5xWvIz492J2IcQgY--cf-ORSS6VKpMTsb6JTjpJr16Khdo1wE-MXnqYv6vruoWAAQOWaE5Q2IQ3116n1oR8ITwszvOpLdFxG0ZgrKOBLlp4a0bpFraom6W1L55o3Di4RwiDbLf61qzJwslu80frWj8Lcvib_3a5k349AQ75H_pT066YlKL8oRrpx8rlFCWo674TMD"/>
+</div>
+</main>
+<!-- Side Navigation Bar (Pill Shape) -->
+<nav class="fixed bottom-10 left-1/2 -translate-x-1/2 z-50 flex items-center gap-8 bg-[#010A26]/80 backdrop-blur-xl rounded-full border border-[#D9B855]/35 px-8 py-3 shadow-2xl shadow-black/50">
+<a class="group flex flex-col items-center gap-1 transition-all duration-300 ease-in-out text-white/55 hover:text-[#F0D475]" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="domain">domain</span>
+<span class="font-oswald uppercase tracking-[0.15em] text-[10px]">Portfolio</span>
+</a>
+<a class="group flex flex-col items-center gap-1 transition-all duration-300 ease-in-out text-[#D9B855] border-b border-[#D9B855] pb-1" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="analytics">analytics</span>
+<span class="font-oswald uppercase tracking-[0.15em] text-[10px]">Metrics</span>
+</a>
+<a class="group flex flex-col items-center gap-1 transition-all duration-300 ease-in-out text-white/55 hover:text-[#F0D475]" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="insights">insights</span>
+<span class="font-oswald uppercase tracking-[0.15em] text-[10px]">Strategy</span>
+</a>
+<a class="group flex flex-col items-center gap-1 transition-all duration-300 ease-in-out text-white/55 hover:text-[#F0D475]" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="mail">mail</span>
+<span class="font-oswald uppercase tracking-[0.15em] text-[10px]">Contact</span>
+</a>
+</nav>
+</body></html>

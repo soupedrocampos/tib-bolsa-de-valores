@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TIB — Gerador de Artigos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Playfair+Display:ital,wght@1,300;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS (espelho exato do OFICIAL.html) ── */
+:root {
+    --navy-deep:   #010A26;
+    --navy-royal:  #00113F;
+    --navy-mid:    #011640;
+    --navy-light:  #C9D7F2;
+    --navy-mist:   #E8EEF9;
+    --gold:        #D9B855;
+    --gold-light:  #F2DEA0;
+    --gold-mid:    #D9B36C;
+    --gold-dark:   #A66617;
+    --gold-50:     rgba(217,184,85,0.5);
+    --gold-30:     rgba(217,184,85,0.3);
+    --gold-20:     rgba(217,184,85,0.2);
+    --gold-15:     rgba(217,184,85,0.15);
+    --gold-10:     rgba(217,184,85,0.10);
+    --gold-grad:   linear-gradient(135deg, #F2DEA0 0%, #D9B855 45%, #A66617 100%);
+    --navy-grad:   linear-gradient(160deg, #010A26 0%, #011640 55%, #0A2A6E 100%);
+    --bg:          #FFFFFF;
+    --bg-alt:      #F4F6FB;
+    --bg-card:     #FFFFFF;
+    --surface:     rgba(0,17,63,0.03);
+    --border:      rgba(0,17,63,0.08);
+    --border-hi:   rgba(0,17,63,0.15);
+    --text:        #010A26;
+    --text-muted:  rgba(1,10,38,0.55);
+    --text-dim:    rgba(1,10,38,0.28);
+    --text-inv:    #FFFFFF;
+    --font-display:'Oswald', sans-serif;
+    --font-body:   'Raleway', sans-serif;
+    --font-serif:  'Playfair Display', serif;
+    --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; }
+body {
+    background: var(--bg-alt);
+    color: var(--text);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.65;
+}
+
+/* ── GOLD SHIMMER ── */
+@keyframes btnGoldShimmer {
+    0%   { background-position: 200% center; }
+    100% { background-position: -200% center; }
+}
+
+/* ── LAYOUT ── */
+.app {
+    display: grid;
+    grid-template-rows: 64px 1fr;
+    height: 100vh;
+}
+
+/* ════════════════════════════════
+   TOPBAR — espelho da .site-nav
+════════════════════════════════ */
+.topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem;
+    background: var(--navy-deep);
+    border-bottom: 3px solid transparent;
+    border-image: linear-gradient(90deg, #A66617 0%, #D9B855 20%, #F2DEA0 50%, #D9B855 80%, #A66617 100%) 1;
+    position: relative; z-index: 100;
+}
+.topbar-brand {
+    display: flex; align-items: center; gap: 1.1rem;
+}
+.topbar-logo {
+    font-family: var(--font-display);
+    font-size: 1.2rem; font-weight: 700;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    background: var(--gold-grad);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.topbar-sep { width: 1px; height: 22px; background: rgba(201,215,242,0.15); }
+.topbar-section {
+    font-family: var(--font-display);
+    font-size: 0.68rem; font-weight: 400;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+}
+.topbar-actions { display: flex; align-items: center; gap: 0.75rem; }
+.tb-btn {
+    font-family: var(--font-display);
+    font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 0.45rem 1.1rem;
+    border-radius: 100px;
+    border: 1px solid rgba(201,215,242,0.15);
+    color: rgba(255,255,255,0.6);
+    background: transparent; cursor: pointer;
+    transition: all 0.2s;
+}
+.tb-btn:hover { color: #fff; border-color: rgba(255,255,255,0.3); }
+.tb-btn-gold {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.45rem 1.3rem;
+    height: 38px;
+    background: linear-gradient(105deg, #A66617 0%, #D9B855 20%, #F2DEA0 38%, #FFF2C0 50%, #F2DEA0 62%, #D9B855 80%, #A66617 100%);
+    background-size: 250% 100%;
+    animation: btnGoldShimmer 3.5s linear infinite;
+    color: var(--navy-deep);
+    border: none; border-radius: 100px;
+    font-family: var(--font-display);
+    font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 4px 18px var(--gold-30);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.tb-btn-gold:hover { transform: scale(1.02); box-shadow: 0 4px 24px var(--gold-30); }
+
+/* ════════════════════════════════
+   PANELS
+════════════════════════════════ */
+.panels {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    overflow: hidden;
+}
+
+/* ── LEFT PANEL ── */
+.panel-left {
+    background: var(--bg);
+    border-right: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+}
+
+/* Panel header — padrão s-header do site */
+.panel-head {
+    padding: 1.6rem 1.75rem 1.4rem;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+    background: var(--bg);
+}
+.s-header-sm {
+    display: flex; align-items: center; gap: 0.5rem;
+    margin-bottom: 0.55rem;
+}
+.s-header-sm::before {
+    content: '';
+    display: block; width: 22px; height: 1.5px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+}
+.s-num-sm {
+    font-family: var(--font-display);
+    font-size: 0.64rem; font-weight: 600;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    background: var(--gold-grad);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.s-label-sm {
+    font-family: var(--font-display);
+    font-size: 0.64rem; font-weight: 400;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--text-dim);
+}
+.panel-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem; font-weight: 700;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--navy-deep);
+    line-height: 1;
+    display: flex; align-items: center; gap: 0.75rem;
+}
+.ai-badge {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    font-family: var(--font-display);
+    font-size: 0.55rem; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 0.22rem 0.65rem;
+    border-radius: 100px;
+    background: var(--gold-10);
+    border: 1px solid var(--gold-50);
+    color: var(--gold-dark);
+    vertical-align: middle;
+}
+.ai-badge::before {
+    content: '';
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 5px var(--gold-50);
+    animation: aipulse 2s ease-in-out infinite;
+}
+@keyframes aipulse {
+    0%,100% { opacity:1; transform:scale(1); }
+    50%      { opacity:0.4; transform:scale(0.75); }
+}
+
+/* ── FORM SCROLL ── */
+.form-scroll {
+    flex: 1; overflow-y: auto;
+    padding: 1.4rem 1.75rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+    background: var(--bg-alt);
+}
+.form-scroll::-webkit-scrollbar { width: 4px; }
+.form-scroll::-webkit-scrollbar-thumb { background: var(--border-hi); border-radius: 2px; }
+
+/* Field */
+.field { margin-bottom: 1.2rem; }
+.field-label {
+    font-family: var(--font-display);
+    font-size: 0.62rem; font-weight: 600;
+    letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 0.45rem;
+    display: flex; align-items: center; gap: 0.5rem;
+}
+.req { color: var(--gold-dark); font-size: 0.58rem; }
+
+.field-input,
+.field-select,
+.field-textarea {
+    width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.68rem 0.9rem;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    appearance: none;
+}
+.field-input::placeholder,
+.field-textarea::placeholder { color: var(--text-dim); font-style: italic; }
+.field-input:focus,
+.field-select:focus,
+.field-textarea:focus {
+    border-color: var(--gold-50);
+    box-shadow: 0 0 0 3px var(--gold-10);
+}
+.field-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23A66617' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.9rem center;
+    padding-right: 2.2rem; cursor: pointer;
+    color: var(--text);
+}
+.field-textarea { resize: none; line-height: 1.6; min-height: 78px; }
+
+/* Tags */
+.tags-wrap {
+    display: flex; flex-wrap: wrap; gap: 0.45rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.5rem 0.7rem;
+    min-height: 42px; align-items: center;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    cursor: text;
+}
+.tags-wrap:focus-within {
+    border-color: var(--gold-50);
+    box-shadow: 0 0 0 3px var(--gold-10);
+}
+.tag {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    font-family: var(--font-display);
+    font-size: 0.60rem; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    padding: 0.22rem 0.65rem;
+    border-radius: 100px;
+    background: var(--gold-10);
+    border: 1px solid var(--gold-50);
+    color: var(--gold-dark);
+}
+.tag-x { cursor: pointer; color: var(--gold-30); transition: color 0.15s; font-size: 0.75rem; }
+.tag-x:hover { color: var(--gold-dark); }
+.tag-ghost {
+    background: none; border: none; outline: none;
+    color: var(--text); font-family: var(--font-body);
+    font-size: 0.82rem; flex: 1; min-width: 80px;
+    font-style: italic;
+}
+.tag-ghost::placeholder { color: var(--text-dim); }
+
+/* Radio — tom de voz */
+.radio-row { display: flex; gap: 0.55rem; }
+.radio-opt { flex: 1; position: relative; }
+.radio-opt input { position: absolute; opacity: 0; pointer-events: none; }
+.radio-lbl {
+    display: block; text-align: center;
+    font-family: var(--font-display);
+    font-size: 0.60rem; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 0.55rem 0.4rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    background: var(--bg-card);
+    cursor: pointer; transition: all 0.18s;
+}
+.radio-opt input:checked + .radio-lbl {
+    background: var(--gold-10);
+    border-color: var(--gold-50);
+    color: var(--gold-dark);
+}
+.radio-lbl:hover { border-color: var(--gold-30); color: var(--text); }
+
+/* Image toggle */
+.img-toggle {
+    display: flex;
+    border: 1px solid var(--border);
+    border-radius: 8px; overflow: hidden;
+    background: var(--bg-card);
+    margin-bottom: 0.7rem;
+}
+.img-tog {
+    flex: 1; padding: 0.55rem;
+    font-family: var(--font-display);
+    font-size: 0.60rem; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--text-muted); text-align: center;
+    cursor: pointer; background: none; border: none;
+    transition: all 0.18s;
+}
+.img-tog.active { background: var(--gold-10); color: var(--gold-dark); }
+.img-drop {
+    border: 1.5px dashed var(--gold-30);
+    border-radius: 8px; padding: 1.2rem;
+    text-align: center; cursor: pointer;
+    background: var(--bg-card);
+    transition: background 0.2s, border-color 0.2s;
+}
+.img-drop:hover { background: var(--gold-10); border-color: var(--gold-50); }
+.img-drop-ico {
+    width: 34px; height: 34px; margin: 0 auto 0.55rem;
+    border-radius: 50%; border: 1.5px solid var(--gold-30);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold-dark);
+}
+.img-drop-txt {
+    font-family: var(--font-display);
+    font-size: 0.62rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--text-muted);
+}
+.img-drop-sub { font-size: 0.68rem; color: var(--text-dim); margin-top: 0.2rem; }
+
+.divider { height: 1px; background: var(--border); margin: 1.3rem 0; }
+
+/* ── PANEL FOOTER ── */
+.panel-foot {
+    padding: 1.1rem 1.75rem;
+    border-top: 1px solid var(--border);
+    background: var(--bg);
+    flex-shrink: 0;
+}
+.btn-gerar {
+    width: 100%;
+    display: flex; align-items: center; justify-content: center; gap: 0.7rem;
+    height: 48px;
+    border-radius: 100px; border: none;
+    font-family: var(--font-display);
+    font-size: 0.80rem; font-weight: 700;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--navy-deep);
+    background: linear-gradient(105deg, #A66617 0%, #D9B855 20%, #F2DEA0 38%, #FFF2C0 50%, #F2DEA0 62%, #D9B855 80%, #A66617 100%);
+    background-size: 250% 100%;
+    animation: btnGoldShimmer 3.5s linear infinite;
+    cursor: pointer;
+    box-shadow: 0 4px 20px var(--gold-30);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-gerar:hover { transform: translateY(-1px); box-shadow: 0 6px 28px var(--gold-30); }
+
+.progress-wrap { margin-top: 0.85rem; }
+.progress-info {
+    display: flex; justify-content: space-between;
+    font-family: var(--font-display);
+    font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--text-dim); margin-bottom: 0.4rem;
+}
+.progress-track {
+    height: 3px; background: var(--border); border-radius: 2px; overflow: hidden;
+}
+.progress-fill {
+    height: 100%; width: 72%;
+    background: linear-gradient(90deg, #A66617, #D9B855, #F2DEA0);
+    background-size: 200% 100%;
+    border-radius: 2px;
+    animation: btnGoldShimmer 2s linear infinite;
+}
+.progress-steps { display: flex; gap: 4px; margin-top: 0.4rem; }
+.p-step { flex:1; height:2px; border-radius:1px; background: var(--border); }
+.p-step.done { background: var(--gold); }
+.p-step.go {
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    background-size: 200%;
+    animation: btnGoldShimmer 1.5s linear infinite;
+}
+
+/* ════════════════════════════════
+   RIGHT PANEL
+════════════════════════════════ */
+.panel-right {
+    background: var(--bg-alt);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+}
+
+/* Tabs — espelho blog-cat do site */
+.preview-tabs {
+    display: flex; align-items: center;
+    padding: 0 2rem;
+    border-bottom: 1px solid var(--border);
+    gap: 0; flex-shrink: 0;
+    background: var(--bg);
+}
+.p-tab {
+    font-family: var(--font-display);
+    font-size: 0.66rem; font-weight: 600;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    padding: 1rem 1.1rem;
+    color: var(--text-dim);
+    cursor: pointer;
+    border: none; background: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.2s;
+}
+.p-tab.active { color: var(--navy-deep); border-bottom-color: var(--gold); }
+.p-tab:hover:not(.active) { color: var(--text-muted); }
+.tab-score {
+    display: inline-flex; align-items: center; justify-content: center;
+    margin-left: 0.4rem;
+    font-size: 0.55rem; font-weight: 700;
+    background: rgba(34,197,94,0.12);
+    color: #16a34a;
+    border-radius: 100px;
+    padding: 0.1rem 0.45rem;
+    vertical-align: middle;
+}
+
+/* Preview body */
+.preview-body {
+    flex: 1; overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+}
+.preview-body::-webkit-scrollbar { width: 4px; }
+.preview-body::-webkit-scrollbar-thumb { background: var(--border-hi); border-radius: 2px; }
+
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ════════════════════════════════
+   ARTICLE PREVIEW
+   (espelho exato do blog-card / s-blog do site)
+════════════════════════════════ */
+.article-wrap {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem 5rem;
+}
+
+/* Capa */
+.art-cover {
+    width: 100%;
+    height: 260px;
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 1.75rem;
+    background: var(--navy-grad);
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--border);
+}
+.art-cover::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(217,184,85,0.15) 0%, transparent 65%);
+}
+.art-cover-inner {
+    position: relative; z-index:1;
+    display: flex; flex-direction: column; align-items: center; gap: 0.65rem;
+    text-align: center;
+}
+.art-cover-icon { opacity: 0.3; }
+.art-cover-hint {
+    font-family: var(--font-display);
+    font-size: 0.58rem; letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+}
+
+/* Tag — espelho .blog-tag do site */
+.art-tag {
+    font-family: var(--font-display);
+    font-size: 0.78rem; letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.28rem 0.75rem; border-radius: 100px;
+    display: inline-block; margin-bottom: 0.75rem;
+    background: linear-gradient(90deg, #C8861F 0%, #EDD06A 50%, #DDB840 100%);
+    color: #fff;
+    font-weight: 700;
+    -webkit-text-fill-color: #fff;
+}
+
+/* H1 — espelho .blog-headline */
+.art-h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2.1rem);
+    font-weight: 700; letter-spacing: -0.01em;
+    line-height: 1.18; text-transform: uppercase;
+    color: var(--navy-deep);
+    margin-bottom: 0.9rem;
+}
+.art-h1 em {
+    font-family: var(--font-serif);
+    font-style: italic; font-weight: 300;
+    text-transform: none; letter-spacing: 0;
+    font-size: 0.9em;
+    background: var(--gold-grad);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Meta */
+.art-meta {
+    display: flex; align-items: center; gap: 1.1rem;
+    margin-bottom: 1.6rem;
+    padding-bottom: 1.4rem;
+    border-bottom: 1px solid var(--border);
+}
+.art-meta-item {
+    font-family: var(--font-display);
+    font-size: 0.62rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--text-dim);
+    display: flex; align-items: center; gap: 0.3rem;
+}
+.art-meta-sep { color: var(--border-hi); }
+
+/* Body text */
+.art-p {
+    font-size: 0.88rem; color: var(--text-muted);
+    line-height: 1.82; margin-bottom: 1.2rem;
+}
+.art-p strong { color: var(--navy-deep); font-weight: 600; }
+
+/* H2 — borda gold à esquerda */
+.art-h2 {
+    font-family: var(--font-display);
+    font-size: 1.05rem; font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--navy-deep);
+    margin: 1.8rem 0 0.9rem;
+    padding-left: 1rem;
+    border-left: 3px solid var(--gold);
+    line-height: 1.3;
+}
+
+/* Lista */
+.art-list { list-style: none; margin-bottom: 1.2rem; display: flex; flex-direction: column; gap: 0.55rem; }
+.art-list li {
+    font-size: 0.86rem; color: var(--text-muted);
+    line-height: 1.7; padding-left: 1.2rem; position: relative;
+}
+.art-list li::before {
+    content: '';
+    position: absolute; left: 0; top: 0.62em;
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--gold);
+}
+
+/* Quote */
+.art-quote {
+    background: var(--surface);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    padding: 0.9rem 1.2rem; margin: 1.4rem 0;
+}
+.art-quote p {
+    font-family: var(--font-serif);
+    font-style: italic; font-size: 0.95rem;
+    color: var(--text-muted); line-height: 1.75;
+}
+
+/* CTA box — espelho .s-cta do site */
+.art-cta {
+    margin-top: 2.5rem;
+    background: var(--navy-grad);
+    border-radius: 14px; padding: 2rem;
+    position: relative; overflow: hidden;
+}
+.art-cta::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, #A66617 0%, #D9B855 20%, #F2DEA0 50%, #D9B855 80%, #A66617 100%);
+}
+.art-cta-eyebrow {
+    font-family: var(--font-display);
+    font-size: 0.60rem; font-weight: 700;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.5rem;
+}
+.art-cta-title {
+    font-family: var(--font-display);
+    font-size: 1.05rem; font-weight: 600;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    color: #fff; line-height: 1.3; margin-bottom: 0.65rem;
+}
+.art-cta-txt {
+    font-size: 0.82rem; color: rgba(255,255,255,0.6);
+    line-height: 1.7; margin-bottom: 1.25rem;
+}
+.art-cta-btn {
+    display: inline-flex; align-items: center; gap: 0.55rem;
+    padding: 0.75rem 1.75rem; border-radius: 100px; border: none;
+    font-family: var(--font-display);
+    font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--navy-deep);
+    background: linear-gradient(105deg, #A66617 0%, #D9B855 20%, #F2DEA0 38%, #FFF2C0 50%, #F2DEA0 62%, #D9B855 80%, #A66617 100%);
+    background-size: 250%; animation: btnGoldShimmer 3.5s linear infinite;
+    cursor: pointer;
+    box-shadow: 0 4px 18px var(--gold-30);
+}
+
+/* ════════════════════════════════
+   SEO SCORE TAB
+════════════════════════════════ */
+.seo-wrap { padding: 2rem; }
+.seo-top {
+    display: flex; align-items: flex-start; gap: 2rem;
+    margin-bottom: 2rem;
+}
+.score-ring { position: relative; width: 88px; height: 88px; flex-shrink:0; }
+.score-ring svg { transform: rotate(-90deg); }
+.score-num {
+    position: absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    font-family: var(--font-display);
+    font-size: 1.5rem; font-weight: 700;
+    color: #16a34a;
+}
+.score-label {
+    font-family: var(--font-display);
+    font-size: 0.58rem; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--text-dim);
+    text-align: center; margin-top: 0.35rem;
+}
+
+.seo-checks { flex:1; display:flex; flex-direction:column; gap: 0.5rem; }
+/* card espelho .pc do site */
+.seo-check {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.6rem 0.9rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    position: relative; overflow: hidden;
+    transition: background 0.2s;
+}
+.seo-check::after {
+    content: ''; position:absolute; top:0; left:0; right:0; height:2px;
+    background: var(--gold-grad); transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s var(--ease-out);
+}
+.seo-check:hover { background: var(--navy-mist); }
+.seo-check:hover::after { transform: scaleX(1); }
+.seo-left { display:flex; align-items:center; gap:0.7rem; }
+.dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+.dot.g { background:#22c55e; box-shadow:0 0 5px rgba(34,197,94,0.5); }
+.dot.y { background:#eab308; box-shadow:0 0 5px rgba(234,179,8,0.5); }
+.dot.r { background:#ef4444; box-shadow:0 0 5px rgba(239,68,68,0.5); }
+.check-name {
+    font-family: var(--font-display);
+    font-size: 0.66rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--text);
+}
+.check-val {
+    font-family: var(--font-display);
+    font-size: 0.62rem; letter-spacing: 0.1em;
+    color: var(--text-dim);
+}
+.check-val.g { color: #16a34a; }
+.check-val.y { color: #ca8a04; }
+
+.seo-divider {
+    display: flex; align-items: center; gap: 0.6rem;
+    margin: 1.5rem 0 0.75rem;
+    font-family: var(--font-display);
+    font-size: 0.60rem; font-weight: 600;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--text-dim);
+}
+.seo-divider::after { content:''; flex:1; height:1px; background: var(--border); }
+
+/* Keyword bars */
+.kw-list { display:flex; flex-direction:column; gap:0.5rem; margin-bottom:1.5rem; }
+.kw-row { display:flex; align-items:center; gap:0.85rem; }
+.kw-name {
+    font-family: var(--font-display);
+    font-size: 0.62rem; letter-spacing:0.12em; text-transform:uppercase;
+    color: var(--text-muted); width:150px; flex-shrink:0;
+}
+.kw-track { flex:1; height:4px; background: var(--border); border-radius:2px; overflow:hidden; }
+.kw-fill { height:100%; border-radius:2px; }
+.kw-pct {
+    font-family: var(--font-display);
+    font-size:0.62rem; color: var(--text-dim); width:28px; text-align:right;
+}
+
+/* Google preview */
+.google-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.1rem 1.25rem;
+}
+.g-url { font-size:0.72rem; color: #15803d; margin-bottom:0.3rem; }
+.g-title { font-size:0.95rem; color: #1a0dab; margin-bottom:0.3rem; line-height:1.4; }
+.g-desc { font-size:0.78rem; color: #545454; line-height:1.6; }
+.g-desc strong { color: var(--text); }
+
+/* ════════════════════════════════
+   HTML TAB
+════════════════════════════════ */
+.html-wrap { padding: 1.5rem 2rem 3rem; }
+.copy-btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: var(--font-display);
+    font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 0.45rem 1rem; border-radius: 6px;
+    background: var(--gold-10); border: 1px solid var(--gold-50);
+    color: var(--gold-dark); cursor: pointer; margin-bottom: 1.1rem;
+    transition: background 0.2s;
+}
+.copy-btn:hover { background: var(--gold-20); }
+.code-block {
+    background: var(--navy-deep);
+    border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.5rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.72rem; line-height: 1.8;
+    overflow-x: auto;
+}
+.cl { white-space: pre; }
+.t { color: #7dd3fc; }   /* tag */
+.a { color: #c4b5fd; }   /* attr */
+.v { color: #86efac; }   /* value */
+.c { color: rgba(255,255,255,0.22); font-style: italic; } /* comment */
+.tx { color: rgba(255,255,255,0.72); }
+.go { color: var(--gold-light); }
+</style>
+</head>
+<body>
+<div class="app">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+        <div class="topbar-brand">
+            <span class="topbar-logo">TIB</span>
+            <div class="topbar-sep"></div>
+            <span class="topbar-section">Gerador de Artigos</span>
+        </div>
+        <div class="topbar-actions">
+            <button class="tb-btn">Histórico</button>
+            <button class="tb-btn">Config.</button>
+            <button class="tb-btn-gold">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 17 21 12 16 7"/><polyline points="8 7 3 12 8 17"/></svg>
+                Publicar Artigo
+            </button>
+        </div>
+    </header>
+
+    <div class="panels">
+
+        <!-- ── LEFT: FORMULÁRIO ── -->
+        <aside class="panel-left">
+            <div class="panel-head">
+                <div class="s-header-sm">
+                    <span class="s-num-sm">01</span>
+                    <span class="s-label-sm">Entrada de dados</span>
+                </div>
+                <div class="panel-title">
+                    Gerador de Artigos
+                    <span class="ai-badge">Claude IA</span>
+                </div>
+            </div>
+
+            <div class="form-scroll">
+
+                <div class="field">
+                    <div class="field-label">Tema / Título <span class="req">obrigatório</span></div>
+                    <input class="field-input" type="text" value="Valorização imobiliária em Itapema: por que investir agora">
+                </div>
+
+                <div class="field">
+                    <div class="field-label">Palavras-chave SEO</div>
+                    <div class="tags-wrap">
+                        <span class="tag">investimento imobiliário <span class="tag-x">×</span></span>
+                        <span class="tag">Itapema SC <span class="tag-x">×</span></span>
+                        <span class="tag">litoral catarinense <span class="tag-x">×</span></span>
+                        <span class="tag">alto padrão <span class="tag-x">×</span></span>
+                        <input class="tag-ghost" type="text" placeholder="+ adicionar palavra-chave">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="field-label">Público-alvo</div>
+                    <select class="field-select">
+                        <option selected>Investidores iniciantes</option>
+                        <option>Investidores experientes</option>
+                        <option>Compradores de imóvel próprio</option>
+                        <option>Incorporadoras e construtoras</option>
+                        <option>Licenciados TIB</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <div class="field-label">Pontos principais</div>
+                    <textarea class="field-textarea">Crescimento do turismo no litoral SC, valorização histórica de Itapema, comparativo com Balneário Camboriú, oportunidade na planta</textarea>
+                </div>
+
+                <div class="field">
+                    <div class="field-label">Tom de voz</div>
+                    <div class="radio-row">
+                        <label class="radio-opt">
+                            <input type="radio" name="tom" checked>
+                            <span class="radio-lbl">Informativo</span>
+                        </label>
+                        <label class="radio-opt">
+                            <input type="radio" name="tom">
+                            <span class="radio-lbl">Persuasivo</span>
+                        </label>
+                        <label class="radio-opt">
+                            <input type="radio" name="tom">
+                            <span class="radio-lbl">Técnico</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="field-label">Categoria</div>
+                    <select class="field-select">
+                        <option>Mercado Imobiliário</option>
+                        <option selected>Litoral SC</option>
+                        <option>Estratégia de Investimento</option>
+                        <option>Permuta</option>
+                        <option>Alta Performance</option>
+                        <option>Jurídico</option>
+                    </select>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="field">
+                    <div class="field-label">Imagem de capa</div>
+                    <div class="img-toggle">
+                        <button class="img-tog active" onclick="document.querySelectorAll('.img-tog').forEach(b=>b.classList.remove('active'));this.classList.add('active')">Upload manual</button>
+                        <button class="img-tog" onclick="document.querySelectorAll('.img-tog').forEach(b=>b.classList.remove('active'));this.classList.add('active')">Unsplash Auto</button>
+                    </div>
+                    <div class="img-drop">
+                        <div class="img-drop-ico">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                            </svg>
+                        </div>
+                        <div class="img-drop-txt">Arraste ou clique para enviar</div>
+                        <div class="img-drop-sub">JPG, PNG ou WEBP — máx 4MB</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="panel-foot">
+                <button class="btn-gerar">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                    </svg>
+                    Gerar Artigo
+                </button>
+                <div class="progress-wrap">
+                    <div class="progress-info">
+                        <span>Gerando estrutura SEO...</span>
+                        <span>72%</span>
+                    </div>
+                    <div class="progress-track"><div class="progress-fill"></div></div>
+                    <div class="progress-steps">
+                        <div class="p-step done"></div>
+                        <div class="p-step done"></div>
+                        <div class="p-step done"></div>
+                        <div class="p-step go"></div>
+                        <div class="p-step"></div>
+                        <div class="p-step"></div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ── RIGHT: PREVIEW ── -->
+        <main class="panel-right">
+            <div class="preview-tabs">
+                <button class="p-tab active" onclick="switchTab('preview',this)">Preview</button>
+                <button class="p-tab" onclick="switchTab('html',this)">HTML</button>
+                <button class="p-tab" onclick="switchTab('seo',this)">
+                    SEO Score <span class="tab-score">92</span>
+                </button>
+            </div>
+
+            <div class="preview-body">
+
+                <!-- TAB PREVIEW -->
+                <div id="tab-preview" class="tab-content active">
+                    <div class="article-wrap">
+
+                        <div class="art-cover">
+                            <div class="art-cover-inner">
+                                <svg class="art-cover-icon" width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="0.8">
+                                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                                    <polyline points="21 15 16 10 5 21"/>
+                                </svg>
+                                <span class="art-cover-hint">Imagem de capa do artigo</span>
+                            </div>
+                        </div>
+
+                        <span class="art-tag">Litoral SC</span>
+
+                        <h1 class="art-h1">Valorização imobiliária em Itapema:<br><em>por que investir agora</em></h1>
+
+                        <div class="art-meta">
+                            <span class="art-meta-item">
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                1 Mai 2026
+                            </span>
+                            <span class="art-meta-sep">·</span>
+                            <span class="art-meta-item">
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                7 min de leitura
+                            </span>
+                            <span class="art-meta-sep">·</span>
+                            <span class="art-meta-item">TIB — The Best Invest</span>
+                        </div>
+
+                        <p class="art-p"><strong>Itapema consolidou-se como um dos mercados imobiliários mais dinâmicos do Brasil.</strong> Com crescimento anual acima de 18% nos últimos três anos, o litoral catarinense atrai investidores que buscam retornos sólidos aliados à segurança de um ativo real.</p>
+
+                        <p class="art-p">O fenômeno não é ocasional. A combinação entre infraestrutura em expansão, fluxo turístico crescente e escassez de terrenos premium cria condições únicas para quem entra agora — antes que o mercado precifique completamente esse potencial.</p>
+
+                        <h2 class="art-h2">Por que Itapema lidera a valorização no litoral</h2>
+
+                        <p class="art-p">Diferentemente de outras praias catarinenses, Itapema manteve um crescimento <strong>estruturado e sustentável</strong>. O desenvolvimento urbano planejado e a proximidade com Balneário Camboriú criam um efeito de transbordamento que favorece os preços.</p>
+
+                        <ul class="art-list">
+                            <li>Valorização média de 22% ao ano nos últimos 5 anos em imóveis de alto padrão</li>
+                            <li>Fluxo de 2 milhões de turistas por temporada, com crescimento constante</li>
+                            <li>Escassez de terrenos na orla — janela de oportunidade na planta</li>
+                            <li>Custo 40% menor que Balneário Camboriú com potencial equivalente</li>
+                        </ul>
+
+                        <div class="art-quote">
+                            <p>"O investidor que entrou em Itapema em 2020 viu seu patrimônio dobrar em menos de quatro anos. Quem entra hoje ainda está no início da curva."</p>
+                        </div>
+
+                        <h2 class="art-h2">A estratégia da permuta como acelerador</h2>
+
+                        <p class="art-p">Um dos diferenciais que a TIB identificou — e estruturou como modelo — é a <strong>permuta como veículo de entrada</strong>. Ao trocar um ativo por outro de maior potencial, o investidor captura a curva ascendente sem imobilizar liquidez.</p>
+
+                        <div class="art-cta">
+                            <div class="art-cta-eyebrow">Oportunidade disponível</div>
+                            <div class="art-cta-title">Conheça os empreendimentos em lançamento no litoral SC</div>
+                            <p class="art-cta-txt">A TIB seleciona apenas projetos com fundamentos sólidos de valorização. Fale com um especialista e entenda como estruturar seu próximo investimento.</p>
+                            <button class="art-cta-btn">
+                                Falar com especialista
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- TAB HTML -->
+                <div id="tab-html" class="tab-content">
+                    <div class="html-wrap">
+                        <button class="copy-btn">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                            Copiar HTML
+                        </button>
+                        <div class="code-block">
+<div class="cl"><span class="c">&lt;!-- Gerado por TIB Gerador · 01/05/2026 --&gt;</span></div>
+<div class="cl"><span class="t">&lt;article</span> <span class="a">class=</span><span class="v">"tib-article"</span> <span class="a">itemscope</span> <span class="a">itemtype=</span><span class="v">"https://schema.org/BlogPosting"</span><span class="t">&gt;</span></div>
+<div class="cl">  <span class="t">&lt;head&gt;</span></div>
+<div class="cl">    <span class="t">&lt;title&gt;</span><span class="tx">Valorização imobiliária em Itapema | TIB</span><span class="t">&lt;/title&gt;</span></div>
+<div class="cl">    <span class="t">&lt;meta</span> <span class="a">name=</span><span class="v">"description"</span> <span class="a">content=</span><span class="v">"Itapema lidera valorização no litoral SC com 22% ao ano..."</span><span class="t">&gt;</span></div>
+<div class="cl">    <span class="t">&lt;meta</span> <span class="a">property=</span><span class="v">"og:title"</span> <span class="a">content=</span><span class="v">"Valorização imobiliária em Itapema | TIB"</span><span class="t">&gt;</span></div>
+<div class="cl">    <span class="t">&lt;link</span> <span class="a">rel=</span><span class="v">"canonical"</span> <span class="a">href=</span><span class="v">"https://tib.com.br/insights/valorizacao-itapema"</span><span class="t">&gt;</span></div>
+<div class="cl">    <span class="t">&lt;script</span> <span class="a">type=</span><span class="v">"application/ld+json"</span><span class="t">&gt;</span></div>
+<div class="cl">    <span class="go">{</span></div>
+<div class="cl">      <span class="v">"@context"</span>: <span class="tx">"https://schema.org"</span>,</div>
+<div class="cl">      <span class="v">"@type"</span>: <span class="tx">"BlogPosting"</span>,</div>
+<div class="cl">      <span class="v">"headline"</span>: <span class="tx">"Valorização imobiliária em Itapema..."</span>,</div>
+<div class="cl">      <span class="v">"author"</span>: { <span class="tx">"@type"</span>: <span class="tx">"Organization"</span>, <span class="tx">"name"</span>: <span class="tx">"TIB"</span> },</div>
+<div class="cl">      <span class="v">"datePublished"</span>: <span class="tx">"2026-05-01"</span>,</div>
+<div class="cl">      <span class="v">"keywords"</span>: <span class="tx">"investimento imobiliário, Itapema SC, litoral catarinense"</span></div>
+<div class="cl">    <span class="go">}</span></div>
+<div class="cl">    <span class="t">&lt;/script&gt;</span></div>
+<div class="cl">  <span class="t">&lt;/head&gt;</span></div>
+<div class="cl">  <span class="t">&lt;header&gt;</span></div>
+<div class="cl">    <span class="t">&lt;img</span> <span class="a">src=</span><span class="v">"assets/artigos/valorizacao-itapema.webp"</span> <span class="a">alt=</span><span class="v">"Vista aérea de Itapema SC"</span><span class="t">&gt;</span></div>
+<div class="cl">    <span class="t">&lt;span</span> <span class="a">class=</span><span class="v">"art-tag"</span><span class="t">&gt;</span><span class="tx">Litoral SC</span><span class="t">&lt;/span&gt;</span></div>
+<div class="cl">    <span class="t">&lt;h1</span> <span class="a">itemprop=</span><span class="v">"headline"</span><span class="t">&gt;</span><span class="tx">Valorização imobiliária em Itapema...</span><span class="t">&lt;/h1&gt;</span></div>
+<div class="cl">  <span class="t">&lt;/header&gt;</span></div>
+<div class="cl">  <span class="c">&lt;!-- ... corpo completo do artigo ... --&gt;</span></div>
+<div class="cl"><span class="t">&lt;/article&gt;</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB SEO -->
+                <div id="tab-seo" class="tab-content">
+                    <div class="seo-wrap">
+
+                        <div class="seo-top">
+                            <div>
+                                <div class="score-ring">
+                                    <svg width="88" height="88" viewBox="0 0 88 88">
+                                        <circle cx="44" cy="44" r="38" fill="none" stroke="var(--border)" stroke-width="5"/>
+                                        <circle cx="44" cy="44" r="38" fill="none" stroke="#22c55e" stroke-width="5"
+                                            stroke-dasharray="238.8" stroke-dashoffset="19"
+                                            stroke-linecap="round"/>
+                                    </svg>
+                                    <div class="score-num">92</div>
+                                </div>
+                                <div class="score-label">Score SEO</div>
+                            </div>
+                            <div class="seo-checks">
+                                <div class="seo-check">
+                                    <div class="seo-left"><div class="dot g"></div><span class="check-name">Title Tag</span></div>
+                                    <span class="check-val g">58 caracteres</span>
+                                </div>
+                                <div class="seo-check">
+                                    <div class="seo-left"><div class="dot g"></div><span class="check-name">Meta Description</span></div>
+                                    <span class="check-val g">152 caracteres</span>
+                                </div>
+                                <div class="seo-check">
+                                    <div class="seo-left"><div class="dot g"></div><span class="check-name">H1 único</span></div>
+                                    <span class="check-val g">Presente</span>
+                                </div>
+                                <div class="seo-check">
+                                    <div class="seo-left"><div class="dot g"></div><span class="check-name">Schema JSON-LD</span></div>
+                                    <span class="check-val g">BlogPosting</span>
+                                </div>
+                                <div class="seo-check">
+                                    <div class="seo-left"><div class="dot g"></div><span class="check-name">Open Graph</span></div>
+                                    <span class="check-val g">Completo</span>
+                                </div>
+                                <div class="seo-check">
+                                    <div class="seo-left"><div class="dot y"></div><span class="check-name">Links internos</span></div>
+                                    <span class="check-val y">1 de 3 recomendados</span>
+                                </div>
+                                <div class="seo-check">
+                                    <div class="seo-left"><div class="dot g"></div><span class="check-name">Alt text imagens</span></div>
+                                    <span class="check-val g">Gerado automaticamente</span>
+                                </div>
+                                <div class="seo-check">
+                                    <div class="seo-left"><div class="dot g"></div><span class="check-name">Canonical URL</span></div>
+                                    <span class="check-val g">Definida</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="seo-divider">Densidade de palavras-chave</div>
+                        <div class="kw-list">
+                            <div class="kw-row">
+                                <span class="kw-name">investimento imobiliário</span>
+                                <div class="kw-track"><div class="kw-fill" style="width:68%;background:#22c55e;"></div></div>
+                                <span class="kw-pct">2.1%</span>
+                            </div>
+                            <div class="kw-row">
+                                <span class="kw-name">Itapema SC</span>
+                                <div class="kw-track"><div class="kw-fill" style="width:74%;background:#22c55e;"></div></div>
+                                <span class="kw-pct">2.4%</span>
+                            </div>
+                            <div class="kw-row">
+                                <span class="kw-name">litoral catarinense</span>
+                                <div class="kw-track"><div class="kw-fill" style="width:52%;background:#eab308;"></div></div>
+                                <span class="kw-pct">1.6%</span>
+                            </div>
+                            <div class="kw-row">
+                                <span class="kw-name">alto padrão</span>
+                                <div class="kw-track"><div class="kw-fill" style="width:38%;background:#eab308;"></div></div>
+                                <span class="kw-pct">1.1%</span>
+                            </div>
+                        </div>
+
+                        <div class="seo-divider">Preview no Google</div>
+                        <div class="google-box">
+                            <div class="g-url">tib.com.br › insights › valorizacao-imobiliaria-itapema</div>
+                            <div class="g-title">Valorização imobiliária em Itapema: por que investir agora | TIB</div>
+                            <div class="g-desc"><strong>Itapema</strong> lidera valorização no <strong>litoral SC</strong> com 22% ao ano. Descubra por que <strong>investidores</strong> escolhem a cidade e como entrar antes da curva de preços — TIB Insights.</div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div><!-- /preview-body -->
+        </main>
+
+    </div><!-- /panels -->
+</div><!-- /app -->
+
+<script>
+function switchTab(name, btn) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.p-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    btn.classList.add('active');
+}
+</script>
+</body>
+</html>

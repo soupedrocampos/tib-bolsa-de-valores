@@ -1,0 +1,1970 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TIB — Design System</title>
+<link href="assets/css2_70f83b546f4e.css" rel="stylesheet"/>
+<script src="assets/iconify-icon_e19829e7f0e8.js"></script>
+<link href="assets/styles_3b9c5a80b189.css" rel="stylesheet"/>
+<style>
+/* ═══════════════════════════════════════
+   DS NAV — top bar com anchor links
+═══════════════════════════════════════ */
+.ds-nav {
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  background: rgba(1,10,38,0.97);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(217,184,85,0.18);
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0 clamp(1.5rem,5vw,5rem);
+  height: 48px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.ds-nav a {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  padding: 0 1rem;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  border-bottom: 2px solid transparent;
+  transition: color 0.18s, border-color 0.18s;
+  text-decoration: none;
+}
+.ds-nav a:hover { color: var(--gold-light); border-color: var(--gold); }
+.ds-nav .ds-nav-brand {
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  margin-right: 1.5rem;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════
+   DS SECTION WRAPPERS
+═══════════════════════════════════════ */
+.ds-section {
+  padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 5rem);
+  max-width: calc(var(--container) + clamp(1.5rem,5vw,5rem) * 2);
+  margin: 0 auto;
+}
+.ds-section-dark {
+  background: linear-gradient(150deg, #010A26 0%, #021852 45%, #0D2F82 100%);
+}
+.ds-section-alt {
+  background: var(--bg-alt);
+}
+.ds-section-white {
+  background: var(--bg);
+}
+.ds-section-depo {
+  background: linear-gradient(145deg, #00113F 0%, #041D6B 55%, #0E3080 100%);
+}
+
+.ds-label {
+  font-family: var(--font-display);
+  font-size: 0.70rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  margin-bottom: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.ds-label::before {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 1.5px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+.ds-label-inv {
+  color: var(--gold);
+}
+.ds-label-inv::before {
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+.ds-h {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.5vw, 3rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: var(--navy-deep);
+  margin-bottom: 2.5rem;
+}
+.ds-h-inv { color: #fff; }
+
+/* ═══════════════════════════════════════
+   TYPOGRAPHY TABLE
+═══════════════════════════════════════ */
+.typo-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.typo-table tr {
+  border-bottom: 1px solid var(--border);
+}
+.typo-table td {
+  padding: 1.5rem 0;
+  vertical-align: middle;
+}
+.typo-table td:first-child {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  width: 170px;
+  padding-right: 2rem;
+  white-space: nowrap;
+}
+.typo-table td:last-child {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: var(--text-dim);
+  text-align: right;
+  white-space: nowrap;
+  padding-left: 2rem;
+}
+.typo-table td:nth-child(2) {
+  width: 100%;
+}
+
+/* ═══════════════════════════════════════
+   COLOR SWATCHES
+═══════════════════════════════════════ */
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+.color-swatch {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.color-swatch-preview {
+  height: 72px;
+}
+.color-swatch-info {
+  padding: 0.6rem 0.85rem;
+  background: var(--bg-card);
+}
+.color-swatch-name {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--navy-deep);
+  display: block;
+  margin-bottom: 0.2rem;
+}
+.color-swatch-hex {
+  font-family: var(--font-body);
+  font-size: 0.70rem;
+  color: var(--text-dim);
+  display: block;
+}
+
+.gradient-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+.gradient-swatch {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.gradient-swatch-preview {
+  height: 80px;
+}
+.gradient-swatch-info {
+  padding: 0.6rem 0.85rem;
+  background: var(--bg-card);
+}
+.gradient-swatch-name {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--navy-deep);
+  display: block;
+  margin-bottom: 0.2rem;
+}
+.gradient-swatch-use {
+  font-size: 0.70rem;
+  color: var(--text-dim);
+  display: block;
+}
+
+/* ═══════════════════════════════════════
+   SURFACE DEMOS
+═══════════════════════════════════════ */
+.surface-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.surface-demo {
+  border-radius: 12px;
+  padding: 1.4rem;
+  min-height: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.surface-demo-label {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════
+   COMPONENT STATES
+═══════════════════════════════════════ */
+.state-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+.state-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
+}
+.state-label {
+  font-family: var(--font-display);
+  font-size: 0.66rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* ═══════════════════════════════════════
+   LAYOUT DEMOS
+═══════════════════════════════════════ */
+.layout-demo {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+.layout-demo-label {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  padding: 0.75rem 1.2rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-alt);
+}
+.layout-demo-body {
+  padding: 1.5rem;
+}
+.layout-col {
+  background: var(--navy-mist);
+  border-radius: 6px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* ═══════════════════════════════════════
+   MOTION GALLERY
+═══════════════════════════════════════ */
+.motion-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+.motion-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.2rem;
+}
+.motion-card-dark {
+  background: rgba(1,10,38,0.7);
+  border-color: rgba(217,184,85,0.15);
+}
+.motion-card-label {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.motion-card-dark .motion-card-label {
+  color: rgba(255,255,255,0.4);
+}
+.motion-demo-area {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80px;
+}
+
+/* shimmer demo box */
+.demo-shimmer-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 2rem;
+  color: var(--navy-deep);
+  border-radius: 100px;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* scrollpulse demo line */
+.demo-scroll-line {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, rgba(217,184,85,0.5), transparent);
+  animation: scrollpulse 2s ease-in-out infinite;
+}
+
+/* bdot demo */
+.demo-badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  position: relative;
+  animation: bdotPulse 1.6s ease-in-out infinite;
+}
+.demo-badge-dot::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(34,197,94,0.5);
+  animation: bdotRing 1.6s ease-in-out infinite;
+}
+
+/* arrowPulse demo */
+.demo-arrow-circle {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: rgba(0,12,48,0.28);
+  backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  animation: arrowPulse 3.5s ease-in-out infinite;
+}
+.demo-arrow-circle svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+}
+
+/* sa reveal demo — trigger on hover of parent */
+.demo-sa-trigger {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background: var(--navy-mist);
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  user-select: none;
+}
+.demo-sa-box {
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  color: var(--navy-deep);
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1);
+}
+.demo-sa-box.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ticker demo */
+.demo-ticker-wrap {
+  overflow: hidden;
+  background: var(--gold-grad);
+  padding: 0.4rem 0;
+  white-space: nowrap;
+  border-radius: 8px;
+  width: 100%;
+}
+
+/* hover lift demo card */
+.demo-hover-card {
+  width: 120px;
+  height: 80px;
+  border-radius: 14px;
+  background: var(--navy-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  cursor: pointer;
+  transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s cubic-bezier(0.22,1,0.36,1);
+}
+.demo-hover-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 40px 80px rgba(1,10,38,0.45);
+}
+
+/* pc hover demo */
+.demo-pc-hover {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.2rem;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+  cursor: pointer;
+  width: 160px;
+}
+.demo-pc-hover::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--gold-grad);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+.demo-pc-hover:hover { background: var(--navy-mist); }
+.demo-pc-hover:hover::after { transform: scaleX(1); }
+.demo-pc-hover p {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* icon section */
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1rem;
+}
+.icon-item {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--bg-card);
+  text-align: center;
+}
+.icon-item-label {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.icon-sizes {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+/* divider */
+.ds-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 0;
+}
+.ds-divider-gold {
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold-30), transparent);
+}
+
+/* scroll reveal demo trigger */
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════
+     DS TOP NAV
+═══════════════════════ -->
+<nav class="ds-nav">
+  <span class="ds-nav-brand">TIB · DS</span>
+  <a href="#ds-hero">Hero</a>
+  <a href="#ds-typography">Typography</a>
+  <a href="#ds-colors">Colors</a>
+  <a href="#ds-components">Components</a>
+  <a href="#ds-layout">Layout</a>
+  <a href="#ds-motion">Motion</a>
+  <a href="#ds-icons">Icons</a>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════
+     0 — HERO (EXACT CLONE · TEXT ADAPTED)
+═══════════════════════════════════════════════════════════════ -->
+<div id="ds-hero">
+
+<!-- Grid Lines decorativas -->
+<div class="grid-lines">
+  <div class="gl"></div><div class="gl"></div>
+  <div class="gl"></div><div class="gl"></div>
+</div>
+
+<nav class="site-nav glass visible" id="siteNav">
+  <a class="nav-logo" href="#ds-hero"><img alt="TIB" class="nav-logo-img" src="assets/Logo_pequena__1__b5e0f2caacb8.png"/></a>
+  <ul class="nav-links">
+    <li><a href="#ds-typography">Typography</a></li>
+    <li><a href="#ds-colors">Colors</a></li>
+    <li><a href="#ds-components">Components</a></li>
+    <li><a href="#ds-layout">Layout</a></li>
+    <li><a href="#ds-motion">Motion</a></li>
+  </ul>
+  <a class="nav-cta" href="#ds-components">EXPLORAR</a>
+</nav>
+
+<section class="hero" id="hero">
+  <div class="hero-media">
+    <div class="hero-slides" id="heroSlides">
+      <div class="hero-slide active" data-index="0">
+        <img alt="" loading="eager" src="assets/bc-curiosidades-01_c79323b452e4.webp"/>
+        <div class="slide-title">
+          <div class="hero-content">
+            <div class="hero-eyebrow glass">
+              <span class="eyebrow-line"></span>
+              <span>Design System · TIB</span>
+            </div>
+            <h1 class="hero-title">
+              <span class="ht-line"><span class="ht-inner">SISTEMA</span></span>
+              <span class="ht-line italic-serif"><span class="ht-inner">visual vivo</span></span>
+              <span class="ht-line"><span class="ht-inner">DA MARCA</span></span>
+            </h1>
+          </div>
+        </div>
+      </div>
+      <div class="hero-slide" data-index="1">
+        <img alt="" loading="lazy" src="assets/bc-praia-01_362cfdc4d213.webp"/>
+        <div class="slide-title">
+          <div class="hero-content">
+            <div class="hero-eyebrow glass">
+              <span class="eyebrow-line"></span>
+              <span>Tokens · Componentes</span>
+            </div>
+            <h1 class="hero-title">
+              <span class="ht-line"><span class="ht-inner">PADRÕES</span></span>
+              <span class="ht-line italic-serif"><span class="ht-inner">canônicos e</span></span>
+              <span class="ht-line"><span class="ht-inner">REPLICÁVEIS</span></span>
+            </h1>
+          </div>
+        </div>
+      </div>
+      <div class="hero-slide" data-index="2">
+        <img alt="" loading="lazy" src="assets/bc-praias-01_42e42c6d48f0.webp"/>
+        <div class="slide-title">
+          <div class="hero-content">
+            <div class="hero-eyebrow glass">
+              <span class="eyebrow-line"></span>
+              <span>Navy · Gold · Serif</span>
+            </div>
+            <h1 class="hero-title">
+              <span class="ht-line"><span class="ht-inner">TIPOGRAFIA</span></span>
+              <span class="ht-line italic-serif"><span class="ht-inner">cores e</span></span>
+              <span class="ht-line"><span class="ht-inner">MOVIMENTO</span></span>
+            </h1>
+          </div>
+        </div>
+      </div>
+      <div class="hero-slide" data-index="3">
+        <img alt="" loading="lazy" src="assets/itapema-drone-abr26_4a1f6e932675.webp"/>
+        <div class="slide-title">
+          <div class="hero-content">
+            <div class="hero-eyebrow glass">
+              <span class="eyebrow-line"></span>
+              <span>Motion · Layout</span>
+            </div>
+            <h1 class="hero-title">
+              <span class="ht-line"><span class="ht-inner">ANIMAÇÕES</span></span>
+              <span class="ht-line italic-serif"><span class="ht-inner">e grids</span></span>
+              <span class="ht-line"><span class="ht-inner">EXATOS</span></span>
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-overlay-grad"></div>
+  </div>
+
+  <div class="hero-dots" id="heroDots">
+    <button aria-label="Slide anterior" class="hero-dot glass" id="heroPrev">
+      <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
+    </button>
+    <button aria-label="Próximo slide" class="hero-dot glass" id="heroNext">
+      <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </button>
+  </div>
+
+  <div class="hero-stat-card glass">
+    <p class="hsc-text">Cada token, classe e animação documentados ao vivo — o design system exato usado na construção da TIB.</p>
+    <div class="hsc-divider"></div>
+    <div class="hsc-stats">
+      <div>
+        <div class="hsc-stat-label">Fontes</div>
+        <div class="hsc-stat-val">3</div>
+      </div>
+      <div>
+        <div class="hsc-stat-label">Tokens CSS</div>
+        <div class="hsc-stat-val">28+</div>
+      </div>
+      <div>
+        <div class="hsc-stat-label">Keyframes</div>
+        <div class="hsc-stat-val">9</div>
+      </div>
+      <div>
+        <div class="hsc-stat-label">Componentes</div>
+        <div class="hsc-stat-val">14+</div>
+      </div>
+    </div>
+    <a class="hsc-cta" href="#ds-typography">
+      <span>Ver Design System</span>
+      <svg viewBox="0 0 24 24"><line x1="5" x2="19" y1="19" y2="5"></line><polyline points="5 5 19 5 19 19"></polyline></svg>
+    </a>
+  </div>
+
+  <div class="hero-meta">
+    <p class="hero-desc">
+      Pattern library completa da TIB — Navy/Gold Design System V2. Classes, animações e tokens exatos do original.
+    </p>
+    <div class="scroll-ind">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <span class="tk">DESIGN <em>system</em> TIB</span> <span class="tk-sep">◇</span>
+    <span class="tk">NAVY <em>and</em> GOLD</span> <span class="tk-sep">◇</span>
+    <span class="tk">OSWALD <em>Raleway</em> PLAYFAIR</span> <span class="tk-sep">◇</span>
+    <span class="tk">TOKENS <em>canônicos</em> EXATOS</span> <span class="tk-sep">◇</span>
+    <span class="tk">ANIMAÇÕES <em>e</em> KEYFRAMES</span> <span class="tk-sep">◇</span>
+    <span class="tk">COMPONENTES <em>ao vivo</em> DOCUMENTADOS</span> <span class="tk-sep">◇</span>
+    <span class="tk">GLASS <em>morphism</em> GOLD</span> <span class="tk-sep">◇</span>
+    <span class="tk">DESIGN <em>system</em> TIB</span> <span class="tk-sep">◇</span>
+    <span class="tk">NAVY <em>and</em> GOLD</span> <span class="tk-sep">◇</span>
+    <span class="tk">OSWALD <em>Raleway</em> PLAYFAIR</span> <span class="tk-sep">◇</span>
+    <span class="tk">TOKENS <em>canônicos</em> EXATOS</span> <span class="tk-sep">◇</span>
+    <span class="tk">ANIMAÇÕES <em>e</em> KEYFRAMES</span> <span class="tk-sep">◇</span>
+    <span class="tk">COMPONENTES <em>ao vivo</em> DOCUMENTADOS</span> <span class="tk-sep">◇</span>
+    <span class="tk">GLASS <em>morphism</em> GOLD</span> <span class="tk-sep">◇</span>
+  </div>
+</div>
+</div><!-- /#ds-hero -->
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     1 — TYPOGRAPHY
+═══════════════════════════════════════════════════════════════ -->
+<section class="ds-section ds-section-white" id="ds-typography">
+  <div class="ds-label">01 — Typography</div>
+
+  <table class="typo-table">
+    <tbody>
+
+      <!-- Hero Title / H1 -->
+      <tr>
+        <td>Heading 1 · Hero</td>
+        <td>
+          <h1 class="hero-title" style="font-size:clamp(3.2rem,7.5vw,8rem);color:var(--navy-deep);animation:none;">
+            <span class="ht-line"><span class="ht-inner" style="color:var(--navy-deep);animation:none;">VALORIZAÇÃO</span></span>
+            <span class="ht-line italic-serif"><span class="ht-inner" style="animation:none;">que não para</span></span>
+            <span class="ht-line"><span class="ht-inner" style="color:var(--navy-deep);animation:none;">DE CRESCER</span></span>
+          </h1>
+        </td>
+        <td>clamp(3.2rem, 7.5vw, 8rem) / 0.88</td>
+      </tr>
+
+      <!-- Section Title H2 — sobre -->
+      <tr>
+        <td>Heading 2 · Section</td>
+        <td>
+          <h2 class="sobre-title section-title">
+            A MELHOR<br/>
+            <span class="serif-em">Inteligência</span><br/>
+            IMOBILIÁRIA
+          </h2>
+        </td>
+        <td>clamp(2.8rem, 6.5vw, 6.5rem) / 0.88</td>
+      </tr>
+
+      <!-- H2 — op-title dark -->
+      <tr>
+        <td>Heading 2 · Dark</td>
+        <td>
+          <h2 class="op-title section-title" style="color:var(--navy-deep);">
+            INTELIGÊNCIA QUE GERA<br/>
+            <em class="serif-em">Retorno Real</em>
+          </h2>
+        </td>
+        <td>clamp(2rem, 4.2vw, 4.2rem) / 0.92</td>
+      </tr>
+
+      <!-- H2 — planta-title -->
+      <tr>
+        <td>Heading 2 · Planta</td>
+        <td>
+          <h2 class="planta-title section-title">
+            POR QUE INVESTIR<br/>
+            EM IMÓVEL <span class="serif-em">na planta?</span>
+          </h2>
+        </td>
+        <td>clamp(2.5rem, 6vw, 5.5rem) / 0.9</td>
+      </tr>
+
+      <!-- H2 — litoral-title -->
+      <tr>
+        <td>Heading 2 · Litoral</td>
+        <td>
+          <h2 class="litoral-title section-title" style="color:var(--navy-deep);">
+            POR QUE<br/>ESCOLHER O<br/><em class="serif-em">Litoral de SC?</em>
+          </h2>
+        </td>
+        <td>clamp(2.2rem, 4.5vw, 4.8rem) / 0.92</td>
+      </tr>
+
+      <!-- H2 — pg-heading -->
+      <tr>
+        <td>Heading 2 · Gallery</td>
+        <td>
+          <h2 class="pg-heading section-title">OPÇÕES DE INVESTIMENTO<br/><em class="serif-em">Fase a Fase</em></h2>
+        </td>
+        <td>clamp(2.2rem, 4.5vw, 4.8rem) / 0.92</td>
+      </tr>
+
+      <!-- H3 — card title -->
+      <tr>
+        <td>Heading 3 · Card</td>
+        <td>
+          <h3 class="pg-title" style="color:var(--navy-deep);">TERRENO</h3>
+        </td>
+        <td>clamp(1.4rem, 2.2vw, 2rem) / 1.1</td>
+      </tr>
+
+      <!-- H3 — pc card -->
+      <tr>
+        <td>Heading 3 · Feature Card</td>
+        <td>
+          <h3 style="font-family:var(--font-display);font-size:var(--fs-body);font-weight:600;letter-spacing:0.05em;color:var(--navy-deep);text-transform:uppercase;">Valorização Real</h3>
+        </td>
+        <td>var(--fs-body) / 1.65</td>
+      </tr>
+
+      <!-- H4 — ll-header -->
+      <tr>
+        <td>Heading 4 · List Item</td>
+        <td>
+          <h4 style="font-family:var(--font-display);font-size:var(--fs-body);font-weight:600;color:var(--navy-deep);letter-spacing:0.04em;text-transform:uppercase;margin:0;">Maior IDH do País</h4>
+        </td>
+        <td>var(--fs-body) / 1.2</td>
+      </tr>
+
+      <!-- Bold L — KPI number -->
+      <tr>
+        <td>Bold L · KPI</td>
+        <td>
+          <div class="op-kpi-val">
+            <span class="op-kpi-n">120</span><span class="op-kpi-sfx">+</span>
+          </div>
+        </td>
+        <td>clamp(3rem, 6vw, 5.5rem) / 1</td>
+      </tr>
+
+      <!-- Bold M — nav-cta / btn -->
+      <tr>
+        <td>Bold M · Button / Nav</td>
+        <td>
+          <span style="font-family:var(--font-display);font-size:0.84rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--navy-deep);">INVESTIR</span>
+        </td>
+        <td>0.84rem / —</td>
+      </tr>
+
+      <!-- Bold S — s-num / label -->
+      <tr>
+        <td>Bold S · Section Num</td>
+        <td>
+          <div class="s-header" style="margin-bottom:0;">
+            <span class="s-num">01</span>
+            <span class="s-label">Design System</span>
+          </div>
+        </td>
+        <td>0.74rem / — · ls 0.3em</td>
+      </tr>
+
+      <!-- Serif Italic accent -->
+      <tr>
+        <td>Serif Accent</td>
+        <td>
+          <span class="serif-em" style="font-size:clamp(2rem,4vw,3rem);">Inteligência</span>
+        </td>
+        <td>Playfair Display · italic 300</td>
+      </tr>
+
+      <!-- Paragraph body -->
+      <tr>
+        <td>Paragraph · Body</td>
+        <td>
+          <p style="font-family:var(--font-body);font-size:var(--fs-body);color:var(--text-muted);line-height:1.85;max-width:560px;margin:0;">Somos o Elo Disruptivo do Sucesso — um ecossistema criado para transformar potencial em prosperidade real, com um modelo inovador, foco em performance e alto padrão de execução.</p>
+        </td>
+        <td>clamp(0.75rem, 1.3vw, 0.9375rem) / 1.85</td>
+      </tr>
+
+      <!-- Regular M — blog card h4 -->
+      <tr>
+        <td>Regular M · Blog H4</td>
+        <td>
+          <h4 style="font-family:var(--font-body);font-size:var(--fs-body);font-weight:600;color:var(--navy-deep);line-height:1.5;margin:0;">Os 3 fatores que realmente determinam a valorização de um imóvel</h4>
+        </td>
+        <td>var(--fs-body) · Raleway 600 / 1.5</td>
+      </tr>
+
+      <!-- Regular S — caption / label -->
+      <tr>
+        <td>Regular S · Caption</td>
+        <td>
+          <span style="font-family:var(--font-display);font-size:0.74rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--text-dim);">Abr 2026</span>
+        </td>
+        <td>0.74rem · ls 0.25em</td>
+      </tr>
+
+      <!-- Ticker text -->
+      <tr>
+        <td>Ticker · Display</td>
+        <td>
+          <span class="tk">PATRIMÔNIO <em>sólido e</em> PROTEGIDO</span>
+        </td>
+        <td>0.80rem · Oswald 600 · ls 0.2em</td>
+      </tr>
+
+      <!-- Blog tag pill -->
+      <tr>
+        <td>Tag · Pill</td>
+        <td>
+          <span class="blog-tag">Mercado</span>
+        </td>
+        <td>0.80rem · Oswald 700 · gold gradient</td>
+      </tr>
+
+      <!-- Gold gradient text -->
+      <tr>
+        <td>Gold Grad Text</td>
+        <td>
+          <span class="gold-grad-text" style="font-family:var(--font-display);font-size:clamp(1.5rem,3vw,2.5rem);font-weight:700;letter-spacing:-0.02em;">14 Bi</span>
+        </td>
+        <td>background-clip: text · gold-grad</td>
+      </tr>
+
+    </tbody>
+  </table>
+</section>
+
+<div class="ds-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     2 — COLORS & SURFACES
+═══════════════════════════════════════════════════════════════ -->
+<section class="ds-section ds-section-alt" id="ds-colors">
+  <div class="ds-label">02 — Colors &amp; Surfaces</div>
+
+  <!-- Navy Family -->
+  <h3 class="ds-h" style="font-size:1rem;margin-bottom:1rem;">Navy Family</h3>
+  <div class="color-grid" style="margin-bottom:2.5rem;">
+    <div class="color-swatch">
+      <div class="color-swatch-preview" style="background:#010A26;"></div>
+      <div class="color-swatch-info">
+        <span class="color-swatch-name">Navy Deep</span>
+        <span class="color-swatch-hex">--navy-deep · #010A26</span>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="color-swatch-preview" style="background:#00113F;"></div>
+      <div class="color-swatch-info">
+        <span class="color-swatch-name">Navy Royal</span>
+        <span class="color-swatch-hex">--navy-royal · #00113F</span>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="color-swatch-preview" style="background:#011640;"></div>
+      <div class="color-swatch-info">
+        <span class="color-swatch-name">Navy Mid</span>
+        <span class="color-swatch-hex">--navy-mid · #011640</span>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="color-swatch-preview" style="background:#C9D7F2;"></div>
+      <div class="color-swatch-info">
+        <span class="color-swatch-name">Navy Light</span>
+        <span class="color-swatch-hex">--navy-light · #C9D7F2</span>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="color-swatch-preview" style="background:#E8EEF9;"></div>
+      <div class="color-swatch-info">
+        <span class="color-swatch-name">Navy Mist</span>
+        <span class="color-swatch-hex">--navy-mist · #E8EEF9</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gold Family -->
+  <h3 class="ds-h" style="font-size:1rem;margin-bottom:1rem;">Gold Family</h3>
+  <div class="color-grid" style="margin-bottom:2.5rem;">
+    <div class="color-swatch">
+      <div class="color-swatch-preview" style="background:#D9B855;"></div>
+      <div class="color-swatch-info">
+        <span class="color-swatch-name">Gold</span>
+        <span class="color-swatch-hex">--gold · #D9B855</span>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="color-swatch-preview" style="background:#F2DEA0;"></div>
+      <div class="color-swatch-info">
+        <span class="color-swatch-name">Gold Light</span>
+        <span class="color-swatch-hex">--gold-light · #F2DEA0</span>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="color-swatch-preview" style="background:#D9B36C;"></div>
+      <div class="color-swatch-info">
+        <span class="color-swatch-name">Gold Mid</span>
+        <span class="color-swatch-hex">--gold-mid · #D9B36C</span>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="color-swatch-preview" style="background:#A66617;"></div>
+      <div class="color-swatch-info">
+        <span class="color-swatch-name">Gold Dark</span>
+        <span class="color-swatch-hex">--gold-dark · #A66617</span>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="color-swatch-preview" style="background:rgba(217,184,85,0.5);border:1px solid var(--border);"></div>
+      <div class="color-swatch-info">
+        <span class="color-swatch-name">Gold 50</span>
+        <span class="color-swatch-hex">--gold-50 · rgba 0.5</span>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="color-swatch-preview" style="background:rgba(217,184,85,0.3);border:1px solid var(--border);"></div>
+      <div class="color-swatch-info">
+        <span class="color-swatch-name">Gold 30</span>
+        <span class="color-swatch-hex">--gold-30 · rgba 0.3</span>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="color-swatch-preview" style="background:rgba(217,184,85,0.15);border:1px solid var(--border);"></div>
+      <div class="color-swatch-info">
+        <span class="color-swatch-name">Gold 15</span>
+        <span class="color-swatch-hex">--gold-15 · rgba 0.15</span>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="color-swatch-preview" style="background:rgba(217,184,85,0.1);border:1px solid var(--border);"></div>
+      <div class="color-swatch-info">
+        <span class="color-swatch-name">Gold 10</span>
+        <span class="color-swatch-hex">--gold-10 · rgba 0.1</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Text Colors -->
+  <h3 class="ds-h" style="font-size:1rem;margin-bottom:1rem;">Text Colors</h3>
+  <div class="color-grid" style="margin-bottom:2.5rem;">
+    <div class="color-swatch">
+      <div class="color-swatch-preview" style="background:#010A26;display:flex;align-items:center;justify-content:center;">
+        <span style="font-family:var(--font-display);font-size:0.75rem;letter-spacing:0.15em;color:#010A26;background:#fff;padding:2px 8px;border-radius:4px;">Aa</span>
+      </div>
+      <div class="color-swatch-info">
+        <span class="color-swatch-name">Text</span>
+        <span class="color-swatch-hex">--text · #010A26</span>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="color-swatch-preview" style="background:var(--bg-alt);display:flex;align-items:center;justify-content:center;">
+        <span style="font-family:var(--font-display);font-size:0.75rem;color:rgba(1,10,38,0.55);">Muted Text</span>
+      </div>
+      <div class="color-swatch-info">
+        <span class="color-swatch-name">Text Muted</span>
+        <span class="color-swatch-hex">--text-muted · rgba 0.55</span>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="color-swatch-preview" style="background:var(--bg-alt);display:flex;align-items:center;justify-content:center;">
+        <span style="font-family:var(--font-display);font-size:0.75rem;color:rgba(1,10,38,0.28);">Dim Text</span>
+      </div>
+      <div class="color-swatch-info">
+        <span class="color-swatch-name">Text Dim</span>
+        <span class="color-swatch-hex">--text-dim · rgba 0.28</span>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="color-swatch-preview" style="background:#010A26;display:flex;align-items:center;justify-content:center;">
+        <span style="font-family:var(--font-display);font-size:0.75rem;color:#fff;">Inv Text</span>
+      </div>
+      <div class="color-swatch-info">
+        <span class="color-swatch-name">Text Inv</span>
+        <span class="color-swatch-hex">--text-inv · #FFFFFF</span>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="color-swatch-preview" style="background:#010A26;display:flex;align-items:center;justify-content:center;">
+        <span style="font-family:var(--font-display);font-size:0.75rem;color:rgba(255,255,255,0.6);">60% White</span>
+      </div>
+      <div class="color-swatch-info">
+        <span class="color-swatch-name">Text Inv 60</span>
+        <span class="color-swatch-hex">--text-inv-60 · rgba 0.6</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Surfaces -->
+  <h3 class="ds-h" style="font-size:1rem;margin-bottom:1rem;">Backgrounds &amp; Surfaces</h3>
+  <div class="surface-grid" style="margin-bottom:2.5rem;">
+    <div class="surface-demo" style="background:var(--bg);border:1px solid var(--border);">
+      <span class="surface-demo-label" style="color:var(--text-dim);">--bg · #FFFFFF</span>
+    </div>
+    <div class="surface-demo" style="background:var(--bg-alt);border:1px solid var(--border);">
+      <span class="surface-demo-label" style="color:var(--text-dim);">--bg-alt · #F4F6FB</span>
+    </div>
+    <div class="surface-demo" style="background:var(--navy-deep);">
+      <span class="surface-demo-label" style="color:rgba(255,255,255,0.5);">--navy-deep · Section dark</span>
+    </div>
+    <div class="surface-demo" style="background:linear-gradient(150deg,#010A26 0%,#021852 45%,#0D2F82 100%);">
+      <span class="surface-demo-label" style="color:rgba(255,255,255,0.5);">--navy-grad · Operação/CTA</span>
+    </div>
+    <div class="surface-demo" style="background:linear-gradient(145deg,#00113F 0%,#041D6B 55%,#0E3080 100%);">
+      <span class="surface-demo-label" style="color:rgba(255,255,255,0.5);">Depoimentos bg</span>
+    </div>
+    <div class="surface-demo glass" style="background:rgba(0,12,48,0.28);min-height:90px;">
+      <span class="surface-demo-label" style="color:rgba(255,255,255,0.6);">.glass · rgba(0,12,48,0.28) + blur(16px)</span>
+    </div>
+  </div>
+
+  <!-- Borders & Dividers -->
+  <h3 class="ds-h" style="font-size:1rem;margin-bottom:1rem;">Borders &amp; Dividers</h3>
+  <div style="display:flex;flex-direction:column;gap:1.5rem;margin-bottom:2.5rem;">
+    <div>
+      <div style="height:1px;background:var(--border);margin-bottom:0.5rem;"></div>
+      <span style="font-family:var(--font-display);font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);">--border · rgba(0,17,63,0.08)</span>
+    </div>
+    <div>
+      <div style="height:1px;background:var(--border-hi);margin-bottom:0.5rem;"></div>
+      <span style="font-family:var(--font-display);font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);">--border-hi · rgba(0,17,63,0.15)</span>
+    </div>
+    <div>
+      <div style="height:1px;background:rgba(217,184,85,0.15);margin-bottom:0.5rem;"></div>
+      <span style="font-family:var(--font-display);font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);">Gold border · rgba(217,184,85,0.15) · dark sections</span>
+    </div>
+    <div>
+      <div style="height:1px;background:rgba(255,255,255,0.12);margin-bottom:0.5rem;"></div>
+      <span style="font-family:var(--font-display);font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);">White 12% · hero stat card divider</span>
+    </div>
+    <div>
+      <div style="height:2px;background:var(--navy-mist);margin-bottom:0.5rem;"></div>
+      <span style="font-family:var(--font-display);font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);">navy-mist border · s-sobre top</span>
+    </div>
+  </div>
+
+  <!-- Gradients -->
+  <h3 class="ds-h" style="font-size:1rem;margin-bottom:1rem;">Gradients</h3>
+  <div class="gradient-grid">
+    <div class="gradient-swatch">
+      <div class="gradient-swatch-preview" style="background:linear-gradient(135deg,#F2DEA0 0%,#D9B855 45%,#A66617 100%);"></div>
+      <div class="gradient-swatch-info">
+        <span class="gradient-swatch-name">--gold-grad</span>
+        <span class="gradient-swatch-use">Botões, text-fill, accents</span>
+      </div>
+    </div>
+    <div class="gradient-swatch">
+      <div class="gradient-swatch-preview" style="background:linear-gradient(105deg,#A66617 0%,#D9B855 20%,#F2DEA0 38%,#FFF2C0 50%,#F2DEA0 62%,#D9B855 80%,#A66617 100%);background-size:250% 100%;animation:btnGoldShimmer 3.5s linear infinite;"></div>
+      <div class="gradient-swatch-info">
+        <span class="gradient-swatch-name">btnGoldShimmer</span>
+        <span class="gradient-swatch-use">CTA buttons, nav-cta (animado)</span>
+      </div>
+    </div>
+    <div class="gradient-swatch">
+      <div class="gradient-swatch-preview" style="background:linear-gradient(160deg,#010A26 0%,#011640 55%,#0A2A6E 100%);"></div>
+      <div class="gradient-swatch-info">
+        <span class="gradient-swatch-name">--navy-grad</span>
+        <span class="gradient-swatch-use">Seções escuras, footer</span>
+      </div>
+    </div>
+    <div class="gradient-swatch">
+      <div class="gradient-swatch-preview" style="background:linear-gradient(90deg,#A66617 0%,#D9B855 20%,#F2DEA0 38%,#FFF2C0 50%,#F2DEA0 62%,#D9B855 80%,#A66617 100%);"></div>
+      <div class="gradient-swatch-info">
+        <span class="gradient-swatch-name">Ticker / Border-image</span>
+        <span class="gradient-swatch-use">Ticker bg, blog border-bottom, footer border-top</span>
+      </div>
+    </div>
+    <div class="gradient-swatch">
+      <div class="gradient-swatch-preview" style="background:linear-gradient(to top,#010A26 18%,rgba(1,10,38,0.45) 58%,transparent 100%);"></div>
+      <div class="gradient-swatch-info">
+        <span class="gradient-swatch-name">pg-grad (card overlay)</span>
+        <span class="gradient-swatch-use">Investment cards gradient overlay</span>
+      </div>
+    </div>
+    <div class="gradient-swatch">
+      <div class="gradient-swatch-preview" style="background:linear-gradient(to right,rgba(1,6,25,0.82) 0%,rgba(1,6,25,0.65) 38%,rgba(1,6,25,0.25) 62%,transparent 100%);"></div>
+      <div class="gradient-swatch-info">
+        <span class="gradient-swatch-name">Hero slide ::after</span>
+        <span class="gradient-swatch-use">Slide text readability overlay</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ds-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     3 — UI COMPONENTS
+═══════════════════════════════════════════════════════════════ -->
+<section class="ds-section ds-section-white" id="ds-components">
+  <div class="ds-label">03 — UI Components</div>
+
+  <!-- BUTTONS -->
+  <h3 class="ds-h" style="font-size:1.1rem;margin-bottom:1.5rem;">Buttons</h3>
+
+  <div class="state-row" style="margin-bottom:0.5rem;">
+    <div class="state-item">
+      <span class="state-label">Default · .btn-primary / .btn-gold</span>
+      <a class="btn-primary" href="#">INVESTIR AGORA</a>
+    </div>
+    <div class="state-item">
+      <span class="state-label">Hover (passe o mouse)</span>
+      <a class="btn-primary" href="#" style="transform:translateY(-1px);box-shadow:0 5px 18px var(--gold-30);">INVESTIR AGORA</a>
+    </div>
+    <div class="state-item">
+      <span class="state-label">.btn-ghost</span>
+      <a class="btn-ghost" href="#">SAIBA MAIS</a>
+    </div>
+    <div class="state-item">
+      <span class="state-label">.btn-ghost hover</span>
+      <a class="btn-ghost" href="#" style="transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,0.12);border-color:#888;">SAIBA MAIS</a>
+    </div>
+  </div>
+
+  <div class="state-row" style="margin-bottom:2.5rem;">
+    <div class="state-item">
+      <span class="state-label">.tib-link-btn default</span>
+      <a class="tib-link-btn" href="#">
+        Ver Dados do Mercado
+        <iconify-icon icon="solar:arrow-right-linear" width="14"></iconify-icon>
+      </a>
+    </div>
+    <div class="state-item">
+      <span class="state-label">.tib-link-btn hover</span>
+      <a class="tib-link-btn" href="#" style="border-color:var(--gold);color:var(--gold-dark);">
+        Ver Dados do Mercado
+        <iconify-icon icon="solar:arrow-right-linear" width="14"></iconify-icon>
+      </a>
+    </div>
+    <div class="state-item">
+      <span class="state-label">.nav-cta (pill)</span>
+      <a class="nav-cta" href="#" style="position:static;opacity:1;transform:none;height:44px;">INVESTIR</a>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <h3 class="ds-h" style="font-size:1.1rem;margin-bottom:1.5rem;">Navigation Pill · .site-nav.glass</h3>
+  <div style="background:url('assets/bc-praia-01_362cfdc4d213.webp') center/cover;border-radius:12px;padding:2.5rem 1rem;margin-bottom:2.5rem;position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:rgba(1,6,25,0.5);"></div>
+    <div style="position:relative;z-index:2;display:flex;justify-content:center;">
+      <nav class="site-nav glass" style="position:static;transform:none;opacity:1;width:min(900px,100%);">
+        <a class="nav-logo" href="#"><img alt="TIB" class="nav-logo-img" src="assets/Logo_pequena__1__b5e0f2caacb8.png"/></a>
+        <ul class="nav-links">
+          <li><a href="#">Sobre</a></li>
+          <li><a class="active" href="#">Operação</a></li>
+          <li><a href="#">Na Planta</a></li>
+          <li><a href="#">Litoral SC</a></li>
+          <li><a href="#">Insights</a></li>
+        </ul>
+        <a class="nav-cta" href="#" style="position:static;">INVESTIR</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- HERO STAT CARD (glass) -->
+  <h3 class="ds-h" style="font-size:1.1rem;margin-bottom:1.5rem;">Hero Stat Card · .hero-stat-card.glass</h3>
+  <div style="background:url('assets/itapema-drone-abr26_4a1f6e932675.webp') center/cover;border-radius:12px;padding:2rem;min-height:280px;position:relative;overflow:hidden;display:flex;align-items:flex-end;margin-bottom:2.5rem;">
+    <div style="position:absolute;inset:0;background:rgba(1,6,25,0.55);"></div>
+    <div class="hero-stat-card glass" style="position:static;animation:none;width:clamp(220px,22vw,300px);">
+      <p class="hsc-text">Capturamos o melhor momento da curva imobiliária.</p>
+      <div class="hsc-divider"></div>
+      <div class="hsc-stats">
+        <div><div class="hsc-stat-label">Volume VGV</div><div class="hsc-stat-val">14 Bi</div></div>
+        <div><div class="hsc-stat-label">Clientes</div><div class="hsc-stat-val">55K</div></div>
+        <div><div class="hsc-stat-label">Anos</div><div class="hsc-stat-val">21</div></div>
+        <div><div class="hsc-stat-label">Retorno</div><div class="hsc-stat-val">3,5x</div></div>
+      </div>
+      <a class="hsc-cta" href="#">
+        <span>Ver Oportunidades</span>
+        <svg viewBox="0 0 24 24"><line x1="5" x2="19" y1="19" y2="5"></line><polyline points="5 5 19 5 19 19"></polyline></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- PLANTA CARDS -->
+  <h3 class="ds-h" style="font-size:1.1rem;margin-bottom:1.5rem;">Feature Cards · .planta-cards / .pc</h3>
+  <p style="font-size:var(--fs-body);color:var(--text-muted);margin-bottom:1.5rem;">Hover para ver o accent bar animado (scaleX) e mudança de background.</p>
+  <div class="planta-cards" style="margin-bottom:2.5rem;">
+    <div class="pc">
+      <div class="pc-num">01</div>
+      <div class="pc-icon"><iconify-icon icon="solar:chart-2-linear" width="28"></iconify-icon></div>
+      <h3>Valorização Real</h3>
+      <p>Imóveis na planta valorizam muito até a entrega, superando a grande maioria dos investimentos tradicionais.</p>
+    </div>
+    <div class="pc">
+      <div class="pc-num">02</div>
+      <div class="pc-icon"><iconify-icon icon="solar:shield-check-linear" width="28"></iconify-icon></div>
+      <h3>Segurança Patrimonial</h3>
+      <p>Ativo real e tangível, protegido contra inflação e crises dos mercados financeiros voláteis.</p>
+    </div>
+    <div class="pc">
+      <div class="pc-num">03</div>
+      <div class="pc-icon"><iconify-icon icon="solar:wallet-money-linear" width="28"></iconify-icon></div>
+      <h3>Alavancagem</h3>
+      <p>Entrada parcelada durante a obra permite comprar mais com menos capital inicial.</p>
+    </div>
+    <div class="pc">
+      <div class="pc-num">04</div>
+      <div class="pc-icon"><iconify-icon icon="solar:buildings-linear" width="28"></iconify-icon></div>
+      <h3>Personalização Total</h3>
+      <p>Escolha acabamentos e adapte o layout antes da obra, criando um ativo diferenciado.</p>
+    </div>
+  </div>
+
+  <!-- INVESTMENT GALLERY CARDS -->
+  <h3 class="ds-h" style="font-size:1.1rem;margin-bottom:1.5rem;">Investment Gallery Cards · .pg-card</h3>
+  <p style="font-size:var(--fs-body);color:var(--text-muted);margin-bottom:1.5rem;">Hover: translateY(-10px), scale(1.06) na imagem, opacity da seta muda.</p>
+  <div class="pg-grid" style="margin-bottom:2.5rem;">
+    <div class="pg-card">
+      <img alt="Terreno" class="pg-img" src="assets/3_f7b1ffbc191c.png"/>
+      <div class="pg-grad"></div>
+      <div class="pg-arrow glass">
+        <svg viewBox="0 0 24 24"><line x1="7" x2="17" y1="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+      </div>
+      <div class="pg-content">
+        <h3 class="pg-title">Terreno</h3>
+        <div class="pg-footer">
+          <span class="pg-status">Fase 1</span>
+          <span class="pg-loc">Saiba mais</span>
+        </div>
+      </div>
+    </div>
+    <div class="pg-card">
+      <img alt="Pré-Lançamento" class="pg-img" src="assets/4_de7a85e074c6.png"/>
+      <div class="pg-grad"></div>
+      <div class="pg-arrow glass">
+        <svg viewBox="0 0 24 24"><line x1="7" x2="17" y1="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+      </div>
+      <div class="pg-content">
+        <h3 class="pg-title">Pré-Lançamento</h3>
+        <div class="pg-footer">
+          <span class="pg-status">Fase 2</span>
+          <span class="pg-loc">Saiba mais</span>
+        </div>
+      </div>
+    </div>
+    <div class="pg-card">
+      <img alt="Construção" class="pg-img" src="assets/5_285c6cfb81fb.png"/>
+      <div class="pg-grad"></div>
+      <div class="pg-arrow glass">
+        <svg viewBox="0 0 24 24"><line x1="7" x2="17" y1="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+      </div>
+      <div class="pg-content">
+        <h3 class="pg-title">Construção</h3>
+        <div class="pg-footer">
+          <span class="pg-status">Fase 3</span>
+          <span class="pg-loc">Saiba mais</span>
+        </div>
+      </div>
+    </div>
+    <div class="pg-card">
+      <img alt="Entrega" class="pg-img" src="assets/6_c81bb9498206.png"/>
+      <div class="pg-grad"></div>
+      <div class="pg-arrow glass">
+        <svg viewBox="0 0 24 24"><line x1="7" x2="17" y1="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+      </div>
+      <div class="pg-content">
+        <h3 class="pg-title">Entrega</h3>
+        <div class="pg-footer">
+          <span class="pg-status">Fase 4</span>
+          <span class="pg-loc">Saiba mais</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LITORAL CARDS (glass, dark bg) -->
+  <h3 class="ds-h" style="font-size:1.1rem;margin-bottom:1.5rem;">Litoral List Cards · .ll-item.glass</h3>
+  <div style="background:url('assets/sc-imoveis-01_271a22f77b2a.webp') center/cover;border-radius:12px;padding:2rem;margin-bottom:2.5rem;position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:rgba(1,6,25,0.78);"></div>
+    <div style="position:relative;z-index:2;">
+      <div class="litoral-list" style="flex:none;display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;">
+        <div class="ll-item glass">
+          <div class="ll-header">
+            <span class="ll-num">01</span>
+            <h4>Maior IDH do País</h4>
+            <iconify-icon class="ll-arrow" icon="solar:arrow-right-up-linear" width="16"></iconify-icon>
+          </div>
+          <p>Santa Catarina lidera os índices de qualidade de vida e desenvolvimento humano do Brasil.</p>
+        </div>
+        <div class="ll-item glass">
+          <div class="ll-header">
+            <span class="ll-num">02</span>
+            <h4>Boom Imobiliário</h4>
+            <iconify-icon class="ll-arrow" icon="solar:arrow-right-up-linear" width="16"></iconify-icon>
+          </div>
+          <p>Itapema lidera com crescimento acelerado e alta liquidez no litoral norte catarinense.</p>
+        </div>
+        <div class="ll-item glass">
+          <div class="ll-header">
+            <span class="ll-num">03</span>
+            <h4>Oferta Limitada</h4>
+            <iconify-icon class="ll-arrow" icon="solar:arrow-right-up-linear" width="16"></iconify-icon>
+          </div>
+          <p>Topografia natural restringe expansão urbana, criando escassez estrutural e sustentando preços.</p>
+        </div>
+        <div class="ll-item glass">
+          <div class="ll-header">
+            <span class="ll-num">04</span>
+            <h4>Renda Premium</h4>
+            <iconify-icon class="ll-arrow" icon="solar:arrow-right-up-linear" width="16"></iconify-icon>
+          </div>
+          <p>Alta temporada com ocupação de até 95%, gerando yields superiores à média nacional.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOG CARDS -->
+  <h3 class="ds-h" style="font-size:1.1rem;margin-bottom:1.5rem;">Blog Cards · .blog-card</h3>
+  <div style="margin-bottom:1rem;">
+    <div class="blog-cats" style="margin-bottom:1.5rem;">
+      <button class="blog-cat active">Todos</button>
+      <button class="blog-cat">Mercado</button>
+      <button class="blog-cat">Estratégia</button>
+      <button class="blog-cat">Valorização</button>
+      <button class="blog-cat">Renda</button>
+      <button class="blog-cat">Análise</button>
+    </div>
+  </div>
+  <div class="blog-grid" style="margin-bottom:2.5rem;">
+    <div class="blog-card">
+      <div class="blog-thumb"><img alt="" loading="lazy" src="assets/itapema-jun2024-01_bff54fe9a802.webp" style="width:100%;height:100%;object-fit:cover;"/></div>
+      <div class="blog-body">
+        <span class="blog-tag">Mercado</span>
+        <h4>Os 3 fatores que realmente determinam a valorização de um imóvel</h4>
+        <div class="blog-foot">
+          <span class="blog-date">Abr 2026</span>
+          <iconify-icon class="blog-arr" icon="solar:arrow-right-up-linear" width="14"></iconify-icon>
+        </div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-thumb"><img alt="" loading="lazy" src="assets/itapema-molhe-01_2efcb8e3b3ca.webp" style="width:100%;height:100%;object-fit:cover;"/></div>
+      <div class="blog-body">
+        <span class="blog-tag">Estratégia</span>
+        <h4>Vale a pena investir em imóvel na planta no litoral de SC em 2026?</h4>
+        <div class="blog-foot">
+          <span class="blog-date">Mar 2026</span>
+          <iconify-icon class="blog-arr" icon="solar:arrow-right-up-linear" width="14"></iconify-icon>
+        </div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-thumb"><img alt="" loading="lazy" src="assets/empreendimento_5c9b4bc8d3c2.webp" style="width:100%;height:100%;object-fit:cover;"/></div>
+      <div class="blog-body">
+        <span class="blog-tag">Valorização</span>
+        <h4>Itapema valorizou 127% em 5 anos: por que ainda está subprecificada</h4>
+        <div class="blog-foot">
+          <span class="blog-date">Mar 2026</span>
+          <iconify-icon class="blog-arr" icon="solar:arrow-right-up-linear" width="14"></iconify-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEPO CARDS -->
+  <h3 class="ds-h" style="font-size:1.1rem;margin-bottom:1.5rem;">Testimonial Cards · .depo-card</h3>
+  <div style="background:linear-gradient(145deg,#00113F 0%,#041D6B 55%,#0E3080 100%);border-radius:12px;padding:2rem;margin-bottom:2.5rem;overflow:hidden;">
+    <div style="display:flex;gap:1.4rem;overflow:hidden;">
+      <div class="depo-card" style="flex:0 0 320px;">
+        <div class="depo-img">
+          <svg preserveAspectRatio="xMidYMid slice" viewBox="0 0 340 140" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="d1s" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#060e24"/><stop offset="100%" stop-color="#0e1f44"/></linearGradient></defs>
+            <rect fill="url(#d1s)" height="140" width="340"/>
+            <circle cx="300" cy="22" fill="#f5e6b0" opacity="0.7" r="10"/>
+            <rect fill="#1a2f5e" height="96" width="32" x="152" y="16"/>
+          </svg>
+        </div>
+        <div class="depo-body">
+          <p class="depo-text">"Investir com a TIB foi a melhor decisão do meu portfólio. Eles entregaram exatamente o que prometeram."</p>
+          <div class="depo-author">Ricardo Almeida · Investidor · SP</div>
+        </div>
+      </div>
+      <div class="depo-card" style="flex:0 0 320px;">
+        <div class="depo-img">
+          <svg preserveAspectRatio="xMidYMid slice" viewBox="0 0 340 140" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="d2s" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#b8cfe8"/><stop offset="100%" stop-color="#e8f3fc"/></linearGradient></defs>
+            <rect fill="url(#d2s)" height="140" width="340"/>
+            <rect fill="#c8d8ea" height="132" width="84" x="128" y="0"/>
+          </svg>
+        </div>
+        <div class="depo-body">
+          <p class="depo-text">"A curadoria da TIB é diferente de tudo que já vi no mercado. Só apresentam ativos que realmente fazem sentido."</p>
+          <div class="depo-author">Fernanda Costa · Investidora · Curitiba</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KPI ROW (dark section) -->
+  <h3 class="ds-h" style="font-size:1.1rem;margin-bottom:1.5rem;">KPI Row · .op-kpi-row</h3>
+  <div style="background:linear-gradient(150deg,#010A26 0%,#021852 45%,#0D2F82 100%);border-radius:12px;padding:2rem 2.5rem;margin-bottom:2.5rem;">
+    <div class="op-kpi-row" style="border-top-color:rgba(255,255,255,0.10);">
+      <div class="op-kpi">
+        <div class="op-kpi-val"><span class="op-kpi-n">120</span><span class="op-kpi-sfx">+</span></div>
+        <span class="op-kpi-lbl">Projetos Curados</span>
+      </div>
+      <div class="op-kpi">
+        <div class="op-kpi-val"><span class="op-kpi-n">14</span><span class="op-kpi-sfx"> Bi</span></div>
+        <span class="op-kpi-lbl">Volume VGV</span>
+      </div>
+      <div class="op-kpi">
+        <div class="op-kpi-val"><span class="op-kpi-n">21</span><span class="op-kpi-sfx"> Anos</span></div>
+        <span class="op-kpi-lbl">de Mercado</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO EYEBROW + badge dot -->
+  <h3 class="ds-h" style="font-size:1.1rem;margin-bottom:1.5rem;">Hero Eyebrow · .hero-eyebrow.glass + .eyebrow-line</h3>
+  <div style="background:url('assets/bc-curiosidades-01_c79323b452e4.webp') center/cover;padding:2.5rem;border-radius:12px;margin-bottom:2.5rem;position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:rgba(1,6,25,0.65);"></div>
+    <div style="position:relative;z-index:2;">
+      <div class="hero-eyebrow glass" style="display:inline-flex;">
+        <span class="eyebrow-line"></span>
+        <span>Litoral Catarinense</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION HEADER -->
+  <h3 class="ds-h" style="font-size:1.1rem;margin-bottom:1.5rem;">Section Header · .s-header</h3>
+  <div style="display:flex;gap:3rem;flex-wrap:wrap;margin-bottom:2.5rem;">
+    <div>
+      <p style="font-family:var(--font-display);font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:0.75rem;">Light bg</p>
+      <div class="s-header" style="margin-bottom:0;">
+        <span class="s-num">04</span>
+        <span class="s-label">Por que investir na Planta?</span>
+      </div>
+    </div>
+    <div style="background:linear-gradient(150deg,#010A26 0%,#021852 45%,#0D2F82 100%);padding:1.2rem 1.5rem;border-radius:8px;">
+      <p style="font-family:var(--font-display);font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:0.75rem;">Dark bg</p>
+      <div class="s-header" style="margin-bottom:0;">
+        <span class="s-num" style="color:var(--gold);">03</span>
+        <span class="s-label" style="color:rgba(255,255,255,0.3);">Nossa Operação</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCROLL REVEAL -->
+  <h3 class="ds-h" style="font-size:1.1rem;margin-bottom:1rem;">.sa / .sa.in · Scroll Reveal</h3>
+  <p style="font-size:var(--fs-body);color:var(--text-muted);margin-bottom:1.5rem;">Clique no botão para demonstrar a transição opacity + translateY.</p>
+  <div style="display:flex;align-items:center;gap:2rem;flex-wrap:wrap;margin-bottom:2.5rem;">
+    <button class="demo-sa-trigger" onclick="var b=this.nextElementSibling;b.classList.toggle('in');">Toggle .in</button>
+    <div class="demo-sa-box">
+      <span style="font-family:var(--font-display);font-size:1.2rem;font-weight:700;letter-spacing:-0.02em;color:var(--navy-deep);text-transform:uppercase;">Conteúdo revelado</span>
+    </div>
+  </div>
+</section>
+
+<div class="ds-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     4 — LAYOUT & SPACING
+═══════════════════════════════════════════════════════════════ -->
+<section class="ds-section ds-section-alt" id="ds-layout">
+  <div class="ds-label">04 — Layout &amp; Spacing</div>
+
+  <!-- Tokens -->
+  <h3 class="ds-h" style="font-size:1.1rem;margin-bottom:1.5rem;">Layout Tokens</h3>
+  <table class="typo-table" style="margin-bottom:2.5rem;">
+    <tbody>
+      <tr>
+        <td>--container</td>
+        <td><code style="font-family:monospace;color:var(--navy-deep);">max-width: 1360px</code></td>
+        <td>Main content max-width</td>
+      </tr>
+      <tr>
+        <td>--gutter</td>
+        <td><code style="font-family:monospace;color:var(--navy-deep);">clamp(1.5rem, 5vw, 5rem)</code></td>
+        <td>Horizontal padding, fluid</td>
+      </tr>
+      <tr>
+        <td>--section-pad</td>
+        <td><code style="font-family:monospace;color:var(--navy-deep);">clamp(5rem, 10vw, 9rem) 0</code></td>
+        <td>Vertical section spacing</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Pattern 1: Hero layout -->
+  <div class="layout-demo">
+    <div class="layout-demo-label">Pattern 1 · Hero Layout (hero-content + hero-stat-card + hero-meta)</div>
+    <div class="layout-demo-body" style="background:var(--navy-deep);min-height:200px;position:relative;">
+      <div style="display:flex;flex-direction:column;height:200px;justify-content:space-between;padding:1rem;">
+        <div style="display:flex;gap:0.5rem;align-items:center;">
+          <div style="width:80px;height:28px;background:rgba(255,255,255,0.1);border-radius:100px;display:flex;align-items:center;justify-content:center;">
+            <span style="font-family:var(--font-display);font-size:0.55rem;letter-spacing:0.15em;color:rgba(255,255,255,0.6);">EYEBROW</span>
+          </div>
+        </div>
+        <div>
+          <div style="background:rgba(255,255,255,0.15);height:18px;width:55%;border-radius:3px;margin-bottom:4px;"></div>
+          <div style="background:rgba(217,184,85,0.4);height:14px;width:35%;border-radius:3px;margin-bottom:4px;"></div>
+          <div style="background:rgba(255,255,255,0.15);height:18px;width:50%;border-radius:3px;"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-end;">
+          <div style="background:rgba(255,255,255,0.08);height:28px;width:40%;border-radius:3px;"></div>
+          <div style="background:rgba(255,255,255,0.08);width:120px;height:60px;border-radius:10px;"></div>
+        </div>
+      </div>
+      <div style="position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);background:rgba(0,12,48,0.4);width:110px;height:100px;border-radius:10px;"></div>
+    </div>
+  </div>
+
+  <!-- Pattern 2: 2-col op-grid -->
+  <div class="layout-demo">
+    <div class="layout-demo-label">Pattern 2 · 2-Column Grid (op-grid: 1.3fr 1.4fr · sobre-grid: 1.35fr 1.5fr)</div>
+    <div class="layout-demo-body">
+      <div style="display:grid;grid-template-columns:1.3fr 1.4fr;gap:2rem;">
+        <div class="layout-col" style="height:80px;">Col 1 · 1.3fr · Text / Copy</div>
+        <div class="layout-col" style="height:80px;">Col 2 · 1.4fr · Chart / Image</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pattern 3: 4-col planta grid -->
+  <div class="layout-demo">
+    <div class="layout-demo-label">Pattern 3 · 4-Column Grid (planta-cards / pg-grid · gap 1px / 1.25rem)</div>
+    <div class="layout-demo-body">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;">
+        <div class="layout-col">1 / 4</div>
+        <div class="layout-col">2 / 4</div>
+        <div class="layout-col">3 / 4</div>
+        <div class="layout-col">4 / 4</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pattern: 3-col blog -->
+  <div class="layout-demo">
+    <div class="layout-demo-label">Pattern 4 · 3-Column Grid (blog-grid · gap 1.5rem)</div>
+    <div class="layout-demo-body">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;">
+        <div class="layout-col">1 / 3</div>
+        <div class="layout-col">2 / 3</div>
+        <div class="layout-col">3 / 3</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pattern: litoral 2x2 -->
+  <div class="layout-demo">
+    <div class="layout-demo-label">Pattern 5 · 2×2 Grid (litoral-list · 50% title + 50% grid)</div>
+    <div class="layout-demo-body">
+      <div style="display:flex;gap:2rem;align-items:stretch;">
+        <div class="layout-col" style="flex:0 0 50%;height:120px;">Título · 50%</div>
+        <div style="flex:0 0 50%;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:0.5rem;">
+          <div class="layout-col" style="height:50px;">01</div>
+          <div class="layout-col" style="height:50px;">02</div>
+          <div class="layout-col" style="height:50px;">03</div>
+          <div class="layout-col" style="height:50px;">04</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grid lines deco -->
+  <div class="layout-demo">
+    <div class="layout-demo-label">.grid-lines · 4 GL vertical decorative lines (fixed, z-index:1, pointer-events:none)</div>
+    <div class="layout-demo-body" style="position:relative;height:60px;background:var(--navy-mist);">
+      <div style="position:absolute;inset:0;display:flex;justify-content:space-between;padding:0 2rem;">
+        <div style="width:1px;height:100%;background:rgba(0,17,63,0.12);"></div>
+        <div style="width:1px;height:100%;background:rgba(0,17,63,0.12);"></div>
+        <div style="width:1px;height:100%;background:rgba(0,17,63,0.12);"></div>
+        <div style="width:1px;height:100%;background:rgba(0,17,63,0.12);"></div>
+      </div>
+      <span style="font-family:var(--font-display);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);position:absolute;bottom:8px;left:50%;transform:translateX(-50%);">.gl · width:1px · rgba(0,17,63,0.04)</span>
+    </div>
+  </div>
+</section>
+
+<div class="ds-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     5 — MOTION & INTERACTION
+═══════════════════════════════════════════════════════════════ -->
+<section class="ds-section ds-section-white" id="ds-motion">
+  <div class="ds-label">05 — Motion &amp; Interaction</div>
+
+  <!-- Easing tokens -->
+  <h3 class="ds-h" style="font-size:1.1rem;margin-bottom:1rem;">Easing Tokens</h3>
+  <table class="typo-table" style="margin-bottom:2.5rem;">
+    <tbody>
+      <tr>
+        <td>--ease-out</td>
+        <td><code style="font-family:monospace;color:var(--navy-deep);">cubic-bezier(0.22, 1, 0.36, 1)</code></td>
+        <td>Scroll reveals, hero slides, card hover</td>
+      </tr>
+      <tr>
+        <td>--ease-in-out</td>
+        <td><code style="font-family:monospace;color:var(--navy-deep);">cubic-bezier(0.65, 0, 0.35, 1)</code></td>
+        <td>Op pillars carousel</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Motion Gallery -->
+  <h3 class="ds-h" style="font-size:1.1rem;margin-bottom:1.5rem;">Motion Gallery · Todas as Animações</h3>
+  <div class="motion-grid">
+
+    <!-- btnGoldShimmer -->
+    <div class="motion-card">
+      <span class="motion-card-label">btnGoldShimmer · 3.5s linear ∞</span>
+      <div class="motion-demo-area">
+        <a class="btn-primary" href="#">INVESTIR AGORA</a>
+      </div>
+      <p style="font-size:0.70rem;color:var(--text-dim);font-family:var(--font-display);letter-spacing:0.12em;text-transform:uppercase;">background-position 200% → -200%</p>
+    </div>
+
+    <!-- goldShimmer (hero top bar) -->
+    <div class="motion-card">
+      <span class="motion-card-label">goldShimmer · 4s ease-in-out ∞</span>
+      <div class="motion-demo-area">
+        <div style="width:100%;height:6px;background:linear-gradient(90deg,#A66617 0%,#D9B855 18%,#F2DEA0 35%,#FFF2C0 50%,#F2DEA0 65%,#D9B855 82%,#A66617 100%);background-size:200% 100%;animation:goldShimmer 4s ease-in-out infinite;border-radius:3px;"></div>
+      </div>
+      <p style="font-size:0.70rem;color:var(--text-dim);font-family:var(--font-display);letter-spacing:0.12em;text-transform:uppercase;">Hero top accent bar</p>
+    </div>
+
+    <!-- lineIn (hero title) -->
+    <div class="motion-card">
+      <span class="motion-card-label">lineIn · 0.9s var(--ease-out) · staggered delays</span>
+      <div class="motion-demo-area" style="overflow:hidden;flex-direction:column;align-items:flex-start;padding:0.5rem 0;">
+        <div style="overflow:hidden;padding-bottom:0.05em;">
+          <span style="display:block;font-family:var(--font-display);font-weight:700;font-size:1.4rem;color:var(--navy-deep);text-transform:uppercase;animation:lineIn 0.9s cubic-bezier(0.22,1,0.36,1) 0.1s both;">VALORIZAÇÃO</span>
+        </div>
+        <div style="overflow:hidden;padding-bottom:0.05em;">
+          <span style="display:block;font-family:var(--font-serif);font-style:italic;font-size:1.1rem;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:lineIn 0.9s cubic-bezier(0.22,1,0.36,1) 0.2s both;">que não para</span>
+        </div>
+        <div style="overflow:hidden;padding-bottom:0.05em;">
+          <span style="display:block;font-family:var(--font-display);font-weight:700;font-size:1.4rem;color:var(--navy-deep);text-transform:uppercase;animation:lineIn 0.9s cubic-bezier(0.22,1,0.36,1) 0.3s both;">DE CRESCER</span>
+        </div>
+      </div>
+      <p style="font-size:0.70rem;color:var(--text-dim);font-family:var(--font-display);letter-spacing:0.12em;text-transform:uppercase;">translateY(105%) → 0 · delays: 0.1s 0.2s 0.3s</p>
+    </div>
+
+    <!-- fadeUp -->
+    <div class="motion-card">
+      <span class="motion-card-label">fadeUp · 1s var(--ease-out)</span>
+      <div class="motion-demo-area">
+        <p style="font-family:var(--font-body);font-size:var(--fs-body);color:var(--text-muted);animation:fadeUp 1s cubic-bezier(0.22,1,0.36,1) 0.5s both;text-align:center;">Invista com inteligência e segurança.</p>
+      </div>
+      <p style="font-size:0.70rem;color:var(--text-dim);font-family:var(--font-display);letter-spacing:0.12em;text-transform:uppercase;">opacity:0 + translateY(16px) → 1 + 0</p>
+    </div>
+
+    <!-- scrollpulse -->
+    <div class="motion-card">
+      <span class="motion-card-label">scrollpulse · 2s ease-in-out ∞</span>
+      <div class="motion-demo-area" style="flex-direction:column;gap:0.5rem;">
+        <span style="font-family:var(--font-display);font-size:0.70rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(1,10,38,0.28);writing-mode:vertical-rl;">Scroll</span>
+        <div class="demo-scroll-line"></div>
+      </div>
+      <p style="font-size:0.70rem;color:var(--text-dim);font-family:var(--font-display);letter-spacing:0.12em;text-transform:uppercase;">opacity 0.4↔1 + scaleY 1↔1.15</p>
+    </div>
+
+    <!-- bdotPulse + bdotRing -->
+    <div class="motion-card">
+      <span class="motion-card-label">bdotPulse + bdotRing · 1.6s ease-in-out ∞</span>
+      <div class="motion-demo-area" style="gap:1.2rem;">
+        <div class="demo-badge-dot"></div>
+        <span style="font-family:var(--font-display);font-size:0.70rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);">Live</span>
+      </div>
+      <p style="font-size:0.70rem;color:var(--text-dim);font-family:var(--font-display);letter-spacing:0.12em;text-transform:uppercase;">green dot pulse + ring scale 1→1.8 opacity</p>
+    </div>
+
+    <!-- arrowPulse -->
+    <div class="motion-card">
+      <span class="motion-card-label">arrowPulse · 3.5s ease-in-out ∞</span>
+      <div class="motion-demo-area">
+        <div class="demo-arrow-circle">
+          <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="1.8">
+            <line x1="7" x2="17" y1="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </div>
+      </div>
+      <p style="font-size:0.70rem;color:var(--text-dim);font-family:var(--font-display);letter-spacing:0.12em;text-transform:uppercase;">opacity 0.35↔0.70 + scale 1↔1.08</p>
+    </div>
+
+    <!-- ticker -->
+    <div class="motion-card" style="grid-column:1/-1;">
+      <span class="motion-card-label">ticker · 80s linear ∞ · translateX(0%) → (-50%)</span>
+      <div class="motion-demo-area" style="width:100%;">
+        <div class="demo-ticker-wrap">
+          <div class="ticker-track">
+            <span class="tk">VALORIZAÇÃO <em>que não para</em> DE CRESCER</span> <span class="tk-sep">◇</span>
+            <span class="tk">PATRIMÔNIO <em>sólido e</em> PROTEGIDO</span> <span class="tk-sep">◇</span>
+            <span class="tk">MAIOR <em>retorno</em> DO BRASIL</span> <span class="tk-sep">◇</span>
+            <span class="tk">INVISTA <em>antes que o</em> MERCADO SUBA</span> <span class="tk-sep">◇</span>
+            <span class="tk">VALORIZAÇÃO <em>que não para</em> DE CRESCER</span> <span class="tk-sep">◇</span>
+            <span class="tk">PATRIMÔNIO <em>sólido e</em> PROTEGIDO</span> <span class="tk-sep">◇</span>
+            <span class="tk">MAIOR <em>retorno</em> DO BRASIL</span> <span class="tk-sep">◇</span>
+            <span class="tk">INVISTA <em>antes que o</em> MERCADO SUBA</span> <span class="tk-sep">◇</span>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:0.70rem;color:var(--text-dim);font-family:var(--font-display);letter-spacing:0.12em;text-transform:uppercase;">Duplicated content for seamless loop</p>
+    </div>
+
+    <!-- Hover lift card -->
+    <div class="motion-card">
+      <span class="motion-card-label">.pg-card:hover · translateY(-10px) + box-shadow</span>
+      <div class="motion-demo-area">
+        <div class="demo-hover-card">Hover me</div>
+      </div>
+      <p style="font-size:0.70rem;color:var(--text-dim);font-family:var(--font-display);letter-spacing:0.12em;text-transform:uppercase;">0.5s var(--ease-out)</p>
+    </div>
+
+    <!-- PC hover accent bar -->
+    <div class="motion-card">
+      <span class="motion-card-label">.pc::after · scaleX(0) → scaleX(1) on hover</span>
+      <div class="motion-demo-area">
+        <div class="demo-pc-hover">
+          <p>Hover card</p>
+        </div>
+      </div>
+      <p style="font-size:0.70rem;color:var(--text-dim);font-family:var(--font-display);letter-spacing:0.12em;text-transform:uppercase;">Gold grad top bar · 0.4s var(--ease-out)</p>
+    </div>
+
+    <!-- Hero slide transition -->
+    <div class="motion-card">
+      <span class="motion-card-label">.hero-slide · opacity + scale transition</span>
+      <div class="motion-demo-area" style="flex-direction:column;gap:0.5rem;width:100%;">
+        <div style="display:flex;gap:0.5rem;align-items:center;">
+          <div style="width:12px;height:12px;border-radius:50%;background:#22c55e;"></div>
+          <span style="font-family:var(--font-display);font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);">.active: opacity:1, scale(1)</span>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;">
+          <div style="width:12px;height:12px;border-radius:50%;background:var(--gold-30);"></div>
+          <span style="font-family:var(--font-display);font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);">default: opacity:0, scale(1.04)</span>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;">
+          <div style="width:12px;height:12px;border-radius:50%;background:rgba(1,10,38,0.2);"></div>
+          <span style="font-family:var(--font-display);font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);">.leaving: opacity:0, scale(0.97)</span>
+        </div>
+      </div>
+      <p style="font-size:0.70rem;color:var(--text-dim);font-family:var(--font-display);letter-spacing:0.12em;text-transform:uppercase;">opacity 1.1s ease · transform 1.4s ease-out</p>
+    </div>
+
+    <!-- Scroll reveal .sa -->
+    <div class="motion-card">
+      <span class="motion-card-label">.sa → .sa.in · IntersectionObserver reveal</span>
+      <div class="motion-demo-area" style="flex-direction:column;gap:0.5rem;width:100%;">
+        <div style="display:flex;gap:0.5rem;align-items:center;">
+          <div style="width:12px;height:12px;border-radius:50%;background:rgba(1,10,38,0.15);"></div>
+          <span style="font-family:var(--font-display);font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);">.sa: opacity:0, translateY(28px)</span>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;">
+          <div style="width:12px;height:12px;border-radius:50%;background:#22c55e;"></div>
+          <span style="font-family:var(--font-display);font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);">.sa.in: opacity:1, translateY(0)</span>
+        </div>
+        <div style="margin-top:0.5rem;">
+          <span style="font-family:var(--font-display);font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);">delays: .sa-delay-1: 0.1s · -2: 0.2s · -3: 0.3s · -4: 0.4s</span>
+        </div>
+      </div>
+      <p style="font-size:0.70rem;color:var(--text-dim);font-family:var(--font-display);letter-spacing:0.12em;text-transform:uppercase;">0.7s var(--ease-out)</p>
+    </div>
+
+  </div><!-- /motion-grid -->
+</section>
+
+<div class="ds-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     6 — ICONS
+═══════════════════════════════════════════════════════════════ -->
+<section class="ds-section ds-section-alt" id="ds-icons">
+  <div class="ds-label">06 — Icons</div>
+  <p style="font-size:var(--fs-body);color:var(--text-muted);margin-bottom:2rem;max-width:560px;">Sistema: <strong>Iconify</strong> via <code style="font-family:monospace;">&lt;iconify-icon&gt;</code> web component (<code style="font-family:monospace;">iconify-icon_e19829e7f0e8.js</code>). Set: <strong>Solar Linear</strong>. Color herdada via <code style="font-family:monospace;">color: currentColor</code>.</p>
+
+  <h3 class="ds-h" style="font-size:1rem;margin-bottom:1rem;">Ícones usados no site</h3>
+  <div class="icon-grid" style="margin-bottom:2.5rem;">
+    <div class="icon-item">
+      <iconify-icon icon="solar:chart-2-linear" width="28" style="color:var(--navy-royal);"></iconify-icon>
+      <span class="icon-item-label">chart-2-linear<br/>.pc-icon · Planta</span>
+    </div>
+    <div class="icon-item">
+      <iconify-icon icon="solar:shield-check-linear" width="28" style="color:var(--navy-royal);"></iconify-icon>
+      <span class="icon-item-label">shield-check-linear<br/>.pc-icon · Planta</span>
+    </div>
+    <div class="icon-item">
+      <iconify-icon icon="solar:wallet-money-linear" width="28" style="color:var(--navy-royal);"></iconify-icon>
+      <span class="icon-item-label">wallet-money-linear<br/>.pc-icon · Planta</span>
+    </div>
+    <div class="icon-item">
+      <iconify-icon icon="solar:buildings-linear" width="28" style="color:var(--navy-royal);"></iconify-icon>
+      <span class="icon-item-label">buildings-linear<br/>.pc-icon · Planta</span>
+    </div>
+    <div class="icon-item">
+      <iconify-icon icon="solar:arrow-right-up-linear" width="28" style="color:var(--gold);"></iconify-icon>
+      <span class="icon-item-label">arrow-right-up-linear<br/>.ll-arrow · Litoral / Blog</span>
+    </div>
+    <div class="icon-item">
+      <iconify-icon icon="solar:arrow-right-linear" width="28" style="color:var(--navy-royal);"></iconify-icon>
+      <span class="icon-item-label">arrow-right-linear<br/>.tib-link-btn</span>
+    </div>
+  </div>
+
+  <h3 class="ds-h" style="font-size:1rem;margin-bottom:1rem;">Size Variants &amp; Color Inheritance</h3>
+  <div style="display:flex;flex-wrap:wrap;gap:2.5rem;align-items:flex-end;margin-bottom:2.5rem;">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:0.75rem;">
+      <div class="icon-sizes" style="align-items:flex-end;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:0.3rem;">
+          <iconify-icon icon="solar:arrow-right-up-linear" width="14" style="color:var(--text-dim);"></iconify-icon>
+          <span style="font-family:var(--font-display);font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);">14px</span>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:0.3rem;">
+          <iconify-icon icon="solar:arrow-right-up-linear" width="16" style="color:var(--gold);"></iconify-icon>
+          <span style="font-family:var(--font-display);font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);">16px</span>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:0.3rem;">
+          <iconify-icon icon="solar:arrow-right-up-linear" width="28" style="color:var(--navy-royal);"></iconify-icon>
+          <span style="font-family:var(--font-display);font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);">28px</span>
+        </div>
+      </div>
+      <span style="font-family:var(--font-display);font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);">Sizes: 14 · 16 · 28</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:0.75rem;">
+      <div style="display:flex;gap:1.5rem;align-items:center;">
+        <iconify-icon icon="solar:chart-2-linear" width="24" style="color:var(--navy-royal);"></iconify-icon>
+        <span style="font-family:var(--font-display);font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);">--navy-royal · .pc-icon context</span>
+      </div>
+      <div style="display:flex;gap:1.5rem;align-items:center;">
+        <iconify-icon icon="solar:arrow-right-up-linear" width="24" style="color:var(--gold);"></iconify-icon>
+        <span style="font-family:var(--font-display);font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);">--gold · .ll-arrow context</span>
+      </div>
+      <div style="display:flex;gap:1.5rem;align-items:center;">
+        <iconify-icon icon="solar:arrow-right-up-linear" width="24" style="color:var(--text-dim);"></iconify-icon>
+        <span style="font-family:var(--font-display);font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);">--text-dim · .blog-arr default</span>
+      </div>
+      <div style="display:flex;gap:1.5rem;align-items:center;">
+        <iconify-icon icon="solar:arrow-right-up-linear" width="24" style="color:var(--navy-royal);"></iconify-icon>
+        <span style="font-family:var(--font-display);font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);">--navy-royal · .blog-arr:hover</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER (from original) -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img alt="TIB Logo" src="assets/Logo_pequena__1__b5e0f2caacb8.png" style="height:50px;width:auto;margin-bottom:0.8rem;display:block;"/>
+        <p class="ft-tagline">Design System · TIB V2 · Navy/Gold</p>
+      </div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;text-align:center;">
+        <p style="font-family:var(--font-serif);font-style:italic;font-size:clamp(1.4rem,3vw,2.4rem);color:#fff;opacity:0.85;line-height:1.3;letter-spacing:0.01em;">O design exato, ao vivo.</p>
+      </div>
+      <address class="ft-address" style="font-style:normal;">
+        design-system.html<br/>
+        TIB · thebestinvest.com.br<br/>
+        Pattern Library V2
+      </address>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 TIB — Design System</span>
+      <span>
+        <a href="#ds-hero">Hero</a> ·
+        <a href="#ds-typography">Typography</a> ·
+        <a href="#ds-colors">Colors</a> ·
+        <a href="#ds-components">Components</a> ·
+        <a href="#ds-layout">Layout</a> ·
+        <a href="#ds-motion">Motion</a> ·
+        <a href="#ds-icons">Icons</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/main_adc8f14dd4cb.js"></script>
+<script>
+// Force all .sa elements visible (design system context — scroll reveal not needed)
+document.querySelectorAll('.sa').forEach(function(el){el.classList.add('in');});
+</script>
+</body>
+</html>

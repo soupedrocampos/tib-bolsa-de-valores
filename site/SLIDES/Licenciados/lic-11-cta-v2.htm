@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&amp;family=Work+Sans:wght@300;400;500&amp;family=Public+Sans:wght@400;600;700&amp;family=Raleway:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        'tib-navy-deepest': '#000814',
+                        'tib-navy-primary': '#010A26',
+                        'tib-navy-mid': '#021852',
+                        'tib-gold': '#D9B855',
+                        'tib-gold-light': '#F0D475',
+                        'tib-gold-dark': '#B8922A'
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    fontFamily: {
+                        "headline": ["Oswald", "sans-serif"],
+                        "display": ["Oswald", "sans-serif"],
+                        "body": ["Raleway", "sans-serif"],
+                        "label": ["Oswald", "sans-serif"],
+                        "work": ["Work Sans", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(150deg, #000814 0%, #010A26 100%);
+            height: 100vh;
+            width: 100vw;
+        }
+        .gold-gradient-text {
+            background: linear-gradient(to right, #D9B855, #F0D475, #B8922A);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .radial-glow {
+            background: radial-gradient(circle, rgba(217,184,85,0.08) 0%, rgba(217,184,85,0) 70%);
+        }
+        .top-border {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #D9B855, transparent);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+        .bottom-border {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #D9B855, transparent);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="font-body text-white selection:bg-tib-gold/30">
+<!-- Top App Bar Shared Component Shell -->
+<header class="flex justify-between items-center px-8 w-full fixed top-0 z-50 bg-[#010A26]/97 backdrop-blur-md dark:bg-[#010A26]/97 h-[52px] border-b border-[#D9B855]/35 shadow-2xl">
+<div class="text-xl font-bold tracking-[0.2em] text-[#D9B855] font-headline">
+            TIB
+        </div>
+<div class="flex items-center gap-8">
+<nav class="hidden md:flex gap-6">
+<span class="font-['Oswald'] uppercase tracking-[0.15em] text-white/80 hover:text-[#F0D475] transition-colors cursor-pointer">Início</span>
+<span class="font-['Oswald'] uppercase tracking-[0.15em] text-white/80 hover:text-[#F0D475] transition-colors cursor-pointer">Mercado</span>
+<span class="font-['Oswald'] uppercase tracking-[0.15em] text-white/80 hover:text-[#F0D475] transition-colors cursor-pointer">Solução</span>
+<span class="font-['Oswald'] uppercase tracking-[0.15em] text-[#D9B855] font-semibold transition-colors cursor-pointer">Estratégia</span>
+</nav>
+<div class="font-['Oswald'] uppercase tracking-[0.15em] text-white px-3 py-1 border border-[#D9B855]/50 rounded-sm">
+                11/11
+            </div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="relative h-screen w-full flex overflow-hidden pt-[52px]">
+<!-- Decorative Elements -->
+<div class="top-border"></div>
+<div class="bottom-border"></div>
+<div class="absolute inset-0 radial-glow pointer-events-none"></div>
+<!-- Diamond Watermark SVG -->
+<div class="absolute right-[-5%] top-1/2 -translate-y-1/2 opacity-[0.055] pointer-events-none w-[40vw]">
+<svg fill="none" stroke="#D9B855" stroke-width="0.5" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<path d="M50 5 L90 35 L50 95 L10 35 Z"></path>
+<path d="M10 35 L90 35"></path>
+<path d="M30 35 L50 5 L70 35"></path>
+<path d="M30 35 L50 95 L70 35"></path>
+</svg>
+</div>
+<!-- Left Column -->
+<div class="w-1/2 h-full flex flex-col justify-center px-16 relative z-10">
+<div class="space-y-1">
+<span class="font-headline text-[10px] tracking-[0.35em] text-tib-gold/50 uppercase">FATURAMENTO PREVISÍVEL MÉDIO MENSAL</span>
+<h1 class="font-headline font-semibold text-[5.5vw] leading-none gold-gradient-text tracking-[-0.02em]">
+                    R$ 150.000,00
+                </h1>
+</div>
+<div class="w-full h-px bg-gradient-to-r from-tib-gold/30 to-transparent my-10"></div>
+<ul class="space-y-6 mb-12">
+<li class="flex items-start gap-4">
+<div class="mt-2 w-[6px] h-[6px] rounded-full bg-tib-gold shrink-0"></div>
+<span class="font-headline font-medium text-[1.25vw] leading-tight text-white/80 uppercase">Inteligência mercadológica validada que gerou mais de 14 bilhões em VGV</span>
+</li>
+<li class="flex items-start gap-4">
+<div class="mt-2 w-[6px] h-[6px] rounded-full bg-tib-gold shrink-0"></div>
+<span class="font-headline font-medium text-[1.25vw] leading-tight text-white/80 uppercase">Participação da matriz em 30% dos resultados da unidade licenciada</span>
+</li>
+<li class="flex items-start gap-4">
+<div class="mt-2 w-[6px] h-[6px] rounded-full bg-tib-gold shrink-0"></div>
+<span class="font-headline font-medium text-[1.25vw] leading-tight text-white/80 uppercase">O licenciado torna-se Embaixador da DPA — a maior Aceleradora de Negócios do Brasil</span>
+</li>
+<li class="flex items-start gap-4">
+<div class="mt-2 w-[6px] h-[6px] rounded-full bg-tib-gold shrink-0"></div>
+<span class="font-headline font-medium text-[1.25vw] leading-tight text-white/80 uppercase">Suporte completo até a venda e crescimento contínuo</span>
+</li>
+</ul>
+<div class="bg-tib-gold/10 border border-tib-gold/30 rounded-xl p-6 flex items-center gap-4 w-fit">
+<span class="material-symbols-outlined text-tib-gold" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<p class="font-body text-[1.3vw] text-white/80">
+                    Por um investimento módico de apenas <span class="text-tib-gold-light font-semibold">R$ 120.000,00</span>
+</p>
+</div>
+</div>
+<!-- Right Column -->
+<div class="w-1/2 h-full flex flex-col justify-center px-16 relative z-10 border-l border-white/5">
+<div class="mb-2">
+<span class="font-headline text-[10px] tracking-[0.35em] text-tib-gold/50 uppercase">A DECISÃO MAIS INTELIGENTE</span>
+</div>
+<h2 class="font-headline font-bold text-[5.5vw] leading-[1] gold-gradient-text uppercase tracking-[0.03em] mb-6">
+                TIB / SEU MELHOR / INVESTIMENTO
+            </h2>
+<p class="font-body font-medium text-[1.3vw] text-white/60 leading-relaxed max-w-[36ch] mb-12">
+                Junte-se a uma operação já validada, com metodologia comprovada e o suporte completo de uma marca que lidera o mercado imobiliário premium do Brasil.
+            </p>
+<div class="space-y-4">
+<div class="flex items-center gap-4 group cursor-pointer">
+<div class="w-5 h-px bg-tib-gold transition-all group-hover:w-8"></div>
+<span class="font-headline text-tib-gold-light tracking-[0.06em] text-lg uppercase">tib.imob</span>
+</div>
+<div class="flex items-center gap-4 group cursor-pointer">
+<div class="w-5 h-px bg-tib-gold transition-all group-hover:w-8"></div>
+<span class="font-headline text-tib-gold-light tracking-[0.06em] text-lg uppercase">@peixoto_x</span>
+</div>
+<div class="flex items-center gap-4 group cursor-pointer">
+<div class="w-5 h-px bg-tib-gold transition-all group-hover:w-8"></div>
+<span class="font-headline text-tib-gold-light tracking-[0.06em] text-lg uppercase">Licenciados TIB</span>
+</div>
+</div>
+<!-- Bottom-right Watermark -->
+<div class="absolute bottom-12 right-16">
+<span class="font-headline text-[9px] tracking-[0.2em] text-tib-gold/50 uppercase">tib.imob · THE BEST INVEST · LICENCIADOS</span>
+</div>
+</div>
+</main>
+<!-- Bottom Nav Bar Shared Component Shell -->
+<nav class="fixed bottom-0 left-1/2 -translate-x-1/2 z-50 flex items-center p-1 bg-[#010A26]/80 backdrop-blur-xl dark:bg-[#010A26]/80 rounded-full border border-[#D9B855]/35 mb-8 mx-auto w-fit divide-x divide-[#D9B855]/20 shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+<div class="flex flex-col items-center justify-center text-white/55 px-6 py-2 hover:text-[#D9B855] hover:bg-white/10 transition-all cursor-pointer">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-['Oswald'] uppercase tracking-[0.08em] text-[10px] font-medium">Início</span>
+</div>
+<div class="flex flex-col items-center justify-center text-white/55 px-6 py-2 hover:text-[#D9B855] hover:bg-white/10 transition-all cursor-pointer">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+<span class="font-['Oswald'] uppercase tracking-[0.08em] text-[10px] font-medium">Mercado</span>
+</div>
+<div class="flex flex-col items-center justify-center text-white/55 px-6 py-2 hover:text-[#D9B855] hover:bg-white/10 transition-all cursor-pointer">
+<span class="material-symbols-outlined" data-icon="lightbulb">lightbulb</span>
+<span class="font-['Oswald'] uppercase tracking-[0.08em] text-[10px] font-medium">Solução</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#D9B855] bg-white/5 px-6 py-2 rounded-full cursor-pointer">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+<span class="font-['Oswald'] uppercase tracking-[0.08em] text-[10px] font-medium">Estratégia</span>
+</div>
+<div class="flex flex-col items-center justify-center text-white/55 px-6 py-2 hover:text-[#D9B855] hover:bg-white/10 transition-all cursor-pointer">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+<span class="font-['Oswald'] uppercase tracking-[0.08em] text-[10px] font-medium">Contato</span>
+</div>
+</nav>
+<!-- Hidden image descriptors for background context if needed -->
+<div class="hidden">
+<img data-alt="A luxury dark office interior with gold lighting accents and expensive contemporary furniture. The atmosphere is professional, exclusive, and high-end, representing a premium real estate investment firm. Warm golden light spills across deep navy architectural panels, creating a moody, sophisticated aesthetic consistent with a top-tier financial brand. Minimalist and elegant." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDe1jv5BcTxDr1XB_WW4wB5YywrzPd1b9A79a0UY3_9fOcesq2-BPedDoMcRkUAk2mpdjLhdNbSzv9V3Q9it1Sg0XmqL5LTG2pbAbYK6dS7hxDP72PES7Kz_5h8bwcMEPy1LuH5v-oKrTSN9qMFrvQ4tALGGKHgiEb3y5SyNtuudxrb97ota2MHiox9rXXVx3VGT9TGocRCY2-YGv-CD1MQlb8fxi-3MvufhkvMAseL5k6tHLjd5DSPoge-TNqRliihZXxNSNpB0nvx"/>
+</div>
+</body></html>

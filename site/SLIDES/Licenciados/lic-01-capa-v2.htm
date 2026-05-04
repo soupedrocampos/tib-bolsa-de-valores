@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&amp;family=Work+Sans:wght@300;400;500;600&amp;family=Raleway:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #000814;
+            font-family: 'Work Sans', sans-serif;
+        }
+        .font-oswald { font-family: 'Oswald', sans-serif; }
+        .font-raleway { font-family: 'Raleway', sans-serif; }
+        
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #F0D475 0%, #D9B855 50%, #B8922A 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .bg-navy-gradient {
+            background: radial-gradient(circle at center, #010A26 0%, #000814 100%);
+        }
+
+        .concentric-ring {
+            border: 1px solid rgba(217, 184, 85, 0.25);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .shimmer-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, #D9B855 50%, transparent 100%);
+            opacity: 0.4;
+        }
+
+        .city-watermark {
+            mask-image: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
+            -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            deep: '#000814',
+                            primary: '#010A26',
+                            mid: '#021852',
+                            bright: '#0D2F82'
+                        },
+                        gold: {
+                            DEFAULT: '#D9B855',
+                            light: '#F0D475',
+                            dark: '#B8922A'
+                        }
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-navy-deep text-white antialiased">
+<!-- Global Layout Wrapper -->
+<main class="relative w-screen h-screen overflow-hidden bg-navy-gradient">
+<!-- Background Elements -->
+<div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+<!-- City Skyline Watermark -->
+<div class="absolute bottom-0 w-full h-[409px] opacity-5 city-watermark">
+<img class="w-full h-full object-cover grayscale invert" data-alt="A cinematic, low-angle silhouette of a modern metropolitan skyline at night, featuring soaring glass skyscrapers and architectural details. The image is rendered as a subtle, monochromatic watermark in deep navy tones, blending seamlessly into the dark luxury background of a real estate investment platform. The mood is sophisticated and global, suggesting prestige and urban expansion." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCe2BeHOwM4Ib5s8irXfGOCy5KV4jIrBQ211Fd4nUoEe8Wg8iPcgmN8Nht_JqxAcQH-SBlx4Li0uSc4srLVQVSt3APDiQQGBr3pqcf8_WX2_EiLad2NCvULvJ1953ziVUMAThgtRb0K4UYEyyhY5n6vQ9lW3DG91Zy6junFMQIH2jjxtOnXGrEOkJQi69YTFDc25Mak-mIofInDR-NsQpfdV00OCqzdYdgFQZLv3Rxq2rBgC8cVA70B_j8j5uD70bM4sUnjVRy7nxNd"/>
+</div>
+<!-- Vertical Separator -->
+<div class="absolute left-1/2 top-0 bottom-0 w-[1px] bg-gold/10 hidden md:block"></div>
+<!-- Diagonal Gold Panel (Right Side) -->
+<div class="absolute right-0 top-0 bottom-0 w-1/4 bg-gold/5 -skew-x-12 translate-x-20"></div>
+<!-- Corner Accents -->
+<!-- Top Left -->
+<div class="absolute top-12 left-12 w-16 h-16 pointer-events-none">
+<div class="absolute top-0 left-8 w-[1px] h-16 bg-gold/30"></div>
+<div class="absolute top-8 left-0 w-16 h-[1px] bg-gold/30"></div>
+</div>
+<!-- Bottom Right -->
+<div class="absolute bottom-12 right-12 w-16 h-16 pointer-events-none">
+<div class="absolute bottom-0 right-8 w-[1px] h-16 bg-gold/30"></div>
+<div class="absolute bottom-8 right-0 w-16 h-[1px] bg-gold/30"></div>
+</div>
+<!-- Shimmer Line Bottom -->
+<div class="absolute bottom-0 left-0 w-full shimmer-line"></div>
+</div>
+<!-- Content Grid -->
+<div class="relative z-10 grid grid-cols-1 md:grid-cols-2 h-full w-full">
+<!-- LEFT COLUMN: Messaging -->
+<section class="flex flex-col justify-center px-12 md:px-24 h-full">
+<div class="space-y-6">
+<!-- Eyebrow -->
+<div class="flex items-center gap-4">
+<div class="w-8 h-[1px] bg-gold"></div>
+<span class="font-oswald text-[11px] font-medium tracking-[0.35em] text-gold/80 uppercase">
+                            EXPANSÃO NACIONAL &amp; INTERNACIONAL
+                        </span>
+</div>
+<!-- Main Heading -->
+<div class="relative">
+<h1 class="font-oswald font-semibold text-[15vw] md:text-[7.5vw] leading-[0.95] gold-gradient-text uppercase">
+                            THE BEST <br/> INVEST
+                        </h1>
+<p class="font-oswald text-[4vw] md:text-[1.5vw] tracking-[0.3em] text-gold/50 mt-2 uppercase">
+                            TIB
+                        </p>
+</div>
+<!-- Divider -->
+<div class="w-12 h-[2px] bg-gold"></div>
+<!-- Tagline -->
+<p class="font-raleway text-lg md:text-xl text-white/80 max-w-lg leading-relaxed">
+                        Modelo <span class="text-gold-light font-semibold">escalável, tecnológico e rentável</span>. 
+                        Construído para liderar o mercado imobiliário do Brasil e do mundo.
+                    </p>
+<!-- Stamp Badge -->
+<div class="inline-flex items-center px-4 py-2 border border-gold/35 rounded-full mt-8">
+<span class="font-oswald text-[9px] tracking-[0.2em] text-gold uppercase">
+                            • tib.imob · Programa de Licenciados
+                        </span>
+</div>
+</div>
+</section>
+<!-- RIGHT COLUMN: Visual Identity -->
+<section class="hidden md:flex flex-col items-center justify-center h-full relative">
+<!-- Concentric Rings -->
+<div class="relative w-[30vw] h-[30vw] flex items-center justify-center">
+<!-- Outer Ring -->
+<div class="concentric-ring w-[28vw] h-[28vw] border-dashed border-gold/20 opacity-60"></div>
+<!-- Inner Ring -->
+<div class="concentric-ring w-[22vw] h-[22vw] border-gold/40"></div>
+<!-- Center Monogram -->
+<div class="flex flex-col items-center z-20">
+<span class="font-oswald font-semibold text-[12vw] gold-gradient-text leading-none uppercase">
+                            TIB
+                        </span>
+<span class="font-oswald text-[10px] tracking-[0.4em] text-gold/50 mt-4 uppercase">
+                            THE BEST INVEST
+                        </span>
+</div>
+</div>
+</section>
+</div>
+<!-- Slide Counter (As per Design System for context) -->
+<div class="absolute top-6 left-1/2 -translate-x-1/2 px-4 py-1 border border-gold/35 bg-navy-primary/60 backdrop-blur-sm z-50">
+<span class="font-oswald font-semibold text-[12px] tracking-[0.15em] text-gold">
+                01/11
+            </span>
+</div>
+</main>
+<!-- Material Icons Support -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+</body></html>

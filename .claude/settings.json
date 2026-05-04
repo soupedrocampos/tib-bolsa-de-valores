@@ -80,7 +80,8 @@
       "Bash(xargs -I {} sh -c 'md5sum \"{}\" 2>/dev/null')",
       "Bash(awk '{print $1}')",
       "Bash(awk '$1 > 1 {print $0}')",
-      "PowerShell(Move-Item \"c:\\\\Users\\\\pacc1\\\\Downloads\\\\PATRICK\\\\tib site\\\\SLIDES\" \"c:\\\\Users\\\\pacc1\\\\Downloads\\\\PATRICK\\\\tib site\\\\SITE\\\\SLIDES\")"
+      "PowerShell(Move-Item \"c:\\\\Users\\\\pacc1\\\\Downloads\\\\PATRICK\\\\tib site\\\\SLIDES\" \"c:\\\\Users\\\\pacc1\\\\Downloads\\\\PATRICK\\\\tib site\\\\SITE\\\\SLIDES\")",
+      "Bash(git commit -m 'fix: corrige outputDirectory para '\\\\''site'\\\\'' minúsculo \\(case-sensitive no Linux\\) *)"
     ]
   }
 }

@@ -45,7 +45,14 @@
       "Bash(where mutool:*)",
       "Bash(where gs:*)",
       "Bash(pdftotext \"c:/Users/pacc1/Downloads/PATRICK/tib site/4. O MELHOR VENDEDOR - TONOLHER - 040225-compactado.pdf\" -)",
-      "Bash(\"/c/Program Files/Git/mingw64/bin/pdftotext.exe\" \"c:/Users/pacc1/Downloads/PATRICK/tib site/4. O MELHOR VENDEDOR - TONOLHER - 040225-compactado.pdf\" -)"
+      "Bash(\"/c/Program Files/Git/mingw64/bin/pdftotext.exe\" \"c:/Users/pacc1/Downloads/PATRICK/tib site/4. O MELHOR VENDEDOR - TONOLHER - 040225-compactado.pdf\" -)",
+      "Bash(git commit -m ' *)",
+      "Bash(python -c \"import PIL; print\\('PIL ok'\\)\")",
+      "Bash(python -c \"import rembg; print\\('rembg ok'\\)\")",
+      "Bash(pip install *)",
+      "Bash(python -c ' *)",
+      "Bash(git commit *)",
+      "Bash(grep -v \"^\\\\s*//\")"
     ]
   },
   "enabledPlugins": {

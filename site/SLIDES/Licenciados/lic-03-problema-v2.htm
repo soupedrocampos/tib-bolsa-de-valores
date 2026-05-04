@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TIB LICENCIADOS - Slide 03</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&amp;family=Work+Sans:wght@300;400;500&amp;family=Public+Sans:wght@400;600;700&amp;family=Raleway:ital,wght@0,400;0,500;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        'tib-bg-deep': '#000814',
+                        'tib-navy-deep': '#010A26',
+                        'tib-navy-mid': '#021852',
+                        'tib-navy-bright': '#0D2F82',
+                        'tib-gold': '#D9B855',
+                        'tib-gold-light': '#F0D475',
+                        'tib-gold-dark': '#B8922A'
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem",
+                        "card": "16px"
+                    },
+                    fontFamily: {
+                        "headline": ["Oswald", "sans-serif"],
+                        "display": ["Oswald", "sans-serif"],
+                        "body": ["Raleway", "Work Sans", "sans-serif"],
+                        "label": ["Oswald", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            overflow: hidden;
+            background-color: #000814;
+            color: #FFFFFF;
+            font-family: 'Raleway', sans-serif;
+        }
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #D9B855 0%, #F0D475 50%, #B8922A 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-gradient-line {
+            background: linear-gradient(90deg, transparent 0%, #D9B855 50%, transparent 100%);
+        }
+        .card-accent {
+            background: linear-gradient(90deg, #D9B855 0%, transparent 100%);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="w-screen h-screen flex flex-col items-stretch relative">
+<!-- Top Border Accent -->
+<div class="fixed top-0 left-0 w-full h-[2px] gold-gradient-line z-[60]"></div>
+<!-- Background Layer (Watermark & Glows) -->
+<div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+<!-- SVG Watermark: Declining Market Graph -->
+<svg class="absolute bottom-0 right-0 w-full h-full opacity-[0.055]" viewbox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+<rect fill="white" height="400" width="40" x="100" y="400"></rect>
+<rect fill="white" height="350" width="40" x="180" y="450"></rect>
+<rect fill="white" height="280" width="40" x="260" y="520"></rect>
+<rect fill="white" height="200" width="40" x="340" y="600"></rect>
+<rect fill="white" height="120" width="40" x="420" y="680"></rect>
+<path d="M120 380 L200 440 L280 500 L360 610 L440 700" fill="none" stroke="white" stroke-dasharray="10,5" stroke-width="4"></path>
+<circle cx="440" cy="700" fill="white" r="8"></circle>
+</svg>
+<!-- Radial Glow Corners -->
+<div class="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-tib-navy-mid/20 blur-[120px] rounded-full"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-tib-navy-bright/10 blur-[100px] rounded-full"></div>
+</div>
+<!-- TopNavBar (Shared Component Implemented from JSON) -->
+<nav class="fixed top-0 w-full h-[52px] bg-[#010A26]/95 backdrop-blur-md text-[#D9B855] font-['Oswald'] uppercase tracking-[0.2em] border-b border-[#D9B855]/35 shadow-2xl flex justify-between items-center px-8 z-50">
+<div class="text-xl font-bold tracking-[0.35em] text-white">
+            TIB LICENCIADOS
+        </div>
+<div class="flex items-center gap-6">
+<div class="flex gap-4">
+<span class="material-symbols-outlined cursor-pointer active:opacity-80 transition-opacity hover:text-[#F0D475] transition-colors">account_balance_wallet</span>
+<span class="material-symbols-outlined cursor-pointer active:opacity-80 transition-opacity hover:text-[#F0D475] transition-colors">notifications</span>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col px-12 pt-24 pb-8 z-10 relative h-full">
+<!-- Header -->
+<header class="mb-12">
+<div class="text-[11px] font-headline tracking-[0.35em] text-tib-gold/50 mb-2">
+                03 — O PROBLEMA DO MERCADO
+            </div>
+<h1 class="text-[4vw] font-headline font-medium gold-gradient-text leading-tight tracking-tight uppercase">
+                POR QUE O MERCADO IMOBILIÁRIO FALHA?
+            </h1>
+</header>
+<!-- Body: 2 Columns -->
+<div class="flex-1 grid grid-cols-12 gap-16 items-center">
+<!-- Left Column: Narrative & Stats -->
+<div class="col-span-5 flex flex-col gap-10">
+<p class="text-[1.5vw] leading-[1.65] text-white/80 font-body">
+                    A maioria das imobiliárias opera com <span class="text-tib-gold-light">processos ultrapassados</span>, sem tecnologia, sem metodologia e sem estrutura para gerar resultados previsíveis.
+                </p>
+<!-- Stat Block -->
+<div class="border-l-[3px] border-tib-gold pl-8 py-2">
+<div class="text-[4vw] font-headline font-medium gold-gradient-text leading-none mb-2">80%</div>
+<p class="text-white/60 text-lg font-body max-w-[280px]">
+                        das imobiliárias fecham em menos de 5 anos
+                    </p>
+</div>
+<!-- Quote -->
+<div class="pt-6 border-t border-white/10">
+<p class="italic text-white/40 text-lg font-body leading-relaxed">
+                        "O problema não é a falta de demanda — é a falta de estrutura para atender bem e com consistência."
+                    </p>
+</div>
+</div>
+<!-- Right Column: 2x2 Bento Grid -->
+<div class="col-span-7 grid grid-cols-2 gap-6 h-full py-4">
+<!-- Card 1 -->
+<div class="bg-white/[0.025] border border-tib-gold/20 rounded-[16px] p-6 relative overflow-hidden backdrop-blur-sm">
+<div class="absolute top-0 left-0 w-16 h-[2px] card-accent"></div>
+<div class="text-3xl mb-4">🏗️</div>
+<h3 class="font-headline text-tib-gold tracking-widest text-sm mb-3 uppercase">BUROCRACIA EXCESSIVA</h3>
+<p class="text-white/60 text-sm leading-relaxed font-body">
+                        Processos lentos e desconectados que travam vendas e frustram clientes.
+                    </p>
+</div>
+<!-- Card 2 -->
+<div class="bg-white/[0.025] border border-tib-gold/20 rounded-[16px] p-6 relative overflow-hidden backdrop-blur-sm">
+<div class="absolute top-0 left-0 w-16 h-[2px] card-accent"></div>
+<div class="text-3xl mb-4">📉</div>
+<h3 class="font-headline text-tib-gold tracking-widest text-sm mb-3 uppercase">TREINAMENTO DEFICIENTE</h3>
+<p class="text-white/60 text-sm leading-relaxed font-body">
+                        Corretores sem metodologia, sem metas claras e sem suporte de performance.
+                    </p>
+</div>
+<!-- Card 3 -->
+<div class="bg-white/[0.025] border border-tib-gold/20 rounded-[16px] p-6 relative overflow-hidden backdrop-blur-sm">
+<div class="absolute top-0 left-0 w-16 h-[2px] card-accent"></div>
+<div class="text-3xl mb-4">⏳</div>
+<h3 class="font-headline text-tib-gold tracking-widest text-sm mb-3 uppercase">BAIXA PRODUTIVIDADE</h3>
+<p class="text-white/60 text-sm leading-relaxed font-body">
+                        Ausência de CRM e gestão de pipeline resulta em leads desperdiçados.
+                    </p>
+</div>
+<!-- Card 4 -->
+<div class="bg-white/[0.025] border border-tib-gold/20 rounded-[16px] p-6 relative overflow-hidden backdrop-blur-sm">
+<div class="absolute top-0 left-0 w-16 h-[2px] card-accent"></div>
+<div class="text-3xl mb-4">🔇</div>
+<h3 class="font-headline text-tib-gold tracking-widest text-sm mb-3 uppercase">COMUNICAÇÃO FRAGMENTADA</h3>
+<p class="text-white/60 text-sm leading-relaxed font-body">
+                        Marketing desalinhado com vendas gera mensagens inconsistentes.
+                    </p>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Bar -->
+<footer class="w-full h-12 border-t border-white/[0.07] px-12 flex items-center justify-start z-10 bg-tib-bg-deep/50 backdrop-blur-sm">
+<p class="text-white/40 text-[13px] font-body">
+<span class="text-tib-gold/50 font-medium uppercase tracking-wider">A TIB</span> resolve cada um desses pontos — com tecnologia, metodologia e acompanhamento contínuo da matriz.
+        </p>
+</footer>
+<!-- BottomNavBar (Shared Component Implemented from JSON) -->
+<!-- Active State: "O Problema" (index 1) -->
+<div class="fixed bottom-8 left-1/2 -translate-x-1/2 w-max z-50 flex gap-8 items-center bg-[#010A26]/80 backdrop-blur-xl rounded-full border border-[#D9B855]/35 px-6 py-2 shadow-[0_0_20px_rgba(217,184,85,0.2)]">
+<div class="flex flex-col items-center justify-center text-white/55 cursor-pointer hover:text-[#F0D475] transition-transform font-['Oswald'] text-[10px] uppercase tracking-widest">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Visão Geral</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#D9B855] scale-110 cursor-pointer animate-pulse-subtle font-['Oswald'] text-[10px] uppercase tracking-widest">
+<span class="material-symbols-outlined">warning</span>
+<span>O Problema</span>
+</div>
+<div class="flex flex-col items-center justify-center text-white/55 cursor-pointer hover:text-[#F0D475] transition-transform font-['Oswald'] text-[10px] uppercase tracking-widest">
+<span class="material-symbols-outlined">lightbulb</span>
+<span>Solução</span>
+</div>
+<div class="flex flex-col items-center justify-center text-white/55 cursor-pointer hover:text-[#F0D475] transition-transform font-['Oswald'] text-[10px] uppercase tracking-widest">
+<span class="material-symbols-outlined">trending_up</span>
+<span>Investir</span>
+</div>
+</div>
+<!-- Hidden Image for Model Context (Premium Real Estate/Business Style) -->
+<div class="hidden">
+<img data-alt="A high-angle architectural shot of a modern glass and steel skyscraper reflecting a deep twilight sky. The building surfaces are dark navy with golden light illuminating the window frames, creating a high-end luxury business atmosphere. The lighting is sophisticated and moody, emphasizing sharp geometric lines and a sense of institutional stability. The overall color palette consists of deep blues, charcoal blacks, and shimmering metallic gold accents, perfectly aligning with a premium real estate investment identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAb_PQ_MLKK8sk3rHXWp7ivqggXNg1z7-uTh8NFJGehopb9gqAdCD_vB-ZxZ7g236qRdaIvnWBQi4zOEMS7Bb7A-4MEqZDATVY7vAKfplKpJuNvvQffATnUXqWt0ks-AEosw-DeJwKDfb_1FRm70tOIvRB97JVbek6vIbOv4Oiplk6V2lnHlHL0bGoF73px_nmt4xH3xWMPT4dfD_3H-TcTWf19gN7HMxTUfHpde1-AzH5KTHALUj3NErK2WYiUv-q4vyc8dT5CVRjI"/>
+</div>
+</body></html>
