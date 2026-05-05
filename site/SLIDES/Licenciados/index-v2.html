@@ -75,14 +75,6 @@
         }
 
         /* ── BOTTOM NAV ── */
-        #nav-trigger {
-            position: fixed;
-            bottom: 0; left: 0;
-            width: 100%; height: 100px;
-            z-index: 9000;
-            pointer-events: none;
-        }
-
         #nav {
             position: fixed;
             bottom: 24px;
@@ -101,11 +93,6 @@
             opacity: 0;
             transition: opacity 0.2s ease;
             pointer-events: auto;
-        }
-
-        #nav-trigger:hover ~ #nav,
-        #nav:hover {
-            opacity: 1;
         }
 
         @media (hover: none) {
@@ -161,7 +148,6 @@
         <span id="top-counter">1 / 11</span>
     </div>
 
-    <div id="nav-trigger"></div>
     <div id="nav">
         <button id="prev" onclick="prev()">Anterior</button>
         <span id="counter"></span>
@@ -228,6 +214,23 @@
 
         const isMobile = window.matchMedia('(hover: none)').matches;
 
+        // Show nav when mouse is near bottom
+        const navEl = document.getElementById('nav');
+        let hideTimer;
+        function showNav() {
+            navEl.style.opacity = '1';
+            clearTimeout(hideTimer);
+            hideTimer = setTimeout(() => { navEl.style.opacity = '0'; }, 2000);
+        }
+        function trackMouse(e, win) {
+            if (e.clientY > (win.innerHeight || window.innerHeight) - 140) showNav();
+        }
+        if (!isMobile) {
+            window.addEventListener('mousemove', (e) => trackMouse(e, window));
+            navEl.addEventListener('mouseenter', () => { clearTimeout(hideTimer); navEl.style.opacity = '1'; });
+            navEl.addEventListener('mouseleave', () => { hideTimer = setTimeout(() => { navEl.style.opacity = '0'; }, 500); });
+        }
+
         viewer.onload = function () {
             try {
                 const cw = viewer.contentWindow;
@@ -260,6 +263,7 @@
                     cw.addEventListener('mousemove', (e) => {
                         if (cur) { cur.style.opacity = '1'; cur.style.left = (e.clientX - 5) + 'px'; cur.style.top = (e.clientY - 5) + 'px'; cur.style.transition = 'none'; }
                         if (curR) { curR.style.opacity = '1'; curR.style.left = (e.clientX - 16) + 'px'; curR.style.top = (e.clientY - 16) + 'px'; curR.style.transition = 'left 0.15s ease-out, top 0.15s ease-out'; }
+                        trackMouse(e, cw);
                     });
 
                     cw.addEventListener('keydown', (e) => {

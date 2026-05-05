@@ -6,13 +6,11 @@
     <title>TIB — Licenciados</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../design-tokens.css">
     <style>
+        *, *::before, *::after { box-sizing: border-box; }
         body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
+            margin: 0; padding: 0;
+            width: 100%; height: 100%;
             overflow: hidden;
             background: #000814;
         }
@@ -73,75 +71,65 @@
             height: calc(100% - 52px);
             border: none;
             display: block;
+            z-index: 1;
         }
 
         /* ── BOTTOM NAV ── */
-        #nav-trigger {
-            position: fixed;
-            bottom: 0; left: 0;
-            width: 100%; height: 100px;
-            z-index: var(--z-nav);
-        }
-
         #nav {
             position: fixed;
-            bottom: var(--sp-5);
+            bottom: 24px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: var(--z-cursor);
+            z-index: 9999;
             display: flex;
             align-items: center;
-            gap: var(--sp-4);
-            padding: var(--sp-3) var(--sp-5);
-            border-radius: var(--radius-lg);
-            background: rgba(1, 10, 38, 0.75);
-            border: var(--border-gold);
-            backdrop-filter: blur(8px);
+            gap: 16px;
+            padding: 10px 24px;
+            border-radius: 40px;
+            background: rgba(1, 10, 38, 0.85);
+            border: 1px solid rgba(217, 184, 85, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             opacity: 0;
-            transition: opacity var(--transition-base);
-        }
-
-        #nav-trigger:hover + #nav,
-        #nav:hover {
-            opacity: 1;
+            transition: opacity 0.2s ease;
+            pointer-events: auto;
         }
 
         @media (hover: none) {
             #nav-trigger { display: none; }
             #nav {
                 opacity: 1;
-                bottom: env(safe-area-inset-bottom, var(--sp-4));
-                padding: var(--sp-4) var(--sp-6);
-                gap: var(--sp-5);
-                border-radius: var(--radius-xl);
+                bottom: env(safe-area-inset-bottom, 16px);
+                padding: 14px 28px;
+                gap: 20px;
             }
             button {
-                padding: var(--sp-4) var(--sp-8) !important;
-                font-size: var(--text-sm) !important;
+                padding: 12px 28px !important;
+                font-size: 13px !important;
                 min-width: 90px;
                 min-height: 48px;
             }
         }
 
         button {
-            background: var(--white-12);
-            border: var(--border-white);
-            color: var(--white);
-            padding: var(--sp-2) var(--sp-5);
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.22);
+            color: #fff;
+            padding: 8px 20px;
             cursor: pointer;
-            border-radius: var(--radius-md);
-            font-family: var(--font-display);
-            font-size: var(--text-xs);
+            border-radius: 6px;
+            font-family: "Oswald", sans-serif;
+            font-size: 11px;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            transition: background var(--transition-fast), border-color var(--transition-fast);
+            transition: background 0.15s, border-color 0.15s, color 0.15s;
             touch-action: manipulation;
         }
 
         button:hover {
-            background: var(--white-25);
-            border-color: var(--gold-50);
-            color: var(--gold-light);
+            background: rgba(255,255,255,0.18);
+            border-color: rgba(217, 184, 85, 0.6);
+            color: #F2DEA0;
         }
 
         button:disabled {
@@ -149,7 +137,6 @@
             cursor: not-allowed;
         }
 
-        /* Old counter span kept for JS compat but hidden */
         #counter { display: none; }
     </style>
 </head>
@@ -161,7 +148,6 @@
         <span id="top-counter">1 / 11</span>
     </div>
 
-    <div id="nav-trigger"></div>
     <div id="nav">
         <button id="prev" onclick="prev()">Anterior</button>
         <span id="counter"></span>
@@ -228,6 +214,23 @@
 
         const isMobile = window.matchMedia('(hover: none)').matches;
 
+        // Show nav when mouse is near bottom
+        const navEl = document.getElementById('nav');
+        let hideTimer;
+        function showNav() {
+            navEl.style.opacity = '1';
+            clearTimeout(hideTimer);
+            hideTimer = setTimeout(() => { navEl.style.opacity = '0'; }, 2000);
+        }
+        function trackMouse(e, win) {
+            if (e.clientY > (win.innerHeight || window.innerHeight) - 140) showNav();
+        }
+        if (!isMobile) {
+            window.addEventListener('mousemove', (e) => trackMouse(e, window));
+            navEl.addEventListener('mouseenter', () => { clearTimeout(hideTimer); navEl.style.opacity = '1'; });
+            navEl.addEventListener('mouseleave', () => { hideTimer = setTimeout(() => { navEl.style.opacity = '0'; }, 500); });
+        }
+
         viewer.onload = function () {
             try {
                 const cw = viewer.contentWindow;
@@ -261,6 +264,7 @@
                     cw.addEventListener('mousemove', (e) => {
                         if (cur) { cur.style.opacity = '1'; cur.style.left = (e.clientX - 5) + 'px'; cur.style.top = (e.clientY - 5) + 'px'; cur.style.transition = 'none'; }
                         if (curR) { curR.style.opacity = '1'; curR.style.left = (e.clientX - 16) + 'px'; curR.style.top = (e.clientY - 16) + 'px'; curR.style.transition = 'left 0.15s ease-out, top 0.15s ease-out'; }
+                        trackMouse(e, cw);
                     });
 
                     cw.addEventListener('keydown', (e) => {
