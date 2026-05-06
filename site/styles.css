@@ -2129,10 +2129,9 @@ ul { list-style: none; }
     background: var(--navy-deep);
     border: 1px solid var(--gold-30);
     border-radius: 6px;
-    overflow: hidden;
     animation: secretFadeIn 0.2s ease;
 }
-#secret-nav.visible { display: flex; }
+#secret-nav.visible { display: flex; flex-wrap: wrap; }
 @keyframes secretFadeIn {
     from { opacity: 0; transform: translateY(4px); }
     to   { opacity: 1; transform: translateY(0); }
